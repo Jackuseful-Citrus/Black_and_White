@@ -15,10 +15,19 @@ public class Playercontrol : MonoBehaviour
     float horiz;
     bool isGrounded;
 
+    public GameObject BlackOutlook;
+    public GameObject WhiteOutlook;
+    private bool isWhiteOutlook = false;
+
+    public bool isWhite => isWhiteOutlook;
+    public bool isBlack => !isWhiteOutlook;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         rb.constraints = RigidbodyConstraints2D.FreezeRotation; // 防止旋转
+        BlackOutlook.SetActive(true);
+        WhiteOutlook.SetActive(false);
     }
 
     void Update()
@@ -27,8 +36,8 @@ public class Playercontrol : MonoBehaviour
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) horiz = -1f;
         if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) horiz = 1f;
 
-    
-        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W)) && isGrounded)
+
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
@@ -38,6 +47,13 @@ public class Playercontrol : MonoBehaviour
             Vector3 s = transform.localScale;
             s.x = Mathf.Sign(horiz) * Mathf.Abs(s.x);
             transform.localScale = s;
+        }
+
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            isWhiteOutlook = !isWhiteOutlook;
+            BlackOutlook.SetActive(!isWhiteOutlook);
+            WhiteOutlook.SetActive(isWhiteOutlook);
         }
     }
 
