@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private GameObject bulletPrefab;      // 子弹预制体
-    [SerializeField] private Transform firePoint;          // 发射点
-    [SerializeField] private float fireInterval = 2f;      // 发射间隔（秒）
-    [SerializeField] private float bulletSpeed = 8f;       // 子弹速度
+    [SerializeField] private GameObject bulletPrefab;  
+    [SerializeField] private Transform firePoint;     
+    [SerializeField] private float fireInterval = 2f;     
+    [SerializeField] private float bulletSpeed = 8f;      
 
 
     private float timer = 0f;
@@ -26,11 +26,14 @@ public class Enemy : MonoBehaviour
     void Fire()
     {
         Debug.Log("Enemy Fire");
-        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-        Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-        if (rb != null)
+
+        // 计算发射方向（基于firePoint的right方向）
+        Vector2 fireDirection = firePoint.right;
+        
+        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
+        if (bullet.TryGetComponent<Rigidbody2D>(out var rb))
         {
-            rb.velocity = firePoint.right * bulletSpeed;
+            rb.velocity = fireDirection * bulletSpeed;
         }
     }
 }
