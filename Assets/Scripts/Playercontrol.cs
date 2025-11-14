@@ -1,18 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class Playercontrol : MonoBehaviour
+public class PlayerControl : MonoBehaviour
 {
     [SerializeField] float speed = 6f;
-    [SerializeField] float jumpForce = 8f;
+    [SerializeField] float jumpForce = 10f;
+    [SerializeField] float jumpCutMultiplier = 0.1f;
     [SerializeField] Transform groundCheck;
     [SerializeField] float groundRadius = 0.1f;
     [SerializeField] LayerMask groundLayer;
 
+    private PlayerInputActions playerInputActions;
+
     Rigidbody2D rb;
-    float horiz;
+    float horiz = 0f;
     bool isGrounded;
 
     public GameObject BlackOutlook;
@@ -22,7 +26,7 @@ public class Playercontrol : MonoBehaviour
     public bool isWhite => isWhiteOutlook;
     public bool isBlack => !isWhiteOutlook;
 
-    void Start()
+    private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         rb.constraints = RigidbodyConstraints2D.FreezeRotation; // 防止旋转
@@ -30,34 +34,56 @@ public class Playercontrol : MonoBehaviour
         WhiteOutlook.SetActive(false);
     }
 
-    void Update()
+    private void Awake()
     {
-        horiz = 0f;
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) horiz = -1f;
-        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) horiz = 1f;
-
-
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        playerInputActions = new PlayerInputActions();
+        playerInputActions.Player.Enable();
+        playerInputActions
+            .Player.Jump.performed += ctx =>
         {
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-        }
+            if (isGrounded)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            }
+        };
+        playerInputActions.Player.Jump.canceled += ctx =>
+        {
+            if (rb.velocity.y > 0f)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * jumpCutMultiplier);
+            }
+        };
 
+        playerInputActions.Player.SwitchColor.performed += ctx =>
+        {
+            isWhiteOutlook = !isWhiteOutlook;
+            BlackOutlook.SetActive(!isWhiteOutlook);
+            WhiteOutlook.SetActive(isWhiteOutlook);
+        };
+
+        playerInputActions.Player.Move.performed += ctx =>
+        {
+            Vector2 input = ctx.ReadValue<Vector2>();
+            horiz = input.x;
+        };
+        playerInputActions.Player.Move.canceled += ctx =>
+        {
+            horiz = 0f;
+        };
+
+    }
+
+    private void Update()
+    {
         if (horiz != 0f)
         {
             Vector3 s = transform.localScale;
             s.x = Mathf.Sign(horiz) * Mathf.Abs(s.x);
             transform.localScale = s;
         }
-
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            isWhiteOutlook = !isWhiteOutlook;
-            BlackOutlook.SetActive(!isWhiteOutlook);
-            WhiteOutlook.SetActive(isWhiteOutlook);
-        }
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         isGrounded = groundCheck != null &&
                      Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer);
@@ -65,7 +91,7 @@ public class Playercontrol : MonoBehaviour
         rb.velocity = new Vector2(horiz * speed, rb.velocity.y);
     }
 
-    void OnDrawGizmosSelected()
+    private void OnDrawGizmosSelected()
     {
         if (groundCheck != null)
         {

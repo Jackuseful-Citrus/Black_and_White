@@ -41,7 +41,7 @@ public class Bullets : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log("Bullet hit: " + collision.gameObject.name);
-        Playercontrol player = collision.gameObject.GetComponent<Playercontrol>();
+        PlayerControl player = collision.gameObject.GetComponent<PlayerControl>();
         BloodControl blood = collision.gameObject.GetComponent<BloodControl>();
         //对于player的扣血计算
         if (player != null && blood != null)
