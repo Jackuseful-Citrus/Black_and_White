@@ -22,6 +22,7 @@ public class PlayerControl : MonoBehaviour
     public GameObject BlackOutlook;
     public GameObject WhiteOutlook;
     private bool isWhiteOutlook = false;
+    private bool isSwitching = false;
 
     public bool isWhite => isWhiteOutlook;
     public bool isBlack => !isWhiteOutlook;
@@ -41,6 +42,7 @@ public class PlayerControl : MonoBehaviour
         playerInputActions
             .Player.Jump.performed += ctx =>
         {
+            if (isSwitching) return;
             if (isGrounded)
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
@@ -48,6 +50,7 @@ public class PlayerControl : MonoBehaviour
         };
         playerInputActions.Player.Jump.canceled += ctx =>
         {
+            if (isSwitching) return;
             if (rb.velocity.y > 0f)
             {
                 rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * jumpCutMultiplier);
@@ -56,9 +59,9 @@ public class PlayerControl : MonoBehaviour
 
         playerInputActions.Player.SwitchColor.performed += ctx =>
         {
-            isWhiteOutlook = !isWhiteOutlook;
-            BlackOutlook.SetActive(!isWhiteOutlook);
-            WhiteOutlook.SetActive(isWhiteOutlook);
+            if (isSwitching) return;
+            isSwitching = true;
+            StartCoroutine(SwitchColor());
         };
 
         playerInputActions.Player.Move.performed += ctx =>
@@ -73,6 +76,17 @@ public class PlayerControl : MonoBehaviour
 
     }
 
+    private IEnumerator SwitchColor()
+    {
+        // 这里放切换动画效果
+        yield return new WaitForSeconds(0.8f);// 切换形态时间
+        isWhiteOutlook = !isWhiteOutlook;
+        BlackOutlook.SetActive(!isWhiteOutlook);
+        WhiteOutlook.SetActive(isWhiteOutlook);
+        yield return new WaitForSeconds(0.5f); // 切换形态后摇
+        isSwitching = false;
+    }
+
     private void Update()
     {
         if (horiz != 0f)
@@ -81,6 +95,7 @@ public class PlayerControl : MonoBehaviour
             s.x = Mathf.Sign(horiz) * Mathf.Abs(s.x);
             transform.localScale = s;
         }
+        
     }
 
     private void FixedUpdate()
@@ -88,7 +103,12 @@ public class PlayerControl : MonoBehaviour
         isGrounded = groundCheck != null &&
                      Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer);
 
-        rb.velocity = new Vector2(horiz * speed, rb.velocity.y);
+        if (isSwitching){
+            rb.velocity = new Vector2(0f, 0f);
+        }else
+        {
+            rb.velocity = new Vector2(horiz * speed, rb.velocity.y);
+        }
     }
 
     private void OnDrawGizmosSelected()

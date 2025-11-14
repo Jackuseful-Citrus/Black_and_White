@@ -25,6 +25,7 @@ public class ScytheScript : MonoBehaviour
 
     private IEnumerator Attack()
     {
+        //这里放镰刀攻击动画效果
         yield return new WaitForSeconds(0.05f); // 攻击前摇
         Blade.SetActive(true);
         yield return new WaitForSeconds(0.1f); // 刀锋碰撞箱显示
