@@ -7,6 +7,7 @@ public class ScytheScript : MonoBehaviour
 {
     [SerializeField] GameObject Player;
     [SerializeField] GameObject AimPoint;
+    [SerializeField] float rotationSpeed = 360f; // 每秒最大旋转角度（度/秒）
     private PlayerInputActions playerInputActions;
     public GameObject Blade;
     private bool isWaiting = false;
@@ -28,17 +29,26 @@ public class ScytheScript : MonoBehaviour
         Blade.SetActive(true);
         yield return new WaitForSeconds(0.1f); // 刀锋碰撞箱显示
         Blade.SetActive(false);
-        yield return new WaitForSeconds(0.5f); // 攻击后摇
+        yield return new WaitForSeconds(0.2f); // 攻击后摇
         isWaiting = false;
     }
 
     private void Update()
     {
-        transform.position = Player.transform.position;
+        if (Player != null) transform.position = Player.transform.position;
+        if (AimPoint == null) return;
+
         Vector3 aimPos = AimPoint.transform.position;
         Vector3 dir = aimPos - transform.position;
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        if (dir.sqrMagnitude <= 0f) return;
+
+        float targetAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        float currentAngle = transform.rotation.eulerAngles.z;
+        float maxDelta = rotationSpeed * Time.deltaTime;
+        float delta = Mathf.DeltaAngle(currentAngle, targetAngle); // 最短角度差（-180..180）
+        float clamped = Mathf.Clamp(delta, -maxDelta, maxDelta);
+        float newAngle = currentAngle + clamped;
+        transform.rotation = Quaternion.AngleAxis(newAngle, Vector3.forward);
     }
 
 }
