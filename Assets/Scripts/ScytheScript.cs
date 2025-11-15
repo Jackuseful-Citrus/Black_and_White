@@ -1,22 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using System.Collections;
 
 public class ScytheScript : MonoBehaviour
 {
     [SerializeField] GameObject Player;
     [SerializeField] GameObject AimPoint;
     [SerializeField] float rotationSpeed = 360f; // 每秒最大旋转角度（度/秒）
-    private PlayerInputActions playerInputActions;
     public GameObject Blade;
     private bool isWaiting = false;
 
-    private void Start()
+    private void Awake()
     {
-        playerInputActions = new PlayerInputActions();
-        playerInputActions.Player.Enable();
-        playerInputActions.Player.Attack.performed += ctx => {
+        // 使用全局 InputManager 实例
+        var actions = InputManager.Instance.PlayerInputActions;
+        actions.Player.Attack.performed += ctx =>
+        {
             if (isWaiting) return;
             isWaiting = true;
             StartCoroutine(Attack());
@@ -25,11 +23,11 @@ public class ScytheScript : MonoBehaviour
 
     private IEnumerator Attack()
     {
-        //这里放镰刀攻击动画效果
+        // 这里放镰刀攻击动画效果
         yield return new WaitForSeconds(0.05f); // 攻击前摇
-        Blade.SetActive(true);
+        if (Blade != null) Blade.SetActive(true);
         yield return new WaitForSeconds(0.1f); // 刀锋碰撞箱显示
-        Blade.SetActive(false);
+        if (Blade != null) Blade.SetActive(false);
         yield return new WaitForSeconds(0.2f); // 攻击后摇
         isWaiting = false;
     }
@@ -52,4 +50,18 @@ public class ScytheScript : MonoBehaviour
         transform.rotation = Quaternion.AngleAxis(newAngle, Vector3.forward);
     }
 
+    private void OnDisable()
+    {
+        // 脚本禁用时注销事件
+        var actions = InputManager.Instance?.PlayerInputActions;
+        if (actions != null)
+        {
+            actions.Player.Attack.performed -= ctx =>
+            {
+                if (isWaiting) return;
+                isWaiting = true;
+                StartCoroutine(Attack());
+            };
+        }
+    }
 }

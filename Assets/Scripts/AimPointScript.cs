@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class AimPointScript : MonoBehaviour
 {
-    private PlayerInputActions playerInputActions;
-
     private void Awake()
     {
-        playerInputActions = new PlayerInputActions();
-        playerInputActions.Player.Enable();
+        // 使用全局 InputManager 实例
+        var actions = InputManager.Instance.PlayerInputActions;
 
-        playerInputActions.Player.MousePosition.performed += ctx =>
+        actions.Player.MousePosition.performed += ctx =>
         {
             Vector2 mouseScreenPos = ctx.ReadValue<Vector2>();
             // 屏幕坐标 → 世界坐标转换
@@ -20,10 +18,22 @@ public class AimPointScript : MonoBehaviour
             );
             transform.position = worldPos;
         };
-    }   
+    }
 
-     private void Update()
+    private void OnDisable()
     {
-
+        // 脚本禁用时注销事件，避免内存泄漏
+        var actions = InputManager.Instance?.PlayerInputActions;
+        if (actions != null)
+        {
+            actions.Player.MousePosition.performed -= ctx =>
+            {
+                Vector2 mouseScreenPos = ctx.ReadValue<Vector2>();
+                Vector3 worldPos = Camera.main.ScreenToWorldPoint(
+                    new Vector3(mouseScreenPos.x, mouseScreenPos.y, 10f)
+                );
+                transform.position = worldPos;
+            };
+        }
     }
 }

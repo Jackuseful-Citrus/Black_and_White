@@ -13,8 +13,6 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] float groundRadius = 0.1f;
     [SerializeField] LayerMask groundLayer;
 
-    private PlayerInputActions playerInputActions;
-
     Rigidbody2D rb;
     float horiz = 0f;
     bool isGrounded;
@@ -30,17 +28,17 @@ public class PlayerControl : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.constraints = RigidbodyConstraints2D.FreezeRotation; // 防止旋转
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         BlackOutlook.SetActive(true);
         WhiteOutlook.SetActive(false);
     }
 
     private void Awake()
     {
-        playerInputActions = new PlayerInputActions();
-        playerInputActions.Player.Enable();
-        playerInputActions
-            .Player.Jump.performed += ctx =>
+        // 使用全局 InputManager 实例
+        var actions = InputManager.Instance.PlayerInputActions;
+
+        actions.Player.Jump.performed += ctx =>
         {
             if (isSwitching) return;
             if (isGrounded)
@@ -48,7 +46,8 @@ public class PlayerControl : MonoBehaviour
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             }
         };
-        playerInputActions.Player.Jump.canceled += ctx =>
+
+        actions.Player.Jump.canceled += ctx =>
         {
             if (isSwitching) return;
             if (rb.velocity.y > 0f)
@@ -57,33 +56,32 @@ public class PlayerControl : MonoBehaviour
             }
         };
 
-        playerInputActions.Player.SwitchColor.performed += ctx =>
+        actions.Player.SwitchColor.performed += ctx =>
         {
             if (isSwitching) return;
             isSwitching = true;
             StartCoroutine(SwitchColor());
         };
 
-        playerInputActions.Player.Move.performed += ctx =>
+        actions.Player.Move.performed += ctx =>
         {
             Vector2 input = ctx.ReadValue<Vector2>();
             horiz = input.x;
         };
-        playerInputActions.Player.Move.canceled += ctx =>
+
+        actions.Player.Move.canceled += ctx =>
         {
             horiz = 0f;
         };
-
     }
 
     private IEnumerator SwitchColor()
     {
-        // 这里放切换动画效果
-        yield return new WaitForSeconds(0.8f);// 切换形态时间
+        yield return new WaitForSeconds(0.8f);
         isWhiteOutlook = !isWhiteOutlook;
         BlackOutlook.SetActive(!isWhiteOutlook);
         WhiteOutlook.SetActive(isWhiteOutlook);
-        yield return new WaitForSeconds(0.5f); // 切换形态后摇
+        yield return new WaitForSeconds(0.5f);
         isSwitching = false;
     }
 
@@ -95,7 +93,6 @@ public class PlayerControl : MonoBehaviour
             s.x = Mathf.Sign(horiz) * Mathf.Abs(s.x);
             transform.localScale = s;
         }
-        
     }
 
     private void FixedUpdate()
@@ -103,9 +100,11 @@ public class PlayerControl : MonoBehaviour
         isGrounded = groundCheck != null &&
                      Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer);
 
-        if (isSwitching){
+        if (isSwitching)
+        {
             rb.velocity = new Vector2(0f, 0f);
-        }else
+        }
+        else
         {
             rb.velocity = new Vector2(horiz * speed, rb.velocity.y);
         }
@@ -117,6 +116,20 @@ public class PlayerControl : MonoBehaviour
         {
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(groundCheck.position, groundRadius);
+        }
+    }
+
+    private void OnDisable()
+    {
+        // 脚本禁用时注销事件
+        var actions = InputManager.Instance?.PlayerInputActions;
+        if (actions != null)
+        {
+            actions.Player.Jump.performed -= ctx => { };
+            actions.Player.Jump.canceled -= ctx => { };
+            actions.Player.SwitchColor.performed -= ctx => { };
+            actions.Player.Move.performed -= ctx => { };
+            actions.Player.Move.canceled -= ctx => { };
         }
     }
 }
