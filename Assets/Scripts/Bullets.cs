@@ -41,8 +41,11 @@ public class Bullets : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log("Bullet hit: " + collision.gameObject.name);
+        
+        // 检测是否击中玩家
         PlayerControl player = collision.gameObject.GetComponent<PlayerControl>();
         BloodControl blood = collision.gameObject.GetComponent<BloodControl>();
+        
         //对于player的扣血计算
         if (player != null && blood != null)
         {
@@ -58,6 +61,16 @@ public class Bullets : MonoBehaviour
                 Debug.Log($"Black hit -> black:{blood.blackBlood} white:{blood.whiteBlood}");
             }
         }
+        
+        // 检测是否击中敌人
+        Enemy enemy = collision.gameObject.GetComponent<Enemy>();
+        if (enemy != null)
+        {
+            // 子弹击中敌人，对敌人造成伤害
+            enemy.TakeDamage(damage);
+            Debug.Log($"Bullet hit enemy: {collision.gameObject.name}, damage: {damage}");
+        }
+        
         Destroy(gameObject);
     }
 }
