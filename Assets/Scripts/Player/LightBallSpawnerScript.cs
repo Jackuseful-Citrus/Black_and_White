@@ -6,27 +6,25 @@ using UnityEngine;
 public class LightBallSpawnerScript : MonoBehaviour
 {
     [SerializeField] GameObject LightBall;
+    [SerializeField] GameObject Player;
     [SerializeField] float spawnRate = 1f;    //长按开始施法，每隔spawnRate秒生成一个光球
     private float timer = 0;
-    [SerializeField] float widthOffset = 0.5f; //生成光球的范围偏移量
-    private bool isAttacking = false;
+    [SerializeField] float widthOffset = 0.3f; //生成光球的范围偏移量
+
+    private PlayerControl playerControl;
 
     private void Start()
     {
-        var actions = InputManager.Instance.PlayerInputActions;
-        actions.Player.Attack.performed += ctx =>
+        playerControl = Player?.GetComponent<PlayerControl>();
+        if (playerControl == null)
         {
-            isAttacking = true;
-        };
-        actions.Player.Attack.canceled += ctx =>
-        {
-            isAttacking = false;
-        };
+            Debug.LogError("[ScytheScript] Player 物体上未找到 PlayerControl 脚本！");
+        }
     }
 
     void Update()
     {
-        if (isAttacking){
+        if (playerControl.isAttacking){
             if (timer < spawnRate)
             {
                 timer = timer + Time.deltaTime;

@@ -14,9 +14,10 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] LayerMask groundLayer;
 
     Rigidbody2D rb;
-    float horiz = 0f;
-    bool isGrounded;
-
+    public float horiz = 0f;
+    public bool isGrounded;
+    public bool isAttacking = false;
+    
     public GameObject BlackOutlook;
     public GameObject WhiteOutlook;
     private bool isWhiteOutlook = false;
@@ -35,10 +36,21 @@ public class PlayerControl : MonoBehaviour
         // 使用全局 InputManager 实例
         var actions = InputManager.Instance.PlayerInputActions;
 
+        actions.Player.Attack.performed += ctx =>
+        {
+            if (!isSwitching){
+                isAttacking = true;
+                }
+        };
+
+        actions.Player.Attack.canceled += ctx =>
+        {
+            isAttacking = false;
+        };
+
         actions.Player.Jump.performed += ctx =>
         {
-            if (isSwitching) return;
-            if (isGrounded)
+            if (isGrounded && !isSwitching)
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             }
@@ -46,8 +58,7 @@ public class PlayerControl : MonoBehaviour
 
         actions.Player.Jump.canceled += ctx =>
         {
-            if (isSwitching) return;
-            if (rb.velocity.y > 0f)
+            if (rb.velocity.y > 0f && !isSwitching)
             {
                 rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * jumpCutMultiplier);
             }
@@ -100,6 +111,9 @@ public class PlayerControl : MonoBehaviour
         if (isSwitching)
         {
             rb.velocity = new Vector2(0f, 0f);
+        }
+        else if (isAttacking){
+            rb.velocity = new Vector2(0f, rb.velocity.y);
         }
         else
         {

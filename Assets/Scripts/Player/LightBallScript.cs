@@ -3,9 +3,9 @@ using UnityEngine.InputSystem;
 
 public class LightBallScript : MonoBehaviour
 {
-    [SerializeField] private float acceleration = 5f;
+    [SerializeField] private float acceleration = 8f;
     private Vector3 launchDir = Vector3.zero;
-    private float maxSpeed = 5f;
+    private float maxSpeed = 8f;
     private float speed = 0f;
     private float timer = 0f;
     private Vector3 moveDir = Vector3.zero;
@@ -38,7 +38,7 @@ public class LightBallScript : MonoBehaviour
         launchDir = (worldPos - transform.position).normalized;
         
         timer += Time.deltaTime;
-        if (timer < 2f)
+        if (timer < 1.5f)
         {
             speed += acceleration * Time.deltaTime;
             speed = Mathf.Min(speed, maxSpeed);
@@ -46,7 +46,7 @@ public class LightBallScript : MonoBehaviour
         }
         transform.position += moveDir * speed * Time.deltaTime;
         
-        if (timer >= 5f)
+        if (timer >= 8f)
         {
             UnsubscribeAndDestroy();
         }
@@ -65,13 +65,4 @@ public class LightBallScript : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void OnDisable()
-    {
-        // 备用清理：如果物体被其他方式禁用
-        var actions = InputManager.Instance?.PlayerInputActions;
-        if (actions != null && mouseCallback != null)
-        {
-            actions.Player.MousePosition.performed -= mouseCallback;
-        }
-    }
 }

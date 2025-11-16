@@ -9,8 +9,7 @@ public class ScytheScript : MonoBehaviour
     [SerializeField] float rotationSpeed = 360f;
     public GameObject Blade;
     private bool isWaiting = false;
-    private System.Action<InputAction.CallbackContext> attackCallback;
-    private PlayerControl playerControl; // 改为局部字段
+    private PlayerControl playerControl;
 
     private void Start()
     {
@@ -20,19 +19,6 @@ public class ScytheScript : MonoBehaviour
         {
             Debug.LogError("[ScytheScript] Player 物体上未找到 PlayerControl 脚本！");
         }
-
-        var actions = InputManager.Instance.PlayerInputActions;
-
-        attackCallback = ctx =>
-        {
-            if (playerControl.isBlack && !isWaiting)
-            {
-                isWaiting = true;
-                StartCoroutine(Attack());
-            }
-        };
-        
-        actions.Player.Attack.performed += attackCallback;
     }
 
     private IEnumerator Attack()
@@ -41,12 +27,18 @@ public class ScytheScript : MonoBehaviour
         if (Blade != null) Blade.SetActive(true);
         yield return new WaitForSeconds(0.1f);
         if (Blade != null) Blade.SetActive(false);
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.15f);
         isWaiting = false;
     }
 
     private void Update()
     {
+        if (playerControl.isBlack && !isWaiting && playerControl.isAttacking)
+            {
+                isWaiting = true;
+                StartCoroutine(Attack());
+            }
+
         if (Player != null) transform.position = Player.transform.position;
         if (AimPoint == null) return;
 
@@ -61,14 +53,5 @@ public class ScytheScript : MonoBehaviour
         float clamped = Mathf.Clamp(delta, -maxDelta, maxDelta);
         float newAngle = currentAngle + clamped;
         transform.rotation = Quaternion.AngleAxis(newAngle, Vector3.forward);
-    }
-
-    private void OnDisable()
-    {
-        var actions = InputManager.Instance?.PlayerInputActions;
-        if (actions != null && attackCallback != null)
-        {
-            actions.Player.Attack.performed -= attackCallback;
-        }
     }
 }
