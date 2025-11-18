@@ -25,6 +25,8 @@ public class PlayerControl : MonoBehaviour
 
     public bool isWhite => isWhiteOutlook;
     public bool isBlack => !isWhiteOutlook;
+    private PlayerAnimationController animCtrl;
+
 
     private void Start()
     {
@@ -32,6 +34,7 @@ public class PlayerControl : MonoBehaviour
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         BlackOutlook.SetActive(true);
         WhiteOutlook.SetActive(false);
+        animCtrl = GetComponent<PlayerAnimationController>(); 
 
         // 使用全局 InputManager 实例
         var actions = InputManager.Instance.PlayerInputActions;
@@ -68,6 +71,11 @@ public class PlayerControl : MonoBehaviour
         {
             if (isSwitching) return;
             isSwitching = true;
+            if (animCtrl != null)
+            {
+                bool toWhite = !isWhiteOutlook;     // 当前是黑的话就是要切到白
+                animCtrl.PlaySwitch(toWhite);
+            }
             StartCoroutine(SwitchColor());
         };
 

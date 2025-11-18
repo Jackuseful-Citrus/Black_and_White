@@ -11,14 +11,18 @@ public class PlayerAnimationController : MonoBehaviour
     private PlayerControl player;
     private Rigidbody2D rb;
 
-    private static readonly int IsWalkingHash = Animator.StringToHash("IsWalking");
+    // 行走状态
+    private static readonly int IsWalkingHash     = Animator.StringToHash("IsWalking");
+    // 形态切换 Trigger（注意名字要和 Animator 里的一样）
+    private static readonly int SwitchToWhiteHash = Animator.StringToHash("SwitchToWhite");
+    private static readonly int SwitchToBlackHash = Animator.StringToHash("SwitchToBlack");
 
     private void Awake()
     {
         player = GetComponent<PlayerControl>();
         rb     = GetComponent<Rigidbody2D>();
 
-        // 自动从 Outlook 上找 Animator，防止没拖
+        // 自动从 Outlook 上找 Animator
         if (blackAnimator == null && player.BlackOutlook != null)
             blackAnimator = player.BlackOutlook.GetComponent<Animator>();
 
@@ -37,25 +41,78 @@ public class PlayerAnimationController : MonoBehaviour
         if (rb == null || player == null) return;
 
         bool isMoving = Mathf.Abs(rb.velocity.x) > 0.01f;
+        HandleWalkAnimation(isMoving);
+    }
 
-        if (player.isWhite)
+    /// <summary>
+    /// 在“开始切换”的那一刻调用
+    /// toWhite = true 表示要从黑切到白
+    /// </summary>
+    public void PlaySwitch(bool toWhite)
+    {
+        if (toWhite)
         {
-            // 只控制「白形态」
-            if (whiteAnimator != null &&
-                whiteAnimator.runtimeAnimatorController != null &&
-                whiteAnimator.gameObject.activeInHierarchy)
+            // 当前是黑 -> 要切到白：在黑形态 Animator 上播 BlackToWhite 动画
+            if (blackAnimator != null &&
+                blackAnimator.isActiveAndEnabled &&
+                blackAnimator.runtimeAnimatorController != null)
             {
-                whiteAnimator.SetBool(IsWalkingHash, isMoving);
+                blackAnimator.ResetTrigger(SwitchToWhiteHash);
+                blackAnimator.SetTrigger(SwitchToWhiteHash);
             }
         }
         else
         {
-            // 只控制「黑形态」
+            // 当前是白 -> 要切到黑：在白形态 Animator 上播 WhiteToBlack 动画
+            if (whiteAnimator != null &&
+                whiteAnimator.isActiveAndEnabled &&
+                whiteAnimator.runtimeAnimatorController != null)
+            {
+                whiteAnimator.ResetTrigger(SwitchToBlackHash);
+                whiteAnimator.SetTrigger(SwitchToBlackHash);
+            }
+        }
+    }
+
+    /// <summary>
+    /// 按当前形态给对应 Animator 设置 IsWalking
+    /// </summary>
+    private void HandleWalkAnimation(bool isMoving)
+    {
+        if (player.isWhite)
+        {
+            // 白形态：只让白形态动起来
+            if (whiteAnimator != null &&
+                whiteAnimator.isActiveAndEnabled &&
+                whiteAnimator.runtimeAnimatorController != null)
+            {
+                whiteAnimator.SetBool(IsWalkingHash, isMoving);
+            }
+
+            // 黑形态停住（注意 isActiveAndEnabled，避免 "Animator is not playing..." 警告）
             if (blackAnimator != null &&
-                blackAnimator.runtimeAnimatorController != null &&
-                blackAnimator.gameObject.activeInHierarchy)
+                blackAnimator.isActiveAndEnabled &&
+                blackAnimator.runtimeAnimatorController != null)
+            {
+                blackAnimator.SetBool(IsWalkingHash, false);
+            }
+        }
+        else
+        {
+            // 黑形态：只让黑形态动起来
+            if (blackAnimator != null &&
+                blackAnimator.isActiveAndEnabled &&
+                blackAnimator.runtimeAnimatorController != null)
             {
                 blackAnimator.SetBool(IsWalkingHash, isMoving);
+            }
+
+            // 白形态停住
+            if (whiteAnimator != null &&
+                whiteAnimator.isActiveAndEnabled &&
+                whiteAnimator.runtimeAnimatorController != null)
+            {
+                whiteAnimator.SetBool(IsWalkingHash, false);
             }
         }
     }
