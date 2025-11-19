@@ -7,11 +7,16 @@ using UnityEngine.EventSystems;
 public class PlayerControl : MonoBehaviour
 {
     [SerializeField] float speed = 6f;
-    [SerializeField] float jumpForce = 10f;
+    [SerializeField] float jumpForce = 12f;
     [SerializeField] float jumpCutMultiplier = 0.1f;
     [SerializeField] Transform groundCheck;
     [SerializeField] float groundRadius = 0.1f;
     [SerializeField] LayerMask groundLayer;
+    [SerializeField] GameObject Scythe;
+    [SerializeField] GameObject LightBallSpawner;
+
+    private ScytheScript scytheScript;
+    private LightBallSpawnerScript lightBallSpawnerScript;
 
     Rigidbody2D rb;
     public float horiz = 0f;
@@ -26,10 +31,13 @@ public class PlayerControl : MonoBehaviour
     public bool isWhite => isWhiteOutlook;
     public bool isBlack => !isWhiteOutlook;
     private PlayerAnimationController animCtrl;
-
+    private bool isInAttackRecovery = false;
 
     private void Start()
     {
+        scytheScript = Scythe?.GetComponent<ScytheScript>();
+        lightBallSpawnerScript = LightBallSpawner?.GetComponent<LightBallSpawnerScript>();
+
         rb = GetComponent<Rigidbody2D>();
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         BlackOutlook.SetActive(true);
@@ -109,6 +117,13 @@ public class PlayerControl : MonoBehaviour
             s.x = Mathf.Sign(horiz) * Mathf.Abs(s.x);
             transform.localScale = s;
         }
+        if (isBlack)
+        {
+            isInAttackRecovery = scytheScript != null && scytheScript.inAttackRecovery;
+        }else if (isWhite)
+        {
+            isInAttackRecovery = lightBallSpawnerScript != null && lightBallSpawnerScript.inAttackRecovery;
+        }
     }
 
     private void FixedUpdate()
@@ -120,7 +135,7 @@ public class PlayerControl : MonoBehaviour
         {
             rb.velocity = new Vector2(0f, 0f);
         }
-        else if (isAttacking){
+        else if (isAttacking && !isInAttackRecovery){
             rb.velocity = new Vector2(0f, rb.velocity.y);
         }
         else
@@ -135,20 +150,6 @@ public class PlayerControl : MonoBehaviour
         {
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(groundCheck.position, groundRadius);
-        }
-    }
-
-    private void OnDisable()
-    {
-        // 脚本禁用时注销事件
-        var actions = InputManager.Instance?.PlayerInputActions;
-        if (actions != null)
-        {
-            actions.Player.Jump.performed -= ctx => { };
-            actions.Player.Jump.canceled -= ctx => { };
-            actions.Player.SwitchColor.performed -= ctx => { };
-            actions.Player.Move.performed -= ctx => { };
-            actions.Player.Move.canceled -= ctx => { };
         }
     }
 }

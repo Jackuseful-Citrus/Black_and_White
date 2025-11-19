@@ -7,11 +7,12 @@ public class LightBallSpawnerScript : MonoBehaviour
 {
     [SerializeField] GameObject LightBall;
     [SerializeField] GameObject Player;
-    [SerializeField] float spawnRate = 1f;    //长按开始施法，每隔spawnRate秒生成一个光球
+
     private float timer = 0;
     [SerializeField] float widthOffset = 0.3f; //生成光球的范围偏移量
 
     private PlayerControl playerControl;
+    public bool inAttackRecovery = false;
 
     private void Start()
     {
@@ -24,15 +25,22 @@ public class LightBallSpawnerScript : MonoBehaviour
 
     void Update()
     {
-        if (playerControl.isAttacking){
-            if (timer < spawnRate)
+        if (playerControl.isAttacking)  //长按开始施法，每隔0.5秒生成一个光球,0.5秒的施法后摇
+        {
+            if (timer < 0.5f && timer > 0f)
             {
+                inAttackRecovery = false;
                 timer = timer + Time.deltaTime;
             }
-            else
+            else if (timer >= 0.5f)
             {
                 SpawnLightBall();
-                timer = 0;
+                timer = -0.5f;
+                inAttackRecovery = true;
+            }
+            else if (timer <= 0f)
+            {
+                timer = timer + Time.deltaTime;
             }
         }
         

@@ -10,6 +10,7 @@ public class ScytheScript : MonoBehaviour
     public GameObject Blade;
     private bool isWaiting = false;
     private PlayerControl playerControl;
+    public bool inAttackRecovery = false;
 
     private void Start()
     {
@@ -27,7 +28,9 @@ public class ScytheScript : MonoBehaviour
         if (Blade != null) Blade.SetActive(true);
         yield return new WaitForSeconds(0.3f);
         if (Blade != null) Blade.SetActive(false);
-        yield return new WaitForSeconds(0.15f);
+        inAttackRecovery = true;
+        yield return new WaitForSeconds(0.25f);
+        inAttackRecovery = false;
         isWaiting = false;
     }
 
