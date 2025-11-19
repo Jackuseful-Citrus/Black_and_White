@@ -1,68 +1,62 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class LightBallScript : MonoBehaviour
 {
-    [SerializeField] private float acceleration = 8f;
+    [SerializeField] private float acceleration = 2f;
+    [SerializeField] private float maxSpeed = 4f;
     private Vector3 launchDir = Vector3.zero;
-    private float maxSpeed = 8f;
+    private Vector3 velocity = Vector3.zero;
     private float speed = 0f;
-    private float timer = 0f;
+    private float journey = 0f;
     private Vector3 moveDir = Vector3.zero;
-    private Vector3 worldPos = Vector3.zero;
-    private System.Action<InputAction.CallbackContext> mouseCallback; // 保存回调
-
-    private void Start()
-    {
-        var actions = InputManager.Instance?.PlayerInputActions;
-        if (actions == null)
-        {
-            Debug.LogError("[LightBallScript] InputManager not initialized!");
-            return;
-        }
-
-        // 创建并保存回调
-        mouseCallback = ctx =>
-        {
-            Vector2 mouseScreenPos = ctx.ReadValue<Vector2>();
-            worldPos = Camera.main.ScreenToWorldPoint(
-                new Vector3(mouseScreenPos.x, mouseScreenPos.y, 0f)
-            );
-        };
-
-        actions.Player.MousePosition.performed += mouseCallback;
-    }
+    private Vector3 mousePos = Vector3.zero;
 
     private void Update()
     {
-        launchDir = (worldPos - transform.position).normalized;
-        
-        timer += Time.deltaTime;
-        if (timer < 1.5f)
+        Camera cam = Camera.main;
+        if (cam == null) return;
+
+        // 读取屏幕坐标并使用物体的屏幕深度作为 z
+        var mouseScreen = Mouse.current != null
+            ? Mouse.current.position.ReadValue()
+            : (Vector2)Input.mousePosition;
+        float depth = cam.WorldToScreenPoint(transform.position).z;
+        mousePos = cam.ScreenToWorldPoint(new Vector3(mouseScreen.x, mouseScreen.y, depth));
+
+        // 方向（每帧更新）
+        launchDir = (mousePos - transform.position).normalized;
+        speed = velocity.magnitude;
+        // 实际移动
+        if (velocity != Vector3.zero)
         {
-            speed += acceleration * Time.deltaTime;
-            speed = Mathf.Min(speed, maxSpeed);
-            moveDir = launchDir;
+            transform.position += velocity * Time.deltaTime;
+            journey += speed * Time.deltaTime; // 只在有移动时累计路程
         }
-        transform.position += moveDir * speed * Time.deltaTime;
-        
-        if (timer >= 8f)
+
+        // 加速阶段
+        if (journey < 8f)
         {
-            UnsubscribeAndDestroy();
+            if (speed <= maxSpeed)
+            {
+                velocity += moveDir * acceleration * Time.deltaTime;
+            }else
+            {
+                velocity += moveDir * acceleration * Time.deltaTime;
+                velocity = velocity.normalized * maxSpeed;
+            }
+
+            if (Vector3.Distance(transform.position, mousePos) > 0.2f)
+            {
+                moveDir = launchDir;
+            }
+        }
+
+        // 销毁条件
+        if (journey >= 16f)
+        {
+            Destroy(gameObject);
         }
     }
-
-    private void UnsubscribeAndDestroy()
-    {
-        // 注销事件
-        var actions = InputManager.Instance?.PlayerInputActions;
-        if (actions != null && mouseCallback != null)
-        {
-            actions.Player.MousePosition.performed -= mouseCallback;
-        }
-        
-        // 销毁物体
-        Destroy(gameObject);
-    }
-
 }

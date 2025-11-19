@@ -1,39 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 
 public class AimPointScript : MonoBehaviour
 {
-    private void Start()
-    {
-        // 使用全局 InputManager 实例
-        var actions = InputManager.Instance.PlayerInputActions;
+    private Vector2 mousePosition;
 
-        actions.Player.MousePosition.performed += ctx =>
-        {
-            Vector2 mouseScreenPos = ctx.ReadValue<Vector2>();
-            // 屏幕坐标 → 世界坐标转换
-            Vector3 worldPos = Camera.main.ScreenToWorldPoint(
-                new Vector3(mouseScreenPos.x, mouseScreenPos.y, 10f)
-            );
-            transform.position = worldPos;
-        };
-    }
-
-    private void OnDisable()
+    void Update()
     {
-        // 脚本禁用时注销事件，避免内存泄漏
-        var actions = InputManager.Instance?.PlayerInputActions;
-        if (actions != null)
-        {
-            actions.Player.MousePosition.performed -= ctx =>
-            {
-                Vector2 mouseScreenPos = ctx.ReadValue<Vector2>();
-                Vector3 worldPos = Camera.main.ScreenToWorldPoint(
-                    new Vector3(mouseScreenPos.x, mouseScreenPos.y, 10f)
-                );
-                transform.position = worldPos;
-            };
-        }
+        Vector2 mousePosition = Mouse.current.position.ReadValue();
+        transform.position = Camera.main.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, 1f));
     }
 }
