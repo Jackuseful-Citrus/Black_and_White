@@ -25,7 +25,7 @@ public class ScytheScript : MonoBehaviour
     {
         yield return new WaitForSeconds(0.05f);
         if (Blade != null) Blade.SetActive(true);
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.3f);
         if (Blade != null) Blade.SetActive(false);
         yield return new WaitForSeconds(0.15f);
         isWaiting = false;
