@@ -32,6 +32,7 @@ public class PlayerControl : MonoBehaviour
     public bool isBlack => !isWhiteOutlook;
     private PlayerAnimationController animCtrl;
     private bool isInAttackRecovery = false;
+    private bool isInAttackProgress = false;
 
     private void Start()
     {
@@ -120,6 +121,7 @@ public class PlayerControl : MonoBehaviour
         if (isBlack)
         {
             isInAttackRecovery = scytheScript != null && scytheScript.inAttackRecovery;
+            isInAttackProgress = scytheScript != null && scytheScript.inAttackProgress;
         }else if (isWhite)
         {
             isInAttackRecovery = lightBallSpawnerScript != null && lightBallSpawnerScript.inAttackRecovery;
@@ -131,7 +133,7 @@ public class PlayerControl : MonoBehaviour
         isGrounded = groundCheck != null &&
                      Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer);
 
-        if (isSwitching)
+        if (isSwitching || isInAttackProgress)
         {
             rb.velocity = new Vector2(0f, 0f);
         }
