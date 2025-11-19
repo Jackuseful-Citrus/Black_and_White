@@ -133,11 +133,11 @@ public class PlayerControl : MonoBehaviour
         isGrounded = groundCheck != null &&
                      Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer);
 
-        if (isSwitching || isInAttackProgress)
+        if (isSwitching)
         {
             rb.velocity = new Vector2(0f, 0f);
         }
-        else if (isAttacking && !isInAttackRecovery){
+        else if ((isAttacking && !isInAttackRecovery)|| isInAttackProgress){
             rb.velocity = new Vector2(0f, rb.velocity.y);
         }
         else

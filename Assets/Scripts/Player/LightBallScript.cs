@@ -38,7 +38,7 @@ public class LightBallScript : MonoBehaviour
         // 加速阶段
         if (journey < 8f)
         {
-            if (speed <= maxSpeed)
+            if (speed < maxSpeed)
             {
                 velocity += moveDir * acceleration * Time.deltaTime;
             }else
