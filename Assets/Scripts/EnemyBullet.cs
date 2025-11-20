@@ -8,6 +8,8 @@ public class EnemyBullet : MonoBehaviour
     private Vector2 direction;
     private float speed;
     private float damage;
+    private float damageToEnemy;
+    private LayerMask targetEnemyLayer;
     private bool isInitialized = false;
     private GameObject shooter;
     
@@ -27,13 +29,15 @@ public class EnemyBullet : MonoBehaviour
         }
     }
     
-    public void Initialize(Vector2 moveDirection, float bulletSpeed, float bulletDamage, BulletType type = BulletType.White, GameObject shooterObject = null)
+    public void Initialize(Vector2 moveDirection, float bulletSpeed, float bulletDamage, BulletType type = BulletType.White, GameObject shooterObject = null, float enemyDamage = 0f, LayerMask enemyLayer = default)
     {
         direction = moveDirection.normalized;
         speed = bulletSpeed;
         damage = bulletDamage;
         bulletType = type;
         shooter = shooterObject;
+        damageToEnemy = enemyDamage;
+        targetEnemyLayer = enemyLayer;
         isInitialized = true;
         startPosition = transform.position;
         
@@ -116,6 +120,15 @@ public class EnemyBullet : MonoBehaviour
             
             Destroy(gameObject);
         }
+        else if (targetEnemyLayer != 0 && ((1 << collision.gameObject.layer) & targetEnemyLayer) != 0)
+        {
+            Enemy enemy = collision.GetComponent<Enemy>();
+            if (enemy != null)
+            {
+                enemy.TakeDamage(damageToEnemy);
+            }
+            Destroy(gameObject);
+        }
         else if (HasTag(collision.gameObject, "Wall") || 
                  HasTag(collision.gameObject, "Ground") || 
                  HasTag(collision.gameObject, "Obstacle"))
@@ -148,6 +161,15 @@ public class EnemyBullet : MonoBehaviour
                 }
             }
             
+            Destroy(gameObject);
+        }
+        else if (targetEnemyLayer != 0 && ((1 << collision.gameObject.layer) & targetEnemyLayer) != 0)
+        {
+            Enemy enemy = collision.gameObject.GetComponent<Enemy>();
+            if (enemy != null)
+            {
+                enemy.TakeDamage(damageToEnemy);
+            }
             Destroy(gameObject);
         }
         else if (HasTag(collision.gameObject, "Wall") || 

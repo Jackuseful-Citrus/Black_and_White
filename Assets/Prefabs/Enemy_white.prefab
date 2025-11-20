@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4518894024787533565}
   - component: {fileID: 8693701036618421719}
   - component: {fileID: 3749274659403847330}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Enemy_white
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69,6 +69,10 @@ MonoBehaviour:
   moveDeceleration: 10
   rotationSpeed: 360
   combatTransitionTime: 0.3
+  blackEnemyDetectionRange: 6
+  blackEnemyLayer:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!58 &8693701036618421719
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -141,7 +145,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3836096310182402950}
   - component: {fileID: 4971411443918751979}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}

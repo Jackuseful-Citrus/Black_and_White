@@ -351,7 +351,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.001
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -573,7 +573,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2972626831866315306, guid: fb67847f8d348324bbd2292385df670f, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4917184792122775093, guid: fb67847f8d348324bbd2292385df670f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -617,7 +617,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7355739617763250061, guid: fb67847f8d348324bbd2292385df670f, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3720540598709107002, guid: fb67847f8d348324bbd2292385df670f, type: 3}
@@ -1028,6 +1028,11 @@ MonoBehaviour:
   moveDeceleration: 10
   rotationSpeed: 360
   combatTransitionTime: 0.3
+  blackEnemyDetectionRange: 6
+  blackEnemyLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  damageToBlackEnemy: 10
 --- !u!1001 &2067514432
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1038,7 +1043,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 750198040953583362, guid: 5912e6f385063ef4795b6cdf74dc4993, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.8
+      value: -7.31
       objectReference: {fileID: 0}
     - target: {fileID: 750198040953583362, guid: 5912e6f385063ef4795b6cdf74dc4993, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1078,7 +1083,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3989855817531363466, guid: 5912e6f385063ef4795b6cdf74dc4993, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7261082403097560602, guid: 5912e6f385063ef4795b6cdf74dc4993, type: 3}
       propertyPath: m_Name
@@ -1086,7 +1091,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7261082403097560602, guid: 5912e6f385063ef4795b6cdf74dc4993, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8548098905030924315, guid: 5912e6f385063ef4795b6cdf74dc4993, type: 3}
+      propertyPath: m_Mass
+      value: 2000
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7538596194765393777, guid: 5912e6f385063ef4795b6cdf74dc4993, type: 3}
@@ -1106,7 +1115,7 @@ Transform:
   m_GameObject: {fileID: 5933399419618270011}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.01, y: 0.44, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1421,6 +1430,7 @@ MonoBehaviour:
   rotationSpeed: 360
   Blade: {fileID: 2767611295708894193}
   inAttackRecovery: 0
+  inAttackProgress: 0
 --- !u!95 &4515675246564061909
 Animator:
   serializedVersion: 5
@@ -1777,8 +1787,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LightBall: {fileID: 4420177038273116322, guid: 5a896adc3f3be974499b85946d6d6323, type: 3}
   Player: {fileID: 5933399419618270011}
-  spawnRate: 1
   widthOffset: 0.5
+  inAttackRecovery: 0
 --- !u!114 &8849116836542666244
 MonoBehaviour:
   m_ObjectHideFlags: 0
