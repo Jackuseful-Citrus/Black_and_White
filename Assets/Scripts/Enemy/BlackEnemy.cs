@@ -137,14 +137,11 @@ public class BlackEnemy : Enemy
         if (player != null)
         {
             PlayerControl playerControl = player.GetComponent<PlayerControl>();
-            BloodControl blood = player.GetComponent<BloodControl>();
+            LogicScript logicScript = player.GetComponent<LogicScript>();
             
-            if (playerControl != null && blood != null)
+            if (playerControl != null && logicScript != null)
             {
-                if (playerControl.isBlack)
-                {
-                    blood.AddBlackMinusWhite(meleeDamage);
-                }
+                logicScript.HitByBlackEnemy();
             }
         }
         

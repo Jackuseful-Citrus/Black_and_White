@@ -47,7 +47,7 @@ public class LogicScript : MonoBehaviour
         }
     }
 
-    private void HitByBlackEnemy()
+    public void HitByBlackEnemy()
     {
         if(playerControl.isBlack)
         {
@@ -58,7 +58,7 @@ public class LogicScript : MonoBehaviour
             blackBar += 10;
         }
     }
-    private void HitByWhiteEnemy()
+    public void HitByWhiteEnemy()
     {
         if(playerControl.isBlack)
         {

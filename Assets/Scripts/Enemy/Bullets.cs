@@ -44,21 +44,21 @@ public class Bullets : MonoBehaviour
         
         // 检测是否击中玩家
         PlayerControl player = collision.gameObject.GetComponent<PlayerControl>();
-        BloodControl blood = collision.gameObject.GetComponent<BloodControl>();
+        LogicScript logicScript = collision.gameObject.GetComponent<LogicScript>();
         
         //对于player的扣血计算
-        if (player != null && blood != null)
+        if (player != null && logicScript != null)
         {
-            Debug.Log("Bullet in" );
-            if (player.isWhite && bulletType == BulletType.White)
+             if (player != null && logicScript != null)
             {
-                blood.AddWhiteMinusBlack(damage);
-                Debug.Log($"White hit -> white:{blood.whiteBlood} black:{blood.blackBlood}");
-            }
-            else if (player.isBlack && bulletType == BulletType.Black)
-            {
-                blood.AddBlackMinusWhite(damage);
-                Debug.Log($"Black hit -> black:{blood.blackBlood} white:{blood.whiteBlood}");
+                if (bulletType == BulletType.White)
+                {
+                    logicScript.HitByWhiteEnemy();
+                }
+                else if (bulletType == BulletType.Black)
+                {
+                    logicScript.HitByBlackEnemy();
+                }
             }
         }
         

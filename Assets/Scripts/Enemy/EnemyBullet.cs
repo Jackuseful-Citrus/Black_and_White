@@ -104,17 +104,17 @@ public class EnemyBullet : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             PlayerControl player = collision.GetComponent<PlayerControl>();
-            BloodControl blood = collision.GetComponent<BloodControl>();
+            LogicScript logicScript = collision.GetComponent<LogicScript>();
             
-            if (player != null && blood != null)
+            if (player != null && logicScript != null)
             {
-                if (player.isWhite && bulletType == BulletType.White)
+                if (bulletType == BulletType.White)
                 {
-                    blood.AddWhiteMinusBlack(damage);
+                    logicScript.HitByWhiteEnemy();
                 }
-                else if (player.isBlack && bulletType == BulletType.Black)
+                else if (bulletType == BulletType.Black)
                 {
-                    blood.AddBlackMinusWhite(damage);
+                    logicScript.HitByBlackEnemy();
                 }
             }
             
@@ -146,18 +146,23 @@ public class EnemyBullet : MonoBehaviour
         
         if (collision.gameObject.CompareTag("Player"))
         {
+            // 检测是否击中玩家
             PlayerControl player = collision.gameObject.GetComponent<PlayerControl>();
-            BloodControl blood = collision.gameObject.GetComponent<BloodControl>();
-            
-            if (player != null && blood != null)
+            LogicScript logicScript = collision.gameObject.GetComponent<LogicScript>();
+        
+            //对于player的扣血计算
+            if (player != null && logicScript != null)
             {
-                if (player.isWhite && bulletType == BulletType.White)
+                if (player != null && logicScript != null)
                 {
-                    blood.AddWhiteMinusBlack(damage);
-                }
-                else if (player.isBlack && bulletType == BulletType.Black)
-                {
-                    blood.AddBlackMinusWhite(damage);
+                    if (bulletType == BulletType.White)
+                    {
+                        logicScript.HitByWhiteEnemy();
+                    }
+                    else if (bulletType == BulletType.Black)
+                    {
+                        logicScript.HitByBlackEnemy();
+                    }
                 }
             }
             
