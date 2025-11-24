@@ -59,4 +59,9 @@ public class LightBallScript : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    private void OnDisable()
+    {
+        
+    }
 }

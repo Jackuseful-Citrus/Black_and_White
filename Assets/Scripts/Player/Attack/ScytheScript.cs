@@ -85,4 +85,16 @@ public class ScytheScript : MonoBehaviour
         float newAngle = currentAngle + clamped;
         transform.rotation = Quaternion.AngleAxis(newAngle, Vector3.forward);
     }
+    private void OnDisable()
+    {        
+        isWaiting = false;
+        inAttackRecovery = false;
+        inAttackProgress = false;
+        
+        if (Blade != null) 
+        {
+            Blade.SetActive(false);
+        }
+        StopAllCoroutines();
+    }
 }

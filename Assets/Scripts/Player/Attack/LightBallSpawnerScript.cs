@@ -55,4 +55,10 @@ public class LightBallSpawnerScript : MonoBehaviour
             ,Random.Range(lowerPoint,higherPoint),0.003f), transform.rotation);
             timer = 0;
     }
+
+    private void OnDisable()
+    {
+        timer = 0f;
+        inAttackRecovery = false;
+    }
 }

@@ -116,6 +116,7 @@ public class PlayerControl : MonoBehaviour
 
     private void Update()
     {
+        if (!isActiveAndEnabled) return;
         if (horiz != 0f)
         {
             Vector3 s = transform.localScale;
@@ -134,6 +135,7 @@ public class PlayerControl : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!isActiveAndEnabled) return;
         isGrounded = groundCheck != null &&
                      Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer);
 
@@ -156,6 +158,22 @@ public class PlayerControl : MonoBehaviour
         {
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(groundCheck.position, groundRadius);
+        }
+    }
+
+    private void OnDisable()
+    {
+        // 停止所有协程以防止在禁用时继续执行
+        StopAllCoroutines();
+        //重置状态
+        isAttacking = false;
+        isSwitching = false;
+        isInAttackRecovery = false;
+        isInAttackProgress = false;
+        horiz = 0f;
+        if (rb != null)
+        {
+            rb.velocity = Vector2.zero;
         }
     }
 }
