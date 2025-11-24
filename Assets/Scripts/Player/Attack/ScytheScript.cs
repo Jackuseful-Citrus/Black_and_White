@@ -8,6 +8,8 @@ public class ScytheScript : MonoBehaviour
     [SerializeField] GameObject AimPoint;
     [SerializeField] float rotationSpeed = 360f;
     public GameObject Blade;
+
+    [SerializeField] private bool usePlayerInput = true;
     private bool isWaiting = false;
     private PlayerControl playerControl;
     public bool inAttackRecovery = false;
@@ -15,14 +17,30 @@ public class ScytheScript : MonoBehaviour
 
     private void Start()
     {
-        // 从 Player 物体上获取 PlayerControl 脚本
-        playerControl = Player?.GetComponent<PlayerControl>();
-        if (playerControl == null)
+        // 仅在使用玩家输入时才需要 PlayerControl
+        if (usePlayerInput)
         {
-            Debug.LogError("[ScytheScript] Player 物体上未找到 PlayerControl 脚本！");
+            playerControl = Player?.GetComponent<PlayerControl>();
+            if (playerControl == null)
+            {
+                Debug.LogError("[ScytheScript] Player 物体上未找到 PlayerControl 脚本！");
+            }
         }
     }
 
+    public void SetAimPoint(GameObject targetAimPoint)
+    {
+        AimPoint = targetAimPoint;
+    }
+
+    public void ForceAttack()
+    {
+        if (!isWaiting)
+        {
+            isWaiting = true;
+            StartCoroutine(Attack());
+        }
+    }
     private IEnumerator Attack()
     {
         yield return new WaitForSeconds(0.05f);
@@ -39,14 +57,21 @@ public class ScytheScript : MonoBehaviour
 
     private void Update()
     {
-        if (playerControl.isBlack && !isWaiting && playerControl.isAttacking)
+        if (usePlayerInput && playerControl != null)
+        {
+            if (playerControl.isBlack && !isWaiting && playerControl.isAttacking)
             {
                 isWaiting = true;
                 StartCoroutine(Attack());
             }
-
+        }
         if (Player != null) transform.position = Player.transform.position;
-        if (AimPoint == null) return;
+        if (AimPoint == null)
+        {
+            // 尝试兜底获取场景中的 AimPoint（镜像忘记赋值时仍能旋转）
+            AimPoint = FindObjectOfType<AimPointScript>()?.gameObject;
+            if (AimPoint == null) return;
+        }
 
         Vector3 aimPos = AimPoint.transform.position;
         Vector3 dir = aimPos - transform.position;

@@ -27,15 +27,15 @@ public class LightBallSpawnerScript : MonoBehaviour
     {
         if (playerControl.isAttacking)  //长按开始施法，每隔0.5秒生成一个光球,0.5秒的施法后摇
         {
-            if (timer < 0.5f && timer > 0f)
+            if (timer < 0.1f && timer > 0f)
             {
                 inAttackRecovery = false;
                 timer = timer + Time.deltaTime;
             }
-            else if (timer >= 0.5f)
+            else if (timer >= 0.1f)
             {
                 SpawnLightBall();
-                timer = -0.5f;
+                timer = -0.1f;
                 inAttackRecovery = true;
             }
             else if (timer <= 0f)

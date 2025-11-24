@@ -9,6 +9,8 @@ TagManager:
   - Enemy
   - Obstacle
   - Enemy1
+  - PlayerMirror
+  - BossWall
   layers:
   - Default
   - TransparentFX

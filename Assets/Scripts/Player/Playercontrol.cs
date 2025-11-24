@@ -6,6 +6,8 @@ using UnityEngine.EventSystems;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerControl : MonoBehaviour
 {
+    public event System.Action<bool> OnSwitchStart; // bool: toWhite
+
     [SerializeField] float speed = 6f;
     [SerializeField] float jumpForce = 12f;
     [SerializeField] float jumpCutMultiplier = 0.1f;
@@ -85,7 +87,9 @@ public class PlayerControl : MonoBehaviour
                 bool toWhite = !isWhiteOutlook;     // 当前是黑的话就是要切到白
                 animCtrl.PlaySwitch(toWhite);
             }
-            StartCoroutine(SwitchColor());
+            bool switchToWhite = !isWhiteOutlook;
+            OnSwitchStart?.Invoke(switchToWhite);   // 通知镜像同步播放切换
+            StartCoroutine(SwitchColor(switchToWhite));
         };
 
         actions.Player.Move.performed += ctx =>
@@ -100,10 +104,10 @@ public class PlayerControl : MonoBehaviour
         };
     }
 
-    private IEnumerator SwitchColor()
+    private IEnumerator SwitchColor(bool toWhite)
     {
         yield return new WaitForSeconds(0.8f);
-        isWhiteOutlook = !isWhiteOutlook;
+        isWhiteOutlook = toWhite;
         BlackOutlook.SetActive(!isWhiteOutlook);
         WhiteOutlook.SetActive(isWhiteOutlook);
         yield return new WaitForSeconds(0.5f);
