@@ -3,13 +3,12 @@
 public class BlackEnemy : Enemy
 {
     [Header("近战攻击设置")]
-    [SerializeField] private float attackRange = 1.5f;
-    [SerializeField] private float attackCooldown = 1.0f;
-    [SerializeField] private float meleeDamage = 15f;
+    [SerializeField] private float attackRange = 1f;
+    [SerializeField] private float attackCooldown = 1.5f;
     
     [Header("移动设置")]
-    [SerializeField] private float chaseSpeed = 4f;
-    [SerializeField] private float chaseAcceleration = 12f;
+    [SerializeField] private float chaseSpeed = 3f;
+    [SerializeField] private float chaseAcceleration = 8f;
     [SerializeField] private float chaseDeceleration = 15f;
     [SerializeField] private float rotationSpeed = 360f;
     
@@ -137,11 +136,10 @@ public class BlackEnemy : Enemy
         if (player != null)
         {
             PlayerControl playerControl = player.GetComponent<PlayerControl>();
-            LogicScript logicScript = player.GetComponent<LogicScript>();
             
-            if (playerControl != null && logicScript != null)
+            if (playerControl != null && LogicScript.Instance != null)
             {
-                logicScript.HitByBlackEnemy();
+                LogicScript.Instance.HitByBlackEnemy();
             }
         }
         

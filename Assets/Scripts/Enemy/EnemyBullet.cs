@@ -94,49 +94,6 @@ public class EnemyBullet : MonoBehaviour
         }
     }
     
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (shooter != null && collision.gameObject == shooter)
-        {
-            return;
-        }
-        
-        if (collision.CompareTag("Player"))
-        {
-            PlayerControl player = collision.GetComponent<PlayerControl>();
-            
-            if (player != null && LogicScript.Instance != null)
-            {
-                if (bulletType == BulletType.White)
-                {
-                    LogicScript.Instance.HitByWhiteEnemy();
-                    Debug.Log("Player hit by White Enemy Bullet");
-                }
-                else if (bulletType == BulletType.Black)
-                {
-                    LogicScript.Instance.HitByBlackEnemy();
-                }
-            }
-            
-            Destroy(gameObject);
-        }
-        else if (targetEnemyLayer != 0 && ((1 << collision.gameObject.layer) & targetEnemyLayer) != 0)
-        {
-            Enemy enemy = collision.GetComponent<Enemy>();
-            if (enemy != null)
-            {
-                enemy.TakeDamage(damageToEnemy);
-            }
-            Destroy(gameObject);
-        }
-        else if (HasTag(collision.gameObject, "Wall") || 
-                 HasTag(collision.gameObject, "Ground") || 
-                 HasTag(collision.gameObject, "Obstacle"))
-        {
-            Destroy(gameObject);
-        }
-    }
-    
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (shooter != null && collision.gameObject == shooter)

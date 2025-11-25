@@ -205,10 +205,9 @@ MonoBehaviour:
   patrolRadius: 5
   patrolSpeed: 2
   waypointReachDistance: 0.5
-  attackRange: 1.5
-  attackCooldown: 1
-  meleeDamage: 15
-  chaseSpeed: 4
-  chaseAcceleration: 12
+  attackRange: 1
+  attackCooldown: 1.5
+  chaseSpeed: 3
+  chaseAcceleration: 8
   chaseDeceleration: 15
   rotationSpeed: 360

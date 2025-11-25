@@ -1404,7 +1404,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cfde199d7bbc6249b7f5667a0a73fec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  logicScript: {fileID: 335374694}
 --- !u!1 &2058186440 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2972626831866315306, guid: fb67847f8d348324bbd2292385df670f, type: 3}
@@ -1542,6 +1541,10 @@ PrefabInstance:
       propertyPath: AimPoint
       value: 
       objectReference: {fileID: 732097687}
+    - target: {fileID: 7316569599442186985, guid: a24d8fb1c805884478032e8ac1c31ea9, type: 3}
+      propertyPath: orthographic size
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 8276461460672212480, guid: a24d8fb1c805884478032e8ac1c31ea9, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.01
