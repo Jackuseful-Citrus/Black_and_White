@@ -1,18 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LogicScript : MonoBehaviour
 {
     [SerializeField] GameObject player;
     private PlayerControl playerControl;
-    private int blackBar = 0;
-    private int whiteBar = 0;
+    private int blackBar = 50;  //测试用，实际应为0
+    private int whiteBar = 50;  //测试用，实际应为0
     public int blackBarDisplay = 0;
     public int whiteBarDisplay = 0;
     public int blackBarMin = 0;
     public int whiteBarMin = 0;
     private float timer = 0f;
+
+    public Image blackBarImage;
+    public Image whiteBarImage;
+    private float maxWidth; // 黑白条最大宽度,即初始宽度
 
     private void Start()
     {
@@ -22,7 +27,21 @@ public class LogicScript : MonoBehaviour
             Debug.LogError("[LogicScript] Player 物体上未找到 PlayerControl 脚本！");
         }
         
+        // 获取黑白条的最大宽度
+        maxWidth = blackBarImage.rectTransform.rect.width;
     }
+
+    private void UpdateBlackBarValue(float x)
+    {
+        float ratio = Mathf.Clamp01(x / 100f);
+        blackBarImage.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, maxWidth * ratio);
+    }
+    private void UpdateWhiteBarValue(float x)
+    {
+        float ratio = Mathf.Clamp01(x / 100f);
+        whiteBarImage.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, maxWidth * ratio);
+    }
+
     private void HitBlackEnemy()
     {
         if(playerControl.isBlack)
@@ -128,6 +147,9 @@ public class LogicScript : MonoBehaviour
 
         blackBarDisplay = blackBar;
         whiteBarDisplay = whiteBar;
+        UpdateBlackBarValue(blackBarDisplay);
+        UpdateWhiteBarValue(whiteBarDisplay);
+
         if (blackBar >= 100 || whiteBar >= 100)
         {
             Debug.Log("Game Over");
