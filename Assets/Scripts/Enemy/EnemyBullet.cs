@@ -17,7 +17,6 @@ public class EnemyBullet : MonoBehaviour
     
     private Rigidbody2D rb;
     private Vector3 startPosition; 
-    private LogicScript logicScript = null;
     
     private void Awake()
     {
@@ -106,16 +105,16 @@ public class EnemyBullet : MonoBehaviour
         {
             PlayerControl player = collision.GetComponent<PlayerControl>();
             
-            if (player != null && logicScript != null)
+            if (player != null && LogicScript.Instance != null)
             {
                 if (bulletType == BulletType.White)
                 {
-                    logicScript.HitByWhiteEnemy();
+                    LogicScript.Instance.HitByWhiteEnemy();
                     Debug.Log("Player hit by White Enemy Bullet");
                 }
                 else if (bulletType == BulletType.Black)
                 {
-                    logicScript.HitByBlackEnemy();
+                    LogicScript.Instance.HitByBlackEnemy();
                 }
             }
             
@@ -149,20 +148,19 @@ public class EnemyBullet : MonoBehaviour
         {
             // 检测是否击中玩家
             PlayerControl player = collision.gameObject.GetComponent<PlayerControl>();
-            LogicScript logicScript = collision.gameObject.GetComponent<LogicScript>();
         
             //对于player的扣血计算
-            if (player != null && logicScript != null)
+            if (player != null && LogicScript.Instance != null)
             {
-                if (player != null && logicScript != null)
+                if (player != null && LogicScript.Instance != null)
                 {
                     if (bulletType == BulletType.White)
                     {
-                        logicScript.HitByWhiteEnemy();
+                        LogicScript.Instance.HitByWhiteEnemy();
                     }
                     else if (bulletType == BulletType.Black)
                     {
-                        logicScript.HitByBlackEnemy();
+                        LogicScript.Instance.HitByBlackEnemy();
                     }
                 }
             }

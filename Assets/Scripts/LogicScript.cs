@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class LogicScript : MonoBehaviour
 {
+    public static LogicScript Instance;
+
     [SerializeField] GameObject player;
     private PlayerControl playerControl;
     private int blackBar = 50;  //测试用，实际应为0
@@ -19,6 +21,18 @@ public class LogicScript : MonoBehaviour
     public Image whiteBarImage;
     private float maxWidth; // 黑白条最大宽度,即初始宽度
 
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+    
     private void Start()
     {
         playerControl = player?.GetComponent<PlayerControl>();

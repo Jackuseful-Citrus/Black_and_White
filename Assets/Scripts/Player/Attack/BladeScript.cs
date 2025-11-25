@@ -5,7 +5,6 @@ using UnityEngine;
 public class BladeScript : MonoBehaviour
 {
     private CapsuleCollider2D capsuleCollider2D;
-    [SerializeField] private LogicScript logicScript;
     private void Start()
     {
         capsuleCollider2D = GetComponent<CapsuleCollider2D>();
@@ -16,17 +15,16 @@ public class BladeScript : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("WhiteEnemy"))
         {            
-            if (logicScript != null)
+            if (LogicScript.Instance != null)
             {
-                logicScript.HitWhiteEnemy();
+                LogicScript.Instance.HitWhiteEnemy();
             }            
         }
         else if (collision.gameObject.CompareTag("BlackEnemy"))
         {
-            if (logicScript != null)
+            if (LogicScript.Instance != null)
             {
-                logicScript.HitBlackEnemy();
-                Debug.Log("Hit Black Enemy");
+                LogicScript.Instance.HitBlackEnemy();
             }
         }
     }
