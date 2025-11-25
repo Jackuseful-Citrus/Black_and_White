@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3749274659403847330}
   m_Layer: 9
   m_Name: Enemy_white
-  m_TagString: Untagged
+  m_TagString: WhiteEnemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -73,6 +73,7 @@ MonoBehaviour:
   blackEnemyLayer:
     serializedVersion: 2
     m_Bits: 1024
+  damageToBlackEnemy: 10
 --- !u!58 &8693701036618421719
 CircleCollider2D:
   m_ObjectHideFlags: 0

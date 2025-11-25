@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 8885432438474795550}
   m_Layer: 10
   m_Name: Enemy_black
-  m_TagString: Untagged
+  m_TagString: BlackEnemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

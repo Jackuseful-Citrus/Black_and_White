@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6456950769595793839}
   - component: {fileID: 1488877718878912798}
   - component: {fileID: 2291830075705909536}
-  - component: {fileID: 8395704090272279196}
   - component: {fileID: 3270486217397429646}
   m_Layer: 0
   m_Name: Player
@@ -87,7 +86,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  Scythe: {fileID: 0}
+  Scythe: {fileID: 8027514014388079892, guid: ff167f92834a02340987550fec4e6bd0, type: 3}
   LightBallSpawner: {fileID: 7078477771338692781}
   horiz: 0
   isGrounded: 0
@@ -139,22 +138,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.6289365, y: 1.504575}
   m_EdgeRadius: 0
---- !u!114 &8395704090272279196
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 484681280615418621}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d447c78d5ec144c409e88062d3ecc59b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minValue: 0
-  maxValue: 100
-  whiteBlood: 50
-  blackBlood: 50
 --- !u!114 &3270486217397429646
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -11,6 +11,8 @@ TagManager:
   - Enemy1
   - PlayerMirror
   - BossWall
+  - WhiteEnemy
+  - BlackEnemy
   layers:
   - Default
   - TransparentFX

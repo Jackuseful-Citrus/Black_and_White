@@ -42,7 +42,7 @@ public class LogicScript : MonoBehaviour
         whiteBarImage.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, maxWidth * ratio);
     }
 
-    private void HitBlackEnemy()
+    public void HitBlackEnemy()
     {
         if(playerControl.isBlack)
         {
@@ -54,7 +54,7 @@ public class LogicScript : MonoBehaviour
         }
     }
 
-    private void HitWhiteEnemy()
+    public void HitWhiteEnemy()
     {
         if(playerControl.isBlack)
         {

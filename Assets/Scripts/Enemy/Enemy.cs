@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unity.VisualScripting;
+using UnityEngine;
 
 public abstract class Enemy : MonoBehaviour
 {
@@ -26,8 +27,8 @@ public abstract class Enemy : MonoBehaviour
     protected Vector3 patrolCenter;
     protected Vector3 currentPatrolTarget;
     protected bool hasPatrolTarget = false;
-    protected bool wasInCombat = false;
-    
+    protected bool wasInCombat = false;   
+
     protected virtual void Start()
     {
         currentHealth = maxHealth;

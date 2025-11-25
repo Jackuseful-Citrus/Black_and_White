@@ -16,7 +16,8 @@ public class EnemyBullet : MonoBehaviour
     [SerializeField] private float lifetime = 5f;
     
     private Rigidbody2D rb;
-    private Vector3 startPosition;
+    private Vector3 startPosition; 
+    private LogicScript logicScript = null;
     
     private void Awake()
     {
@@ -104,13 +105,13 @@ public class EnemyBullet : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             PlayerControl player = collision.GetComponent<PlayerControl>();
-            LogicScript logicScript = collision.GetComponent<LogicScript>();
             
             if (player != null && logicScript != null)
             {
                 if (bulletType == BulletType.White)
                 {
                     logicScript.HitByWhiteEnemy();
+                    Debug.Log("Player hit by White Enemy Bullet");
                 }
                 else if (bulletType == BulletType.Black)
                 {
