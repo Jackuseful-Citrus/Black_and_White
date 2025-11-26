@@ -17,14 +17,14 @@ public class BladeScript : MonoBehaviour
         {            
             if (LogicScript.Instance != null)
             {
-                LogicScript.Instance.HitWhiteEnemy();
+                LogicScript.Instance.BladeHitWhiteEnemy();
             }            
         }
         else if (collision.gameObject.CompareTag("BlackEnemy"))
         {
             if (LogicScript.Instance != null)
             {
-                LogicScript.Instance.HitBlackEnemy();
+                LogicScript.Instance.BladeHitBlackEnemy();
             }
         }
     }

@@ -56,28 +56,30 @@ public class LogicScript : MonoBehaviour
         whiteBarImage.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, maxWidth * ratio);
     }
 
-    public void HitBlackEnemy()
+    public void BladeHitBlackEnemy()
     {
         if(playerControl.isBlack)
         {
             blackBar -= 2;
         }
-        else
-        {
-            blackBar -= 1;
-        }
     }
 
-    public void HitWhiteEnemy()
+    public void BladeHitWhiteEnemy()
     {
         if(playerControl.isBlack)
         {
             whiteBar -= 1;
         }
-        else
-        {
-            whiteBar -= 2;
-        }
+    }
+
+    public void LightBallHitBlackEnemy()
+    {
+        blackBar -= 1;
+    }
+
+    public void LightBallHitWhiteEnemy()
+    {
+        whiteBar -= 2;
     }
 
     public void HitByBlackEnemy()
@@ -103,16 +105,16 @@ public class LogicScript : MonoBehaviour
         }
     }
     
-    private void getIntoWhiteTrap()
+    public void getIntoWhiteTrap()
     {
         whiteBarMin += 10;
     }
-    private void getIntoBlackTrap()
+    public void getIntoBlackTrap()
     {
         blackBarMin += 10;
     }
 
-    private void InBlackZone()
+    public void InBlackZone()
     {
         blackBar += 1;
         if(playerControl.isWhite)
@@ -120,13 +122,18 @@ public class LogicScript : MonoBehaviour
             whiteBar -= 1;
         }
     }
-    private void InWhiteZone()
+    public void InWhiteZone()
     {
         whiteBar += 1;
         if(playerControl.isBlack)
         {
             blackBar -= 1;
         }
+    }
+
+    public void FireLightBall()
+    {
+        whiteBar += 2;
     }
 
     private void Update()
