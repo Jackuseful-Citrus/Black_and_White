@@ -190,39 +190,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 7261082403097560602}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8bc5fe6e39b6994284cbdfd34725c9c, type: 3}
+  m_Script: {fileID: 11500000, guid: 1d5a0bcc4f9e8ad418fbb538f3a68863, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyColor: 0
-  attackType: 0
   maxHealth: 50
   moveSpeed: 3
   damage: 10
   moveAcceleration: 8
-  rotationSpeed: 360
-  playerDetectionRange: 5
-  enemyDetectionRange: 5
+  detectionRange: 5
   playerLayer:
     serializedVersion: 2
-    m_Bits: 0
-  whiteEnemyLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  blackEnemyLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  bulletPrefab: {fileID: 0}
-  firePoint: {fileID: 0}
-  rangedAttackRange: 8
-  rangedAttackCooldown: 2
-  bulletSpeed: 10
-  minRangedDistance: 5
-  maxRangedDistance: 7
-  meleeAttackRange: 1.5
-  meleeAttackCooldown: 1.5
-  meleeChaseSpeed: 4
-  attackAnimationDuration: 0.3
+    m_Bits: 64
   enablePatrol: 1
   patrolRadius: 5
   patrolSpeed: 2
   waypointReachDistance: 0.5
+  attackRange: 1
+  attackCooldown: 1.5
+  chaseSpeed: 3
+  chaseAcceleration: 8
+  chaseDeceleration: 15
+  rotationSpeed: 360

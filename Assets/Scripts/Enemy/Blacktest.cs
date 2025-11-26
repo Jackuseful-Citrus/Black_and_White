@@ -7,7 +7,7 @@ using UnityEngine;
 /// 3. 距离足够近时停下并近战攻击
 /// 4. 无论是巡逻还是追击，都不会自己从平台边缘走下去（使用 HasGroundAhead 判边）
 /// </summary>
-public class Blacktest : Enemy
+public class Black : Enemy
 {
     [Header("近战攻击设置")]
     [SerializeField] private float attackRange = 1.0f;           // 水平攻击距离
@@ -35,33 +35,9 @@ public class Blacktest : Enemy
     }
 
     /// <summary>
-    protected override void Update()
-    {
-        if (isDead) return;
-
-        if (player == null || !player.gameObject.activeInHierarchy)
-        {
-            FindPlayer();
-        }
-
-        if (player != null && Vector2.Distance(transform.position, player.position) <= playerDetectionRange)
-        {
-            EnemyBehavior();
-        }
-        else if (enablePatrol)
-        {
-            Patrol();
-        }
-        else if (rb != null)
-        {
-            rb.velocity = new Vector2(0f, rb.velocity.y);
-        }
-    }
-
-    /// <summary>
     /// 玩家在 Enemy.detectionRange 内时的行为逻辑。
     /// </summary>
-    private void EnemyBehavior()
+    protected override void EnemyBehavior()
     {
         if (isDead || player == null || rb == null) return;
 
