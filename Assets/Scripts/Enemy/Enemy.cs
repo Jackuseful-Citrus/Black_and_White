@@ -51,6 +51,12 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected float patrolRadius = 5f;
     [SerializeField] protected float patrolSpeed = 2f;
     [SerializeField] protected float waypointReachDistance = 0.5f;
+
+    [Header("战斗移动设置")]
+    [SerializeField] protected float combatMoveSpeed = 1.5f;
+    [SerializeField] protected float combatMoveInterval = 1.5f;
+    protected float nextCombatMoveChangeTime;
+    protected float combatMoveDirectionX;
     
     protected float currentHealth;
     protected Transform player;
@@ -222,7 +228,37 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            StopMoving();
+            if (Time.time >= nextCombatMoveChangeTime)
+            {
+                nextCombatMoveChangeTime = Time.time + Random.Range(0.5f, combatMoveInterval);
+                int rand = Random.Range(0, 3); 
+                if (rand == 0) combatMoveDirectionX = -1f;
+                else if (rand == 1) combatMoveDirectionX = 1f;
+                else combatMoveDirectionX = 0f;
+            }
+
+            if (Mathf.Abs(combatMoveDirectionX) > 0.1f)
+            {
+                // 检查前方是否有地面，防止掉下去
+                if (!HasGroundAhead(combatMoveDirectionX))
+                {
+                    combatMoveDirectionX *= -1; // 反向
+                }
+                
+                if (rb != null)
+                {
+                    Vector2 targetVel = new Vector2(combatMoveDirectionX * combatMoveSpeed, rb.velocity.y);
+                    rb.velocity = Vector2.MoveTowards(rb.velocity, targetVel, moveAcceleration * Time.deltaTime);
+                }
+                else
+                {
+                    transform.Translate(Vector3.right * combatMoveDirectionX * combatMoveSpeed * Time.deltaTime);
+                }
+            }
+            else
+            {
+                StopMoving();
+            }
         }
 
         if (distance <= rangedAttackRange && Time.time >= lastAttackTime + rangedAttackCooldown)
