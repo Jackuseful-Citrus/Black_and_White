@@ -37,7 +37,7 @@ public class Black : Enemy
     /// <summary>
     /// 玩家在 Enemy.detectionRange 内时的行为逻辑。
     /// </summary>
-    protected override void EnemyBehavior()
+    protected void EnemyBehavior()
     {
         if (isDead || player == null || rb == null) return;
 
