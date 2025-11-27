@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 750198040953583362}
   - component: {fileID: 9142510102214048047}
   - component: {fileID: 8548098905030924315}
-  - component: {fileID: 8885432438474795550}
+  - component: {fileID: 8963888372664110853}
   m_Layer: 10
   m_Name: Enemy_black
   m_TagString: BlackEnemy
@@ -181,7 +181,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!114 &8885432438474795550
+--- !u!114 &8963888372664110853
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -193,7 +193,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8bc5fe6e39b6994284cbdfd34725c9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyColor: 0
+  enemyColor: 1
   attackType: 0
   maxHealth: 50
   moveSpeed: 3
@@ -204,14 +204,14 @@ MonoBehaviour:
   enemyDetectionRange: 5
   playerLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   whiteEnemyLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   blackEnemyLayer:
     serializedVersion: 2
-    m_Bits: 0
-  bulletPrefab: {fileID: 0}
+    m_Bits: 1024
+  bulletPrefab: {fileID: 3188708626226791006, guid: 9eb77868e5443b043ac6f4f6a6b13ce6, type: 3}
   firePoint: {fileID: 0}
   rangedAttackRange: 8
   rangedAttackCooldown: 2
@@ -222,6 +222,14 @@ MonoBehaviour:
   meleeAttackCooldown: 1.5
   meleeChaseSpeed: 4
   attackAnimationDuration: 0.3
+  attackHeightTolerance: 0.8
+  canFallOffLedge: 0
+  detectHeightTolerance: 1
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 8
+  groundCheckExtraHeight: 0.1
+  ledgeCheckDistance: 0.2
   enablePatrol: 1
   patrolRadius: 5
   patrolSpeed: 2

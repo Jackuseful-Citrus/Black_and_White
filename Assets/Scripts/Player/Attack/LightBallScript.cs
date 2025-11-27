@@ -60,6 +60,30 @@ public class LightBallScript : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("WhiteEnemy"))
+        {
+            if (LogicScript.Instance != null)
+            {
+                LogicScript.Instance.LightBallHitWhiteEnemy();
+            }
+            Destroy(gameObject);
+        }
+        else if (collision.gameObject.CompareTag("BlackEnemy"))
+        {
+            if (LogicScript.Instance != null)
+            {
+                LogicScript.Instance.LightBallHitBlackEnemy();
+            }
+            Destroy(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     private void OnDisable()
     {
         

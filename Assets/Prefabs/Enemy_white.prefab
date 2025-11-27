@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4917184792122775093}
-  - component: {fileID: 4518894024787533565}
   - component: {fileID: 8693701036618421719}
   - component: {fileID: 3749274659403847330}
+  - component: {fileID: 7439228443778810932}
   m_Layer: 9
   m_Name: Enemy_white
   m_TagString: WhiteEnemy
@@ -35,45 +35,6 @@ Transform:
   - {fileID: 3836096310182402950}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4518894024787533565
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2972626831866315306}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79ba4cac24c486243b7e4812274e6bee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 50
-  moveSpeed: 3
-  damage: 10
-  moveAcceleration: 8
-  detectionRange: 5
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  enablePatrol: 1
-  patrolRadius: 5
-  patrolSpeed: 2
-  waypointReachDistance: 0.5
-  bulletPrefab: {fileID: 3188708626226791006, guid: 9eb77868e5443b043ac6f4f6a6b13ce6, type: 3}
-  firePoint: {fileID: 3836096310182402950}
-  attackRange: 8
-  attackCooldown: 2
-  bulletSpeed: 10
-  minDistanceFromPlayer: 5
-  maxDistanceFromPlayer: 7
-  moveDeceleration: 10
-  rotationSpeed: 360
-  combatTransitionTime: 0.3
-  blackEnemyDetectionRange: 6
-  blackEnemyLayer:
-    serializedVersion: 2
-    m_Bits: 1024
-  damageToBlackEnemy: 10
 --- !u!58 &8693701036618421719
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -136,6 +97,59 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!114 &7439228443778810932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2972626831866315306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8bc5fe6e39b6994284cbdfd34725c9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyColor: 0
+  attackType: 1
+  maxHealth: 50
+  moveSpeed: 3
+  damage: 10
+  moveAcceleration: 8
+  rotationSpeed: 360
+  playerDetectionRange: 5
+  enemyDetectionRange: 5
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  whiteEnemyLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  blackEnemyLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  bulletPrefab: {fileID: 3188708626226791006, guid: 9eb77868e5443b043ac6f4f6a6b13ce6, type: 3}
+  firePoint: {fileID: 0}
+  rangedAttackRange: 8
+  rangedAttackCooldown: 2
+  bulletSpeed: 10
+  minRangedDistance: 5
+  maxRangedDistance: 7
+  meleeAttackRange: 1.5
+  meleeAttackCooldown: 1.5
+  meleeChaseSpeed: 4
+  attackAnimationDuration: 0.3
+  attackHeightTolerance: 0.8
+  canFallOffLedge: 0
+  detectHeightTolerance: 1
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 8
+  groundCheckExtraHeight: 0.1
+  ledgeCheckDistance: 0.2
+  enablePatrol: 1
+  patrolRadius: 5
+  patrolSpeed: 2
+  waypointReachDistance: 0.5
 --- !u!1 &7355739617763250061
 GameObject:
   m_ObjectHideFlags: 0

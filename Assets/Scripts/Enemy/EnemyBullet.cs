@@ -27,6 +27,12 @@ public class EnemyBullet : MonoBehaviour
             rb.gravityScale = 0;
             rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
         }
+        
+        Collider2D col = GetComponent<Collider2D>();
+        if (col != null)
+        {
+            col.isTrigger = true;
+        }
     }
     
     public void Initialize(Vector2 moveDirection, float bulletSpeed, float bulletDamage, BulletType type = BulletType.White, GameObject shooterObject = null, float enemyDamage = 0f, LayerMask enemyLayer = default)
@@ -94,48 +100,46 @@ public class EnemyBullet : MonoBehaviour
         }
     }
     
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (shooter != null && collision.gameObject == shooter)
+        if (other.GetComponent<EnemyBullet>() != null) return;
+
+        if (shooter != null && other.gameObject == shooter)
         {
             return;
         }
         
-        if (collision.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
-            // 检测是否击中玩家
-            PlayerControl player = collision.gameObject.GetComponent<PlayerControl>();
+            PlayerControl player = other.gameObject.GetComponent<PlayerControl>();
         
             //对于player的扣血计算
             if (player != null && LogicScript.Instance != null)
             {
-                if (player != null && LogicScript.Instance != null)
+                if (bulletType == BulletType.White)
                 {
-                    if (bulletType == BulletType.White)
-                    {
-                        LogicScript.Instance.HitByWhiteEnemy();
-                    }
-                    else if (bulletType == BulletType.Black)
-                    {
-                        LogicScript.Instance.HitByBlackEnemy();
-                    }
+                    LogicScript.Instance.HitByWhiteEnemy();
+                }
+                else if (bulletType == BulletType.Black)
+                {
+                    LogicScript.Instance.HitByBlackEnemy();
                 }
             }
             
             Destroy(gameObject);
         }
-        else if (targetEnemyLayer != 0 && ((1 << collision.gameObject.layer) & targetEnemyLayer) != 0)
+        else if (targetEnemyLayer != 0 && ((1 << other.gameObject.layer) & targetEnemyLayer) != 0)
         {
-            Enemy enemy = collision.gameObject.GetComponent<Enemy>();
+            Enemy enemy = other.gameObject.GetComponent<Enemy>();
             if (enemy != null)
             {
                 enemy.TakeDamage(damageToEnemy);
             }
             Destroy(gameObject);
         }
-        else if (HasTag(collision.gameObject, "Wall") || 
-                 HasTag(collision.gameObject, "Ground") || 
-                 HasTag(collision.gameObject, "Obstacle"))
+        else if (HasTag(other.gameObject, "Wall") || 
+                HasTag(other.gameObject, "Ground") || 
+                HasTag(other.gameObject, "Obstacle"))
         {
             Destroy(gameObject);
         }

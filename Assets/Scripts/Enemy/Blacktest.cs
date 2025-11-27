@@ -61,7 +61,7 @@ public class Blacktest : Enemy
     /// <summary>
     /// 玩家在 Enemy.detectionRange 内时的行为逻辑。
     /// </summary>
-    private void EnemyBehavior()
+    protected void EnemyBehavior()
     {
         if (isDead || player == null || rb == null) return;
 
