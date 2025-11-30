@@ -38,6 +38,9 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected float meleeChaseSpeed = 4f;
     [SerializeField] protected float attackAnimationDuration = 0.3f;
     [SerializeField] protected float attackHeightTolerance = 0.8f; // 攻击时允许的高度差
+    [SerializeField] protected float recoilForce = 5f; // 攻击后的反弹力度
+    [SerializeField] protected float recoilDuration = 0.5f; // 反弹持续时间
+    [SerializeField] protected float recoilUpwardForce = 0f; // 反弹时的向上力度
 
     [Header("平台检测设置")]
     [SerializeField] protected bool canFallOffLedge = false;       // 是否允许掉下平台
@@ -239,7 +242,6 @@ public class Enemy : MonoBehaviour
 
             if (Mathf.Abs(combatMoveDirectionX) > 0.1f)
             {
-                // 检查前方是否有地面，防止掉下去
                 if (!HasGroundAhead(combatMoveDirectionX))
                 {
                     combatMoveDirectionX *= -1; // 反向
@@ -289,7 +291,8 @@ public class Enemy : MonoBehaviour
             float dx = currentTarget.position.x - transform.position.x;
             float moveDir = Mathf.Sign(dx);
 
-            if (!HasGroundAhead(moveDir))
+            // 如果在地面上，才检查前方是否有路，防止在空中时停止移动
+            if (IsGrounded() && !HasGroundAhead(moveDir))
             {
                 StopMoving();
                 return;
@@ -333,6 +336,7 @@ public class Enemy : MonoBehaviour
 
     protected virtual void MeleeAttack()
     {
+        Debug.Log($"[Enemy] {gameObject.name} Start Melee Attack on {(currentTarget != null ? currentTarget.name : "null")}");
         lastAttackTime = Time.time;
         isAttacking = true;
         
@@ -342,6 +346,7 @@ public class Enemy : MonoBehaviour
             {
                 if (enemyColor == EnemyColor.Black && LogicScript.Instance != null)
                 {
+                    Debug.Log($"[Enemy] {gameObject.name} Hit Player (Black Enemy)");
                     LogicScript.Instance.HitByBlackEnemy();
                 }
             }
@@ -350,12 +355,31 @@ public class Enemy : MonoBehaviour
                 Enemy targetEnemy = currentTarget.GetComponent<Enemy>();
                 if (targetEnemy != null)
                 {
+                    Debug.Log($"[Enemy] {gameObject.name} Hit Enemy: {targetEnemy.name}");
                     targetEnemy.TakeDamage(damage);
+                }
+            }
+
+            // 攻击后反弹逻辑
+            if (rb != null)
+            {
+                // 计算反弹方向（远离目标）
+                float recoilDir = Mathf.Sign(transform.position.x - currentTarget.position.x);
+                if (IsGrounded() && !HasGroundAhead(recoilDir))
+                {
+                    Debug.Log($"[Enemy] {gameObject.name} Recoil Cancelled: No ground behind.");
+                    rb.velocity = Vector2.zero;
+                }
+                else
+                {
+                    // 施加反弹速度
+                    Debug.Log($"[Enemy] {gameObject.name} Recoil Applied. Dir: {recoilDir}");
+                    rb.velocity = new Vector2(recoilDir * recoilForce, recoilUpwardForce); 
                 }
             }
         }
 
-        Invoke(nameof(EndAttack), attackAnimationDuration);
+        Invoke(nameof(EndAttack), recoilDuration);
     }
 
     protected void EndAttack()
@@ -375,9 +399,13 @@ public class Enemy : MonoBehaviour
             if (x >= rightLimit) patrolDirection = -1;
             else if (x <= leftLimit) patrolDirection = 1;
 
-            if (!HasGroundAhead(patrolDirection))
+            // 只有在地面上时才检测边缘，防止在空中时因为检测不到地面而卡住
+            if (IsGrounded())
             {
-                patrolDirection *= -1;
+                if (!HasGroundAhead(patrolDirection))
+                {
+                    patrolDirection *= -1;
+                }
             }
 
             if (rb != null)
@@ -404,6 +432,19 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    protected bool IsGrounded()
+    {
+        if (bodyCollider == null) return false;
+        
+        Bounds bounds = bodyCollider.bounds;
+        // 从中心向下发射射线检测地面
+        Vector2 origin = new Vector2(bounds.center.x, bounds.min.y + 0.05f);
+        float rayLength = Mathf.Max(groundCheckExtraHeight, 0.6f) + 0.05f;
+        
+        RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.down, rayLength, groundMask);
+        return hit.collider != null;
+    }
+
     protected bool HasGroundAhead(float moveDirX)
     {
         if (canFallOffLedge) return true;
@@ -412,7 +453,7 @@ public class Enemy : MonoBehaviour
         Bounds bounds = bodyCollider.bounds;
         float x = moveDirX > 0 ? bounds.max.x : bounds.min.x;
         Vector2 origin = new Vector2(x + moveDirX * ledgeCheckDistance, bounds.min.y + 0.05f);
-        float rayLength = groundCheckExtraHeight + 0.05f;
+        float rayLength = Mathf.Max(groundCheckExtraHeight, 0.6f) + 0.05f;
 
         RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.down, rayLength, groundMask);
         return hit.collider != null;
