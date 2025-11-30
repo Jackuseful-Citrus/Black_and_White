@@ -49,6 +49,13 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected float groundCheckExtraHeight = 0.1f;// 射线额外长度
     [SerializeField] protected float ledgeCheckDistance = 0.2f;    // 向前探出的水平距离
 
+    [Header("跳跃设置")]
+    [SerializeField] protected float jumpForce = 5f;
+    [SerializeField] protected float jumpIntervalMin = 2f;
+    [SerializeField] protected float jumpIntervalMax = 5f;
+    [SerializeField] protected float wallCheckDistance = 0.6f;
+    protected float nextJumpTime;
+
     [Header("巡逻设置")]
     [SerializeField] protected bool enablePatrol = true;
     [SerializeField] protected float patrolRadius = 5f;
@@ -86,6 +93,8 @@ public class Enemy : MonoBehaviour
         lastAttackTime = -999f;
         
         if (firePoint == null) firePoint = transform;
+        
+        nextJumpTime = Time.time + Random.Range(jumpIntervalMin, jumpIntervalMax);
         
         FindPlayer();
     }
@@ -301,6 +310,13 @@ public class Enemy : MonoBehaviour
             if (rb != null)
             {
                 rb.velocity = new Vector2(moveDir * meleeChaseSpeed, rb.velocity.y);
+                
+                bool wallAhead = HasWallAhead(moveDir);
+
+                if (Time.time >= nextJumpTime || wallAhead)
+                {
+                    Jump();
+                }
             }
             else
             {
@@ -336,7 +352,6 @@ public class Enemy : MonoBehaviour
 
     protected virtual void MeleeAttack()
     {
-        Debug.Log($"[Enemy] {gameObject.name} Start Melee Attack on {(currentTarget != null ? currentTarget.name : "null")}");
         lastAttackTime = Time.time;
         isAttacking = true;
         
@@ -346,7 +361,6 @@ public class Enemy : MonoBehaviour
             {
                 if (enemyColor == EnemyColor.Black && LogicScript.Instance != null)
                 {
-                    Debug.Log($"[Enemy] {gameObject.name} Hit Player (Black Enemy)");
                     LogicScript.Instance.HitByBlackEnemy();
                 }
             }
@@ -355,25 +369,19 @@ public class Enemy : MonoBehaviour
                 Enemy targetEnemy = currentTarget.GetComponent<Enemy>();
                 if (targetEnemy != null)
                 {
-                    Debug.Log($"[Enemy] {gameObject.name} Hit Enemy: {targetEnemy.name}");
                     targetEnemy.TakeDamage(damage);
                 }
             }
 
-            // 攻击后反弹逻辑
             if (rb != null)
             {
-                // 计算反弹方向（远离目标）
                 float recoilDir = Mathf.Sign(transform.position.x - currentTarget.position.x);
                 if (IsGrounded() && !HasGroundAhead(recoilDir))
                 {
-                    Debug.Log($"[Enemy] {gameObject.name} Recoil Cancelled: No ground behind.");
                     rb.velocity = Vector2.zero;
                 }
                 else
                 {
-                    // 施加反弹速度
-                    Debug.Log($"[Enemy] {gameObject.name} Recoil Applied. Dir: {recoilDir}");
                     rb.velocity = new Vector2(recoilDir * recoilForce, recoilUpwardForce); 
                 }
             }
@@ -411,6 +419,13 @@ public class Enemy : MonoBehaviour
             if (rb != null)
             {
                 rb.velocity = new Vector2(patrolDirection * patrolSpeed, rb.velocity.y);
+                
+                bool wallAhead = HasWallAhead(patrolDirection);
+
+                if (Time.time >= nextJumpTime || wallAhead)
+                {
+                    Jump();
+                }
             }
 
             if (patrolDirection != 0)
@@ -561,6 +576,28 @@ public class Enemy : MonoBehaviour
     {
     }
     
+    protected virtual void Jump()
+    {
+        if (rb != null && IsGrounded())
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            nextJumpTime = Time.time + Random.Range(jumpIntervalMin, jumpIntervalMax);
+        }
+    }
+
+    protected bool HasWallAhead(float moveDirX)
+    {
+        if (bodyCollider == null) return false;
+        
+        Bounds bounds = bodyCollider.bounds;
+        float x = moveDirX > 0 ? bounds.max.x : bounds.min.x;
+        // 从中心高度发射射线检测墙壁
+        Vector2 origin = new Vector2(x, bounds.center.y);
+        
+        RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.right * moveDirX, wallCheckDistance, groundMask);
+        return hit.collider != null;
+    }
+    
     protected virtual void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.cyan;
@@ -589,6 +626,11 @@ public class Enemy : MonoBehaviour
                 Vector2 origin = new Vector2(x + moveDirX * ledgeCheckDistance, bounds.min.y + 0.05f);
                 Gizmos.color = Color.magenta;
                 Gizmos.DrawLine(origin, origin + Vector2.down * (groundCheckExtraHeight + 0.05f));
+                
+                // 绘制墙壁检测射线
+                Vector2 wallOrigin = new Vector2(moveDirX > 0 ? bounds.max.x : bounds.min.x, bounds.center.y);
+                Gizmos.color = Color.yellow;
+                Gizmos.DrawLine(wallOrigin, wallOrigin + Vector2.right * moveDirX * wallCheckDistance);
             }
         }
 
