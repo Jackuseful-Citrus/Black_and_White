@@ -905,7 +905,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
   m_Color: {r: 0.8301887, g: 0.8119141, b: 0.8119141, a: 1}
-  m_Intensity: 0.02
+  m_Intensity: 0.01
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: 00000000
@@ -3764,7 +3764,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -44
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.7191171, g: 0.740477, b: 0.754717, a: 1}
+  m_Color: {r: 0.579091, g: 0.59554607, b: 0.6037736, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -3895,69 +3895,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 79095479790069923, guid: a24d8fb1c805884478032e8ac1c31ea9, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 478050041244638283, guid: a24d8fb1c805884478032e8ac1c31ea9, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.39
-      objectReference: {fileID: 0}
-    - target: {fileID: 478050041244638283, guid: a24d8fb1c805884478032e8ac1c31ea9, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.49
-      objectReference: {fileID: 0}
     - target: {fileID: 484681280615418621, guid: a24d8fb1c805884478032e8ac1c31ea9, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 1010404134997760833, guid: a24d8fb1c805884478032e8ac1c31ea9, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1252485469389819182, guid: a24d8fb1c805884478032e8ac1c31ea9, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1470579121290283189, guid: a24d8fb1c805884478032e8ac1c31ea9, type: 3}
-      propertyPath: m_Antialiasing
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1470579121290283189, guid: a24d8fb1c805884478032e8ac1c31ea9, type: 3}
-      propertyPath: m_RenderPostProcessing
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1488877718878912798, guid: a24d8fb1c805884478032e8ac1c31ea9, type: 3}
       propertyPath: Scythe
       value: 
       objectReference: {fileID: 1495954222}
-    - target: {fileID: 1488877718878912798, guid: a24d8fb1c805884478032e8ac1c31ea9, type: 3}
-      propertyPath: jumpForce
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 1488877718878912798, guid: a24d8fb1c805884478032e8ac1c31ea9, type: 3}
-      propertyPath: groundRadius
-      value: 0.02
-      objectReference: {fileID: 0}
-    - target: {fileID: 2291830075705909536, guid: a24d8fb1c805884478032e8ac1c31ea9, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 6200000, guid: a73d963a726f53d4facdd293a48aeb9e, type: 2}
-    - target: {fileID: 4562255018677435375, guid: a24d8fb1c805884478032e8ac1c31ea9, type: 3}
-      propertyPath: AimPoint
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6475735723196745076, guid: a24d8fb1c805884478032e8ac1c31ea9, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.095
-      objectReference: {fileID: 0}
-    - target: {fileID: 6475735723196745076, guid: a24d8fb1c805884478032e8ac1c31ea9, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.763
-      objectReference: {fileID: 0}
-    - target: {fileID: 7316569599442186985, guid: a24d8fb1c805884478032e8ac1c31ea9, type: 3}
-      propertyPath: orthographic size
-      value: 10
+    - target: {fileID: 2560516730612029446, guid: a24d8fb1c805884478032e8ac1c31ea9, type: 3}
+      propertyPath: m_PointLightOuterRadius
+      value: 15.44
       objectReference: {fileID: 0}
     - target: {fileID: 8276461460672212480, guid: a24d8fb1c805884478032e8ac1c31ea9, type: 3}
       propertyPath: m_LocalPosition.x

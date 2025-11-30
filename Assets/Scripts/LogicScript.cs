@@ -170,6 +170,11 @@ public class LogicScript : MonoBehaviour
         UpdateBlackBarValue(blackBarDisplay);
         UpdateWhiteBarValue(whiteBarDisplay);
 
+        if (blackBar == 0 || whiteBar == 0)
+        {
+            Debug.Log("获得成就：两袖清风（");
+        }
+
         if (blackBar >= 100 || whiteBar >= 100)
         {
             Debug.Log("Game Over");
