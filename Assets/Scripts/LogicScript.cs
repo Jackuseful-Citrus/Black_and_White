@@ -15,7 +15,6 @@ public class LogicScript : MonoBehaviour
     public int whiteBarDisplay = 0;
     public int blackBarMin = 0;
     public int whiteBarMin = 0;
-    private float timer = 0f;
 
     public Image blackBarImage;
     public Image whiteBarImage;
