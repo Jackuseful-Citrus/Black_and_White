@@ -1724,9 +1724,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boss
       objectReference: {fileID: 0}
-    - target: {fileID: 624867397778100514, guid: bb93c93ab32876c4997e4c12e57d9bc4, type: 3}
+    - target: {fileID: 1966533026159666226, guid: bb93c93ab32876c4997e4c12e57d9bc4, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5465668696093092006, guid: bb93c93ab32876c4997e4c12e57d9bc4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1766,6 +1766,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5465668696093092006, guid: bb93c93ab32876c4997e4c12e57d9bc4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6136671445088951788, guid: bb93c93ab32876c4997e4c12e57d9bc4, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6535304141646756552, guid: bb93c93ab32876c4997e4c12e57d9bc4, type: 3}
