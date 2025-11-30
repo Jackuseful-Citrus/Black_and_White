@@ -3,11 +3,13 @@
 [RequireComponent(typeof(Rigidbody2D))]
 public class BouncingBoss : MonoBehaviour
 {
+    private enum BossPhase { White, Black }
+
     [Header("Movement")]
     public float speed = 6f;
     public float randomBounceAngle = 25f; // random tweak applied after each bounce
 
-    [Header("Attack (8-way)")]
+    [Header("Attack (white phase 8-way)")]
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform firePoint;
     [SerializeField] private float attackInterval = 2f;
@@ -16,12 +18,38 @@ public class BouncingBoss : MonoBehaviour
     [SerializeField] private EnemyBullet.BulletType bulletType = EnemyBullet.BulletType.Black;
     [SerializeField] private float bulletSpawnOffset = 0.7f; // how far from firePoint to spawn so it doesn't overlap the boss
 
+    [Header("Phase Switch")]
+    [SerializeField] private float whitePhaseDuration = 5f;
+    [SerializeField] private float whitePhaseMaxHealth = 10f;
+
+    [Header("Bodies (visual)")]
+    [SerializeField] private GameObject whiteBody;
+    [SerializeField] private GameObject blackBody;
+
     [Header("Arena Bounds (optional)")]
     [SerializeField] private BoxCollider2D arenaBounds; // bounding box for movement; strongly recommended
+
+    [Header("Black Phase (charge)")]
+    [SerializeField] private float blackChargeSpeed = 10f;
+    [SerializeField] private float blackRestDuration = 3f;
+    [SerializeField] private float minChargeDuration = 0.25f;
+    [SerializeField] private float maxChargeDuration = 1.5f;
+
+    [Header("Targeting")]
+    [SerializeField] private PlayerControl mainPlayer;
+    [SerializeField] private Transform mirrorPlayer; // optional: 如果镜像有特殊脚本，这里可以直接拖
 
     private Rigidbody2D rb;
     private float nextAttackTime;
     private Vector2 moveDir;
+    private BossPhase currentPhase = BossPhase.White;
+    private float phaseStartTime;
+    private float currentHealth;
+    private bool isCharging;
+    private float chargeTimer;
+    private float restTimer;
+    private Vector2 chargeDir;
+    private Transform cachedMirror;
 
     private void Awake()
     {
@@ -42,20 +70,49 @@ public class BouncingBoss : MonoBehaviour
         rb.velocity = moveDir * speed;
 
         nextAttackTime = Time.time + attackInterval;
+        currentHealth = whitePhaseMaxHealth;
+        phaseStartTime = Time.time;
+        ApplyBodyVisuals();
+
+        if (mainPlayer == null)
+        {
+            mainPlayer = FindObjectOfType<PlayerControl>();
+        }
+
+        if (mirrorPlayer == null)
+        {
+            cachedMirror = GameObject.FindWithTag("PlayerMirror")?.transform;
+        }
+        else
+        {
+            cachedMirror = mirrorPlayer;
+        }
     }
 
     private void Update()
     {
-        if (Time.time >= nextAttackTime)
+        if (currentPhase == BossPhase.White && Time.time >= nextAttackTime)
         {
             FireInEightDirections();
             nextAttackTime = Time.time + attackInterval;
+        }
+
+        if (currentPhase == BossPhase.White && Time.time - phaseStartTime >= whitePhaseDuration)
+        {
+            SwitchToBlackPhase();
         }
     }
 
     private void FixedUpdate()
     {
-        MoveAndBounceInsideBounds();
+        if (currentPhase == BossPhase.White)
+        {
+            MoveAndBounceInsideBounds();
+        }
+        else
+        {
+            TickBlackPhase();
+        }
     }
 
     private void FireInEightDirections()
@@ -158,5 +215,126 @@ public class BouncingBoss : MonoBehaviour
 
         rb.MovePosition(nextPos);
         rb.velocity = moveDir * speed;
+    }
+
+    private void TickBlackPhase()
+    {
+        if (isCharging)
+        {
+            chargeTimer -= Time.fixedDeltaTime;
+            Vector2 nextPos = rb.position + chargeDir * blackChargeSpeed * Time.fixedDeltaTime;
+
+            if (arenaBounds != null)
+            {
+                Bounds b = arenaBounds.bounds;
+                Vector2 clamped = new Vector2(
+                    Mathf.Clamp(nextPos.x, b.min.x, b.max.x),
+                    Mathf.Clamp(nextPos.y, b.min.y, b.max.y));
+                bool hitEdge = clamped != nextPos;
+                nextPos = clamped;
+                if (hitEdge)
+                {
+                    StopCharge();
+                }
+            }
+
+            rb.MovePosition(nextPos);
+            rb.velocity = chargeDir * blackChargeSpeed;
+
+            if (chargeTimer <= 0f)
+            {
+                StopCharge();
+            }
+        }
+        else
+        {
+            rb.velocity = Vector2.zero;
+            restTimer -= Time.fixedDeltaTime;
+            if (restTimer <= 0f)
+            {
+                StartCharge();
+            }
+        }
+    }
+
+    private void SwitchToBlackPhase()
+    {
+        if (currentPhase == BossPhase.Black) return;
+
+        currentPhase = BossPhase.Black;
+        rb.velocity = Vector2.zero;
+        isCharging = false;
+        restTimer = 0f; // start charging immediately
+        ApplyBodyVisuals();
+    }
+
+    private void StartCharge()
+    {
+        Vector3 targetPos = GetBlackPlayerPosition();
+        Vector2 dir = (targetPos - transform.position).normalized;
+        if (dir == Vector2.zero) dir = Vector2.right;
+
+        chargeDir = dir;
+        float estimatedTime = Vector2.Distance(transform.position, targetPos) / Mathf.Max(blackChargeSpeed, 0.01f);
+        chargeTimer = Mathf.Clamp(estimatedTime, minChargeDuration, maxChargeDuration);
+        isCharging = true;
+    }
+
+    private void StopCharge()
+    {
+        isCharging = false;
+        rb.velocity = Vector2.zero;
+        restTimer = blackRestDuration;
+    }
+
+    private Vector3 GetBlackPlayerPosition()
+    {
+        if (mainPlayer == null)
+        {
+            mainPlayer = FindObjectOfType<PlayerControl>();
+        }
+
+        // 优先瞄准当前“黑形态”的角色：主角为黑 => 打主角；主角为白 => 打镜像（镜像是黑）
+        if (mainPlayer != null && mainPlayer.isBlack)
+        {
+            return mainPlayer.transform.position;
+        }
+
+        if (mirrorPlayer == null)
+        {
+            if (cachedMirror == null)
+            {
+                cachedMirror = GameObject.FindWithTag("PlayerMirror")?.transform;
+            }
+        }
+        else
+        {
+            cachedMirror = mirrorPlayer;
+        }
+
+        if (cachedMirror != null)
+        {
+            return cachedMirror.position;
+        }
+
+        return transform.position + Vector3.right; // fallback
+    }
+
+    private void ApplyBodyVisuals()
+    {
+        if (whiteBody != null) whiteBody.SetActive(currentPhase == BossPhase.White);
+        if (blackBody != null) blackBody.SetActive(currentPhase == BossPhase.Black);
+    }
+
+    // Called externally by damage sources
+    public void TakeDamage(float amount)
+    {
+        if (currentPhase != BossPhase.White) return; // only white HP gates the phase change
+
+        currentHealth -= amount;
+        if (currentHealth <= 0f)
+        {
+            SwitchToBlackPhase();
+        }
     }
 }
