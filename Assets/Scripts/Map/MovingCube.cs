@@ -9,15 +9,15 @@ public class NewBehaviourScript : MonoBehaviour
     private void Update()
     {
         timer += Time.deltaTime;
-        if (timer < 4f)
+        if (timer < 3f)
         {
-            transform.position += new Vector3(2f, 0f, 0f) * Time.deltaTime;
+            transform.position += new Vector3(0f, 2f, 0f) * Time.deltaTime;
         }
-        if (timer >= 4f && timer < 8f)
+        if (timer >= 3f && timer < 6f)
         {
-            transform.position += new Vector3(-2f, 0f, 0f) * Time.deltaTime;
+            transform.position += new Vector3(0f, -2f, 0f) * Time.deltaTime;
         }
-        if (timer >= 8f)
+        if (timer >= 6f)
         {
             timer = 0f;
         }

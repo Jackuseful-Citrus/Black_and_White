@@ -80,11 +80,7 @@ public class LightBallScript : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Player"))
         {
-            
-        }
-        else
-        {
-            Destroy(gameObject);
+            // 不与玩家碰撞
         }
     }
 
