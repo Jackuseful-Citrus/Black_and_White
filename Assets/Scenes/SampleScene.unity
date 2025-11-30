@@ -895,6 +895,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 2972626831866315306, guid: fb67847f8d348324bbd2292385df670f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4917184792122775093, guid: fb67847f8d348324bbd2292385df670f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.43
@@ -1884,7 +1888,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 750198040953583362, guid: 5912e6f385063ef4795b6cdf74dc4993, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.74
+      value: -2.34
       objectReference: {fileID: 0}
     - target: {fileID: 750198040953583362, guid: 5912e6f385063ef4795b6cdf74dc4993, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1948,7 +1952,11 @@ PrefabInstance:
       objectReference: {fileID: 1433369788}
     - target: {fileID: 8963888372664110853, guid: 5912e6f385063ef4795b6cdf74dc4993, type: 3}
       propertyPath: attackType
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8963888372664110853, guid: 5912e6f385063ef4795b6cdf74dc4993, type: 3}
+      propertyPath: recoilForce
+      value: 0.97
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7538596194765393777, guid: 5912e6f385063ef4795b6cdf74dc4993, type: 3}
