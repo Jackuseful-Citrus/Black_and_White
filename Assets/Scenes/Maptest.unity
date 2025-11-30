@@ -1819,48 +1819,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b79ee0fe767a6d64bbb6ae0cd99295cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyColor: 0
-  attackType: 0
-  maxHealth: 50
-  moveSpeed: 3
-  damage: 10
-  moveAcceleration: 1
-  rotationSpeed: 360
-  playerDetectionRange: 5
-  enemyDetectionRange: 5
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 1
-  whiteEnemyLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  blackEnemyLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  bulletPrefab: {fileID: 0}
-  firePoint: {fileID: 0}
-  rangedAttackRange: 8
-  rangedAttackCooldown: 2
-  bulletSpeed: 10
-  minRangedDistance: 5
-  maxRangedDistance: 7
-  meleeAttackRange: 1.5
-  meleeAttackCooldown: 1.5
-  meleeChaseSpeed: 4
-  attackAnimationDuration: 0.3
-  enablePatrol: 1
-  patrolRadius: 1.44
-  patrolSpeed: 1.5
-  waypointReachDistance: 0.5
-  attackRange: 1.07
-  attackCooldown: 1.5
-  attackHeightTolerance: 0.8
-  detectHeightTolerance: 1
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 8
-  groundCheckExtraHeight: 0.1
-  ledgeCheckDistance: 0.2
 --- !u!1 &1230489701
 GameObject:
   m_ObjectHideFlags: 0
@@ -2868,48 +2826,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b79ee0fe767a6d64bbb6ae0cd99295cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyColor: 0
-  attackType: 0
-  maxHealth: 50
-  moveSpeed: 3
-  damage: 10
-  moveAcceleration: 1
-  rotationSpeed: 360
-  playerDetectionRange: 5
-  enemyDetectionRange: 5
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 1
-  whiteEnemyLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  blackEnemyLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  bulletPrefab: {fileID: 0}
-  firePoint: {fileID: 0}
-  rangedAttackRange: 8
-  rangedAttackCooldown: 2
-  bulletSpeed: 10
-  minRangedDistance: 5
-  maxRangedDistance: 7
-  meleeAttackRange: 1.5
-  meleeAttackCooldown: 1.5
-  meleeChaseSpeed: 4
-  attackAnimationDuration: 0.3
-  enablePatrol: 1
-  patrolRadius: 3.36
-  patrolSpeed: 1.5
-  waypointReachDistance: 0.5
-  attackRange: 1.07
-  attackCooldown: 1.5
-  attackHeightTolerance: 0.8
-  detectHeightTolerance: 1
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 8
-  groundCheckExtraHeight: 0.1
-  ledgeCheckDistance: 0.2
 --- !u!1 &1794355080
 GameObject:
   m_ObjectHideFlags: 0
@@ -3979,9 +3895,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 79095479790069923, guid: a24d8fb1c805884478032e8ac1c31ea9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 478050041244638283, guid: a24d8fb1c805884478032e8ac1c31ea9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.39
+      objectReference: {fileID: 0}
+    - target: {fileID: 478050041244638283, guid: a24d8fb1c805884478032e8ac1c31ea9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.49
+      objectReference: {fileID: 0}
     - target: {fileID: 484681280615418621, guid: a24d8fb1c805884478032e8ac1c31ea9, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 1010404134997760833, guid: a24d8fb1c805884478032e8ac1c31ea9, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1252485469389819182, guid: a24d8fb1c805884478032e8ac1c31ea9, type: 3}
       propertyPath: m_LocalPosition.y
