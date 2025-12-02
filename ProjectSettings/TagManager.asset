@@ -13,6 +13,7 @@ TagManager:
   - BossWall
   - WhiteEnemy
   - BlackEnemy
+  - Torch
   layers:
   - Default
   - TransparentFX
@@ -25,7 +26,7 @@ TagManager:
   - Enemy
   - Enemy_White
   - Enemy_Black
-  - 
+  - Torch
   - 
   - 
   - 

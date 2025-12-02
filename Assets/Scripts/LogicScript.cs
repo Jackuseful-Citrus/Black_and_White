@@ -20,6 +20,8 @@ public class LogicScript : MonoBehaviour
     public Image whiteBarImage;
     private float maxWidth; // 黑白条最大宽度,即初始宽度
 
+    private Vector3 respawnPoint;
+
     private void Awake()
     {
         if (Instance == null)
@@ -40,8 +42,33 @@ public class LogicScript : MonoBehaviour
             Debug.LogError("[LogicScript] Player 物体上未找到 PlayerControl 脚本！");
         }
         
+        if (player != null)
+        {
+            respawnPoint = player.transform.position;
+        }
+
         // 获取黑白条的最大宽度
         maxWidth = blackBarImage.rectTransform.rect.width;
+    }
+
+    public void SetRespawnPoint(Vector3 position)
+    {
+        respawnPoint = position;
+        Debug.Log($"[LogicScript] Respawn point updated to {position}");
+    }
+
+    public void RespawnPlayer()
+    {
+        if (player != null)
+        {
+            player.transform.position = respawnPoint;
+            // 初始化黑白条
+            blackBar = 50; 
+            whiteBar = 50;
+            blackBarMin = 0;
+            whiteBarMin = 0;
+            Debug.Log("[LogicScript] Player respawned and stats reset.");
+        }
     }
 
     private void UpdateBlackBarValue(float x)
@@ -177,7 +204,8 @@ public class LogicScript : MonoBehaviour
 
         if (blackBar >= 100 || whiteBar >= 100)
         {
-            Debug.Log("Game Over");
+            Debug.Log("Game Over - Respawning...");
+            RespawnPlayer();
         }
         
     }
