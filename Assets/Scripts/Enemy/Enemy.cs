@@ -444,6 +444,16 @@ public class Enemy : MonoBehaviour
                 GenerateNewPatrolTarget();
             }
             MoveTowards(currentPatrolTarget, patrolSpeed);
+
+            // 远程敌人巡逻时也进行左右翻转
+            Vector2 dir = (currentPatrolTarget - transform.position).normalized;
+            if (Mathf.Abs(dir.x) > 0.01f)
+            {
+                Vector3 scale = transform.localScale;
+                scale.x = Mathf.Sign(dir.x) * Mathf.Abs(scale.x);
+                transform.localScale = scale;
+            }
+            transform.rotation = Quaternion.identity;
         }
     }
 
@@ -511,23 +521,13 @@ public class Enemy : MonoBehaviour
         Vector2 direction = (currentTarget.position - transform.position).normalized;
         if (direction == Vector2.zero) return;
 
-        if (attackType == AttackType.Melee)
+        if (Mathf.Abs(direction.x) > 0.01f)
         {
-            if (Mathf.Abs(direction.x) > 0.01f)
-            {
-                Vector3 scale = transform.localScale;
-                scale.x = Mathf.Sign(direction.x) * Mathf.Abs(scale.x);
-                transform.localScale = scale;
-            }
-            transform.rotation = Quaternion.identity;
+            Vector3 scale = transform.localScale;
+            scale.x = Mathf.Sign(direction.x) * Mathf.Abs(scale.x);
+            transform.localScale = scale;
         }
-        else
-        {
-            float targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            float currentAngle = transform.eulerAngles.z;
-            float newAngle = Mathf.MoveTowardsAngle(currentAngle, targetAngle, rotationSpeed * Time.deltaTime);
-            transform.rotation = Quaternion.Euler(0, 0, newAngle);
-        }
+        transform.rotation = Quaternion.identity;
     }
     
     protected virtual void FindPlayer()
