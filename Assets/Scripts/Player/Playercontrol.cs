@@ -144,7 +144,7 @@ public class PlayerControl : MonoBehaviour
             rb.velocity = new Vector2(0f, 0f);
         }
         else if ((isAttacking && !isInAttackRecovery)|| isInAttackProgress){
-            rb.velocity = new Vector2(0f, rb.velocity.y);
+            rb.velocity = new Vector2(rb.velocity.x *0.9f, rb.velocity.y);
         }
         else
         {
