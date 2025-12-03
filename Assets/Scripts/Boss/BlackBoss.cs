@@ -1,0 +1,156 @@
+using UnityEngine;
+
+[RequireComponent(typeof(Rigidbody2D))]
+public class BlackBoss : MonoBehaviour
+{
+    [Header("Charge Movement")]
+    [SerializeField] private float blackChargeSpeed = 10f;
+    [SerializeField] private float blackRestDuration = 3f;
+    [SerializeField] private float minChargeDuration = 0.25f;
+    [SerializeField] private float maxChargeDuration = 1.5f;
+
+    [Header("Targeting")]
+    [SerializeField] private PlayerControl mainPlayer;
+    [SerializeField] private Transform mirrorPlayer; // optional mirror target
+
+    [Header("Body (visual)")]
+    [SerializeField] private GameObject blackBody;
+
+    private Rigidbody2D rb;
+    private bool isCharging;
+    private float chargeTimer;
+    private float restTimer;
+    private Vector2 chargeDir;
+    private Transform cachedMirror;
+    private bool fightActive;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        rb.gravityScale = 0f;
+        rb.freezeRotation = true;
+        rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+        rb.interpolation = RigidbodyInterpolation2D.Interpolate;
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+    }
+
+    private void Start()
+    {
+        restTimer = 0f; // start charging immediately
+        if (mainPlayer == null)
+        {
+            mainPlayer = FindObjectOfType<PlayerControl>();
+        }
+
+        if (mirrorPlayer != null)
+        {
+            cachedMirror = mirrorPlayer;
+        }
+
+        if (blackBody != null) blackBody.SetActive(true);
+    }
+
+    private void FixedUpdate()
+    {
+        if (!fightActive)
+        {
+            rb.velocity = Vector2.zero;
+            return;
+        }
+
+        TickChargeState();
+    }
+
+    private void TickChargeState()
+    {
+        if (isCharging)
+        {
+            chargeTimer -= Time.fixedDeltaTime;
+            rb.velocity = chargeDir * blackChargeSpeed;
+
+            if (chargeTimer <= 0f)
+            {
+                StopCharge();
+            }
+        }
+        else
+        {
+            rb.velocity = Vector2.zero;
+            restTimer -= Time.fixedDeltaTime;
+            if (restTimer <= 0f)
+            {
+                StartCharge();
+            }
+        }
+    }
+
+    private void StartCharge()
+    {
+        Vector3 targetPos = GetBlackPlayerPosition();
+        Vector2 dir = (targetPos - transform.position).normalized;
+        if (dir == Vector2.zero) dir = Vector2.right;
+
+        chargeDir = dir;
+        float estimatedTime = Vector2.Distance(transform.position, targetPos) / Mathf.Max(blackChargeSpeed, 0.01f);
+        chargeTimer = Mathf.Clamp(estimatedTime, minChargeDuration, maxChargeDuration);
+        isCharging = true;
+    }
+
+    private void StopCharge()
+    {
+        isCharging = false;
+        rb.velocity = Vector2.zero;
+        restTimer = blackRestDuration;
+    }
+
+    private Vector3 GetBlackPlayerPosition()
+    {
+        if (mainPlayer == null)
+        {
+            mainPlayer = FindObjectOfType<PlayerControl>();
+        }
+
+        if (mainPlayer != null && mainPlayer.isBlack)
+        {
+            return mainPlayer.transform.position;
+        }
+
+        if (mirrorPlayer == null && cachedMirror == null)
+        {
+            cachedMirror = GameObject.FindWithTag("PlayerMirror")?.transform;
+        }
+        else if (mirrorPlayer != null)
+        {
+            cachedMirror = mirrorPlayer;
+        }
+
+        if (cachedMirror != null)
+        {
+            return cachedMirror.position;
+        }
+
+        return transform.position + Vector3.right;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // end the charge when colliding with any obstacle in the scene
+        if (isCharging)
+        {
+            StopCharge();
+        }
+    }
+
+    public void BeginFight()
+    {
+        fightActive = true;
+        restTimer = 0f; // immediately start first charge loop
+    }
+
+    public void PauseFight()
+    {
+        fightActive = false;
+        isCharging = false;
+        rb.velocity = Vector2.zero;
+    }
+}
