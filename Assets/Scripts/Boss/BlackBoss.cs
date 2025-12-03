@@ -3,6 +3,10 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class BlackBoss : MonoBehaviour
 {
+    [Header("Phase Control")]
+    [SerializeField] private float phaseDuration = 8f;
+    [SerializeField] private float maxHealth = 12f;
+
     [Header("Charge Movement")]
     [SerializeField] private float blackChargeSpeed = 10f;
     [SerializeField] private float blackRestDuration = 3f;
@@ -23,6 +27,12 @@ public class BlackBoss : MonoBehaviour
     private Vector2 chargeDir;
     private Transform cachedMirror;
     private bool fightActive;
+    private float currentHealth;
+    private float phaseStartTime;
+    private bool phaseEnded;
+
+    public System.Action onPhaseEnded;
+    public System.Action onBossDied;
 
     private void Awake()
     {
@@ -48,6 +58,9 @@ public class BlackBoss : MonoBehaviour
         }
 
         if (blackBody != null) blackBody.SetActive(true);
+
+        currentHealth = maxHealth;
+        phaseStartTime = Time.time;
     }
 
     private void FixedUpdate()
@@ -59,6 +72,16 @@ public class BlackBoss : MonoBehaviour
         }
 
         TickChargeState();
+    }
+
+    private void Update()
+    {
+        if (!fightActive || phaseEnded) return;
+
+        if (phaseDuration > 0f && Time.time - phaseStartTime >= phaseDuration)
+        {
+            EndPhase(false);
+        }
     }
 
     private void TickChargeState()
@@ -145,6 +168,8 @@ public class BlackBoss : MonoBehaviour
     {
         fightActive = true;
         restTimer = 0f; // immediately start first charge loop
+        phaseStartTime = Time.time;
+        phaseEnded = false;
     }
 
     public void PauseFight()
@@ -152,5 +177,45 @@ public class BlackBoss : MonoBehaviour
         fightActive = false;
         isCharging = false;
         rb.velocity = Vector2.zero;
+    }
+
+    public void ConfigurePhase(float duration, float health)
+    {
+        phaseDuration = duration;
+        maxHealth = health;
+        currentHealth = maxHealth;
+        phaseStartTime = Time.time;
+        phaseEnded = false;
+    }
+
+    public void TakeDamage(float amount)
+    {
+        if (phaseEnded) return;
+
+        currentHealth -= amount;
+        if (currentHealth <= 0f)
+        {
+            EndPhase(true);
+        }
+    }
+
+    public void ForceEndPhase()
+    {
+        EndPhase(false);
+    }
+
+    private void EndPhase(bool wasKilled)
+    {
+        if (phaseEnded) return;
+        phaseEnded = true;
+        fightActive = false;
+        isCharging = false;
+        rb.velocity = Vector2.zero;
+
+        onPhaseEnded?.Invoke();
+        if (wasKilled)
+        {
+            onBossDied?.Invoke();
+        }
     }
 }

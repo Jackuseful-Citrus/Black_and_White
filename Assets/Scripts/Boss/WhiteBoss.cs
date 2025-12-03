@@ -29,6 +29,7 @@ public class WhiteBoss : MonoBehaviour
     private float currentHealth;
     private float phaseStartTime;
     private bool phaseEnded;
+    private bool roarLocked;
 
     public System.Action onPhaseEnded;
 
@@ -58,7 +59,7 @@ public class WhiteBoss : MonoBehaviour
 
     private void Update()
     {
-        if (phaseEnded) return;
+        if (phaseEnded || roarLocked) return;
 
         if (Time.time >= nextAttackTime)
         {
@@ -74,7 +75,7 @@ public class WhiteBoss : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (phaseEnded) return;
+        if (phaseEnded || roarLocked) return;
 
         // keep constant speed
         if (moveDir == Vector2.zero) moveDir = Vector2.right;
@@ -173,5 +174,14 @@ public class WhiteBoss : MonoBehaviour
         rb.isKinematic = true; // stop physics collisions during retreat
         var col = GetComponent<Collider2D>();
         if (col != null) col.enabled = false;
+    }
+
+    public void SetRoarLock(bool locked)
+    {
+        roarLocked = locked;
+        if (locked && rb != null)
+        {
+            rb.velocity = Vector2.zero;
+        }
     }
 }

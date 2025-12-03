@@ -7,7 +7,6 @@ public class StartGame : MonoBehaviour
 
     public void OnStartClicked()
     {
-        Debug.Log($"StartGame: loading scene '{sceneName}'");
         SceneManager.LoadScene(sceneName);
     }
 }

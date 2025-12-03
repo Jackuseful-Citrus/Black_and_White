@@ -23,6 +23,14 @@ public class BossRoomManager : MonoBehaviour
     public Transform blackEntranceStart;
     public Transform blackEntranceEnd;
     public float blackEntranceDuration = 1.2f;
+    public float blackPhaseDuration = 8f;
+    public float blackPhaseMaxHealth = 15f;
+
+    [Header("Final Dual Phase")]
+    public Transform finalWhiteSpawnPoint;
+    public Transform finalBlackSpawnPoint;
+    public float finalBlackPhaseDuration = 10f;
+    public float finalBlackPhaseMaxHealth = 20f;
 
     [Header("Roar Effect")]
     public GameObject roarEffectPrefab;
@@ -39,6 +47,7 @@ public class BossRoomManager : MonoBehaviour
     private BlackBoss activeBlack;
     private bool fightRunning;
     private bool whitePhaseFinished;
+    private bool blackPhaseFinished;
 
     private void Awake()
     {
@@ -136,6 +145,8 @@ public class BossRoomManager : MonoBehaviour
         {
             activeWhite.ConfigurePhase(whitePhaseDuration, whitePhaseMaxHealth);
             activeWhite.onPhaseEnded += OnWhitePhaseEnded;
+            // 入场吼叫效果（与黑 Boss 相同的光波 + 仰头）
+            StartCoroutine(PlayRoarWaves(activeWhite.transform));
         }
         else
         {
@@ -150,11 +161,20 @@ public class BossRoomManager : MonoBehaviour
 
         // 4. 黑 Boss 从右上角入场并吼叫特效
         yield return SpawnBlackBossWithEntrance();
+
+        // 5. 等待黑 Boss 阶段结束（死亡或时间结束），然后召唤双 Boss 同时吼叫
+        yield return WaitForBlackPhaseEnd();
+        yield return SpawnDualBossRoarPhase();
     }
 
     private void OnWhitePhaseEnded()
     {
         whitePhaseFinished = true;
+    }
+
+    private void OnBlackPhaseEnded()
+    {
+        blackPhaseFinished = true;
     }
 
     private IEnumerator RetreatWhiteBoss()
@@ -198,6 +218,9 @@ public class BossRoomManager : MonoBehaviour
         activeBlack = blackObj.GetComponent<BlackBoss>();
         if (activeBlack != null)
         {
+            blackPhaseFinished = false;
+            activeBlack.ConfigurePhase(blackPhaseDuration, blackPhaseMaxHealth);
+            activeBlack.onPhaseEnded += OnBlackPhaseEnded;
             activeBlack.PauseFight();
         }
         else
@@ -207,6 +230,67 @@ public class BossRoomManager : MonoBehaviour
 
         yield return MoveTransform(blackObj.transform, entranceEnd, blackEntranceDuration);
         yield return PlayRoarWaves(blackObj.transform);
+
+        if (activeBlack != null)
+        {
+            activeBlack.BeginFight();
+        }
+    }
+
+    private IEnumerator WaitForBlackPhaseEnd()
+    {
+        yield return new WaitUntil(() => blackPhaseFinished || activeBlack == null);
+
+        if (activeBlack != null)
+        {
+            activeBlack.onPhaseEnded -= OnBlackPhaseEnded;
+            Destroy(activeBlack.gameObject);
+            activeBlack = null;
+        }
+    }
+
+    private IEnumerator SpawnDualBossRoarPhase()
+    {
+        if (whiteBossPrefab == null || blackBossPrefab == null)
+        {
+            Debug.LogError("[BossRoomManager] 需要白/黑 Boss 预制体来启动第三阶段！");
+            yield break;
+        }
+
+        Vector3 whitePos = finalWhiteSpawnPoint != null ? finalWhiteSpawnPoint.position :
+            (whiteSpawnPoint != null ? whiteSpawnPoint.position : transform.position);
+        Vector3 blackPos = finalBlackSpawnPoint != null ? finalBlackSpawnPoint.position :
+            (blackEntranceEnd != null ? blackEntranceEnd.position : transform.position);
+
+        GameObject whiteObj = Instantiate(whiteBossPrefab, whitePos, Quaternion.identity);
+        activeWhite = whiteObj.GetComponent<WhiteBoss>();
+        if (activeWhite != null)
+        {
+            activeWhite.ConfigurePhase(whitePhaseDuration, whitePhaseMaxHealth);
+        }
+
+        GameObject blackObj = Instantiate(blackBossPrefab, blackPos, Quaternion.identity);
+        activeBlack = blackObj.GetComponent<BlackBoss>();
+        if (activeBlack != null)
+        {
+            activeBlack.PauseFight();
+            activeBlack.ConfigurePhase(finalBlackPhaseDuration, finalBlackPhaseMaxHealth);
+        }
+
+        Coroutine whiteRoar = null;
+        if (activeWhite != null)
+        {
+            whiteRoar = StartCoroutine(PlayRoarWaves(activeWhite.transform));
+        }
+
+        Coroutine blackRoar = null;
+        if (activeBlack != null)
+        {
+            blackRoar = StartCoroutine(PlayRoarWaves(activeBlack.transform));
+        }
+
+        if (whiteRoar != null) yield return whiteRoar;
+        if (blackRoar != null) yield return blackRoar;
 
         if (activeBlack != null)
         {
@@ -231,10 +315,19 @@ public class BossRoomManager : MonoBehaviour
 
     private IEnumerator PlayRoarWaves(Transform boss)
     {
+        if (boss == null) yield break;
+
         if (roarEffectPrefab == null)
         {
             Debug.LogWarning("[BossRoomManager] roarEffectPrefab 未设置，跳过吼叫特效");
             yield break;
+        }
+
+        // 暂停白 Boss 的移动/攻击，让吼叫时保持静止
+        var white = boss.GetComponent<WhiteBoss>();
+        if (white != null)
+        {
+            white.SetRoarLock(true);
         }
 
         Quaternion originalRot = boss.rotation;
@@ -246,14 +339,25 @@ public class BossRoomManager : MonoBehaviour
 
         for (int i = 0; i < roarWaves; i++)
         {
-            GameObject wave = Instantiate(roarEffectPrefab, boss.position, Quaternion.identity);
+            if (boss == null) break;
+
+            Vector3 spawnPos = boss.position;
+            GameObject wave = Instantiate(roarEffectPrefab, spawnPos, Quaternion.identity);
             yield return ScaleOverTime(wave.transform, roarStartScale, roarEndScale, roarWaveDuration);
             Destroy(wave);
             yield return new WaitForSeconds(roarWaveInterval);
         }
 
-        boss.rotation = originalRot;
-        boss.localScale = originalScale;
+        if (boss != null)
+        {
+            boss.rotation = originalRot;
+            boss.localScale = originalScale;
+
+            if (white != null)
+            {
+                white.SetRoarLock(false);
+            }
+        }
     }
 
     private IEnumerator ScaleOverTime(Transform target, Vector3 from, Vector3 to, float duration)

@@ -73,6 +73,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4e18141ecbef9f419a0ff18b0ef3ec4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  phaseDuration: 8
+  maxHealth: 12
   blackChargeSpeed: 10
   blackRestDuration: 3
   minChargeDuration: 0.25
@@ -198,9 +200,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.02967453}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 5.5152473
 --- !u!95 &8885719691827287945
 Animator:
   serializedVersion: 5
