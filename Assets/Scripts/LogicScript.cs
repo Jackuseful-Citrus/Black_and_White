@@ -162,6 +162,16 @@ public class LogicScript : MonoBehaviour
         whiteBar += 2;
     }
 
+    public void AddBlackBar(int amount)
+    {
+        blackBar += amount;
+    }
+
+    public void AddWhiteBar(int amount)
+    {
+        whiteBar += amount;
+    }
+
     private void Update()
     {   
         //场景黑白条交互
