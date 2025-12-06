@@ -423,6 +423,10 @@ PrefabInstance:
       propertyPath: trapType
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5802949897810192162, guid: 25027ebdd9ab6d44f8d7f220eac930e7, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7735861830704942160, guid: 25027ebdd9ab6d44f8d7f220eac930e7, type: 3}
       propertyPath: m_Name
       value: WhiteTrap
@@ -2122,6 +2126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cfde199d7bbc6249b7f5667a0a73fec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 20
 --- !u!1001 &2067514432
 PrefabInstance:
   m_ObjectHideFlags: 0

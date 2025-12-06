@@ -6,6 +6,7 @@ public class LightBallScript : MonoBehaviour
 {
     [SerializeField] private float acceleration = 2f;
     [SerializeField] private float maxSpeed = 4f;
+    [SerializeField] private float damage = 10f;
     private Vector3 launchDir = Vector3.zero;
     private Vector3 velocity = Vector3.zero;
     private float speed = 0f;
@@ -62,6 +63,13 @@ public class LightBallScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        // 尝试获取 Enemy 组件并造成伤害
+        Enemy enemy = collision.GetComponent<Enemy>();
+        if (enemy != null)
+        {
+            enemy.TakeDamage(damage);
+        }
+
         if (collision.gameObject.CompareTag("WhiteEnemy"))
         {
             if (LogicScript.Instance != null)
@@ -81,6 +89,11 @@ public class LightBallScript : MonoBehaviour
         else if (collision.gameObject.CompareTag("Player"))
         {
             // 不与玩家碰撞
+        }
+        // 碰到墙壁或地面销毁
+        else if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Ground"))
+        {
+            Destroy(gameObject);
         }
     }
 
