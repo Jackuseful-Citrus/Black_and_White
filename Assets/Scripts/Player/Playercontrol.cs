@@ -35,6 +35,13 @@ public class PlayerControl : MonoBehaviour
     private PlayerAnimationController animCtrl;
     private bool isInAttackRecovery = false;
     private bool isInAttackProgress = false;
+    
+    private float speedMultiplier = 1f;
+
+    public void SetSpeedMultiplier(float multiplier)
+    {
+        speedMultiplier = multiplier;
+    }
 
     private void Start()
     {
@@ -148,7 +155,7 @@ public class PlayerControl : MonoBehaviour
         }
         else
         {
-            rb.velocity = new Vector2(horiz * speed, rb.velocity.y);
+            rb.velocity = new Vector2(horiz * speed * speedMultiplier, rb.velocity.y);
         }
     }
 
