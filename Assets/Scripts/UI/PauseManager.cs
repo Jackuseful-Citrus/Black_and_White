@@ -2,19 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement; 
+using UnityEngine.UI;
 
 public class PauseManager : MonoBehaviour
 
 {
     public GameObject pausePanel;  
     public bool isPaused = false;  
+  
 
     void Update()
     {
     
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            TogglePause();
+            TogglePause();  
         }
     }
 
@@ -25,7 +27,8 @@ public class PauseManager : MonoBehaviour
         if (isPaused)
         {
             Time.timeScale = 0; 
-            pausePanel.SetActive(true); 
+            pausePanel.SetActive(true);
+
         }
         else
         {
@@ -41,7 +44,6 @@ public class PauseManager : MonoBehaviour
 
     public void Resume()
     {
-        Debug.Log("Resume button clicked");
         TogglePause();
     }
 
