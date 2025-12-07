@@ -3,9 +3,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class BlackBoss : MonoBehaviour
 {
-    [Header("Phase Control")]
-    [SerializeField] private float phaseDuration = 8f;
-    [SerializeField] private float maxHealth = 12f;
+    private float phaseDuration = 0f;
+    private float maxHealth = 0f;
 
     [Header("Charge Movement")]
     [SerializeField] private float blackChargeSpeed = 10f;
@@ -157,10 +156,33 @@ public class BlackBoss : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        TryHitByBlade(collision.otherCollider);
+
+        if (collision.gameObject.CompareTag("Player") && LogicScript.Instance != null)
+        {
+            LogicScript.Instance.HitByBlackEnemy();
+        }
+
         // end the charge when colliding with any obstacle in the scene
         if (isCharging)
         {
             StopCharge();
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        TryHitByBlade(other);
+    }
+
+    private void TryHitByBlade(Collider2D col)
+    {
+        var blade = col.GetComponent<BladeScript>();
+        if (blade != null)
+        {
+            float dmg = blade.GetBossDamage();
+            Debug.Log($"[BlackBoss] Hit by Blade ({col.name}), dealing {dmg}");
+            TakeDamage(dmg);
         }
     }
 
@@ -218,4 +240,6 @@ public class BlackBoss : MonoBehaviour
             onBossDied?.Invoke();
         }
     }
+
+    public bool HasPhaseEnded => phaseEnded;
 }

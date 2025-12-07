@@ -5,6 +5,7 @@ public class BossRoomManager : MonoBehaviour
 {
     [Header("主角")]
     public PlayerControl mainPlayer;
+    public BossEntrance bossEntrance;
 
     [Header("分身预制体")]
     public GameObject mirrorPlayerPrefab;
@@ -26,11 +27,17 @@ public class BossRoomManager : MonoBehaviour
     public float blackPhaseDuration = 8f;
     public float blackPhaseMaxHealth = 15f;
 
-    [Header("Final Dual Phase")]
+    [Header("Final Dual Phase")] 
     public Transform finalWhiteSpawnPoint;
     public Transform finalBlackSpawnPoint;
     public float finalBlackPhaseDuration = 10f;
     public float finalBlackPhaseMaxHealth = 20f;
+
+    [Header("Final Phase Overlay")]
+    public SpriteRenderer finalPhaseOverlay;
+    public float finalPhaseOverlayFadeDuration = 2f;
+    public float finalPhaseOverlayRotationSpeed = 60f;
+    [Range(0f, 1f)] public float finalPhaseOverlayTargetAlpha = 0.5f;
 
     [Header("Roar Effect")]
     public GameObject roarEffectPrefab;
@@ -129,6 +136,42 @@ public class BossRoomManager : MonoBehaviour
         StartCoroutine(BossSequence());
     }
 
+    public void ResetEncounter()
+    {
+        StopAllCoroutines();
+        fightRunning = false;
+        whitePhaseFinished = false;
+        blackPhaseFinished = false;
+
+        if (activeWhite != null)
+        {
+            Destroy(activeWhite.gameObject);
+            activeWhite = null;
+        }
+
+        if (activeBlack != null)
+        {
+            Destroy(activeBlack.gameObject);
+            activeBlack = null;
+        }
+
+        if (mirrorInstance != null)
+        {
+            Destroy(mirrorInstance);
+            mirrorInstance = null;
+        }
+
+        if (bossEntrance == null)
+        {
+            bossEntrance = FindObjectOfType<BossEntrance>();
+        }
+
+        if (bossEntrance != null)
+        {
+            bossEntrance.gameObject.SetActive(true);
+        }
+    }
+
     private IEnumerator BossSequence()
     {
         // 2. 生成白 Boss 并等待阶段结束
@@ -176,6 +219,7 @@ public class BossRoomManager : MonoBehaviour
     {
         blackPhaseFinished = true;
     }
+    
 
     private IEnumerator RetreatWhiteBoss()
     {
@@ -292,9 +336,39 @@ public class BossRoomManager : MonoBehaviour
         if (whiteRoar != null) yield return whiteRoar;
         if (blackRoar != null) yield return blackRoar;
 
+        Coroutine overlay = null;
+        if (finalPhaseOverlay != null)
+        {
+            overlay = StartCoroutine(PlayFinalOverlay());
+        }
+        else
+        {
+            Debug.LogWarning("[BossRoomManager] finalPhaseOverlay 未设置，跳过终幕贴图效果");
+        }
+
+        if (overlay != null) yield return overlay;
+
         if (activeBlack != null)
         {
             activeBlack.BeginFight();
+        }
+
+        // Final phase: survive the timer, then both bosses roar once and despawn (regardless of HP)
+        yield return new WaitForSeconds(finalBlackPhaseDuration);
+
+        if (activeWhite != null)
+        {
+            yield return PlayRoarWaves(activeWhite.transform);
+            Destroy(activeWhite.gameObject);
+            activeWhite = null;
+        }
+
+        if (activeBlack != null)
+        {
+            activeBlack.PauseFight();
+            yield return PlayRoarWaves(activeBlack.transform);
+            Destroy(activeBlack.gameObject);
+            activeBlack = null;
         }
     }
 
@@ -384,4 +458,34 @@ public class BossRoomManager : MonoBehaviour
         topRight.z = 0f;
         return topRight;
     }
+
+    private IEnumerator PlayFinalOverlay()
+    {
+        if (finalPhaseOverlay == null) yield break;
+
+        finalPhaseOverlay.gameObject.SetActive(true);
+        Color c = finalPhaseOverlay.color;
+        c.a = 0f;
+        finalPhaseOverlay.color = c;
+
+        float timer = 0f;
+        while (timer < finalPhaseOverlayFadeDuration)
+        {
+            float t = Mathf.Clamp01(timer / Mathf.Max(finalPhaseOverlayFadeDuration, 0.01f));
+            c.a = Mathf.Lerp(0f, finalPhaseOverlayTargetAlpha, t);
+            finalPhaseOverlay.color = c;
+            finalPhaseOverlay.transform.Rotate(Vector3.forward, finalPhaseOverlayRotationSpeed * Time.deltaTime);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        c.a = finalPhaseOverlayTargetAlpha;
+        finalPhaseOverlay.color = c;
+        while (finalPhaseOverlay != null && finalPhaseOverlay.gameObject.activeInHierarchy)
+        {
+            finalPhaseOverlay.transform.Rotate(Vector3.forward, finalPhaseOverlayRotationSpeed * Time.deltaTime);
+            yield return null;
+        }
+    }
+
 }

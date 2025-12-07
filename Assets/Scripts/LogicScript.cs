@@ -8,6 +8,7 @@ public class LogicScript : MonoBehaviour
     public static LogicScript Instance;
 
     [SerializeField] GameObject player;
+    [SerializeField] BossRoomManager bossRoomManager;
     private PlayerControl playerControl;
     private int blackBar = 50;  //测试用，实际应为0
     private int whiteBar = 50;  //测试用，实际应为0
@@ -47,6 +48,11 @@ public class LogicScript : MonoBehaviour
             respawnPoint = player.transform.position;
         }
 
+        if (bossRoomManager == null)
+        {
+            bossRoomManager = FindObjectOfType<BossRoomManager>();
+        }
+
         // 获取黑白条的最大宽度
         maxWidth = blackBarImage.rectTransform.rect.width;
     }
@@ -68,6 +74,11 @@ public class LogicScript : MonoBehaviour
             blackBarMin = 0;
             whiteBarMin = 0;
             Debug.Log("[LogicScript] Player respawned and stats reset.");
+
+            if (bossRoomManager != null)
+            {
+                bossRoomManager.ResetEncounter();
+            }
         }
     }
 

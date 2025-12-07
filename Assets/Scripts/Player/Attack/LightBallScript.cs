@@ -90,10 +90,31 @@ public class LightBallScript : MonoBehaviour
         {
             // 不与玩家碰撞
         }
-        // 碰到墙壁或地面销毁
-        else if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Ground"))
+        else
         {
-            Destroy(gameObject);
+            var blackBoss = collision.GetComponentInParent<BlackBoss>();
+            if (blackBoss != null)
+            {
+                Debug.Log($"[LightBall] Hit BlackBoss via {collision.name}, dealing {damage}");
+                blackBoss.TakeDamage(damage);
+                Destroy(gameObject);
+                return;
+            }
+
+            var whiteBoss = collision.GetComponentInParent<WhiteBoss>();
+            if (whiteBoss != null)
+            {
+                Debug.Log($"[LightBall] Hit WhiteBoss via {collision.name}, dealing {damage}");
+                whiteBoss.TakeDamage(damage);
+                Destroy(gameObject);
+                return;
+            }
+
+            // 碰到墙壁或地面销毁
+            if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Ground"))
+            {
+                Destroy(gameObject);
+            }
         }
     }
 

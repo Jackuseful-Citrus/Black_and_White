@@ -13,6 +13,8 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] float jumpCutMultiplier = 0.1f;
     [SerializeField] Transform groundCheck;
     [SerializeField] float groundRadius = 0.1f;
+    [SerializeField] float groundCheckDistance = 0.2f; // downwards ground check only
+    [SerializeField] float wallCheckDistance = 0.2f;  // horizontal wall check distance
     [SerializeField] LayerMask groundLayer;
     [SerializeField] GameObject Scythe;
     [SerializeField] GameObject LightBallSpawner;
@@ -35,6 +37,10 @@ public class PlayerControl : MonoBehaviour
     private PlayerAnimationController animCtrl;
     private bool isInAttackRecovery = false;
     private bool isInAttackProgress = false;
+    private bool isOnWall = false;
+    private bool wasOnWall = false;
+    private int airJumpsRemaining = 0;
+    [SerializeField] int maxAirJumpsFromWall = 1000;
     
     private float speedMultiplier = 1f;
 
@@ -54,7 +60,6 @@ public class PlayerControl : MonoBehaviour
         WhiteOutlook.SetActive(false);
         animCtrl = GetComponent<PlayerAnimationController>(); 
 
-        // 使用全局 InputManager 实例
         var actions = InputManager.Instance.PlayerInputActions;
 
         actions.Player.Attack.performed += ctx =>
@@ -71,10 +76,7 @@ public class PlayerControl : MonoBehaviour
 
         actions.Player.Jump.performed += ctx =>
         {
-            if (isGrounded && !isSwitching)
-            {
-                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-            }
+            AttemptJump();
         };
 
         actions.Player.Jump.canceled += ctx =>
@@ -91,11 +93,11 @@ public class PlayerControl : MonoBehaviour
             isSwitching = true;
             if (animCtrl != null)
             {
-                bool toWhite = !isWhiteOutlook;     // 当前是黑的话就是要切到白
+                bool toWhite = !isWhiteOutlook;     // current black means switching to white
                 animCtrl.PlaySwitch(toWhite);
             }
             bool switchToWhite = !isWhiteOutlook;
-            OnSwitchStart?.Invoke(switchToWhite);   // 通知镜像同步播放切换
+            OnSwitchStart?.Invoke(switchToWhite);
             StartCoroutine(SwitchColor(switchToWhite));
         };
 
@@ -109,6 +111,22 @@ public class PlayerControl : MonoBehaviour
         {
             horiz = 0f;
         };
+    }
+
+    private void AttemptJump()
+    {
+        if (isSwitching || rb == null) return;
+
+        if (isGrounded)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            airJumpsRemaining = maxAirJumpsFromWall;
+        }
+        else if (airJumpsRemaining > 0)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            airJumpsRemaining--;
+        }
     }
 
     private IEnumerator SwitchColor(bool toWhite)
@@ -143,8 +161,32 @@ public class PlayerControl : MonoBehaviour
     private void FixedUpdate()
     {
         if (!isActiveAndEnabled) return;
-        isGrounded = groundCheck != null &&
-                     Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer);
+        wasOnWall = isOnWall;
+        isOnWall = false;
+
+        if (groundCheck != null)
+        {
+            isGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, groundLayer);
+        }
+
+        if (!isGrounded)
+        {
+            float dir = Mathf.Abs(horiz) > 0.01f ? Mathf.Sign(horiz) : Mathf.Sign(transform.localScale.x);
+            Vector2 origin = transform.position;
+            if (Physics2D.Raycast(origin, Vector2.right * dir, wallCheckDistance, groundLayer))
+            {
+                isOnWall = true;
+            }
+        }
+
+        if (isGrounded)
+        {
+            airJumpsRemaining = maxAirJumpsFromWall;
+        }
+        else if (isOnWall && !wasOnWall)
+        {
+            airJumpsRemaining = Mathf.Max(airJumpsRemaining, 1);
+        }
 
         if (isSwitching)
         {
@@ -164,20 +206,30 @@ public class PlayerControl : MonoBehaviour
         if (groundCheck != null)
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(groundCheck.position, groundRadius);
+            Vector3 start = groundCheck.position;
+            Vector3 end = start + Vector3.down * groundCheckDistance;
+            Gizmos.DrawLine(start, end);
+            Gizmos.DrawWireSphere(end, groundRadius);
         }
+
+        Gizmos.color = Color.yellow;
+        Vector3 wallStart = transform.position;
+        Vector3 wallEnd = wallStart + Vector3.right * wallCheckDistance;
+        Gizmos.DrawLine(wallStart, wallEnd);
+        Gizmos.DrawWireSphere(wallEnd, 0.05f);
     }
 
     private void OnDisable()
     {
-        // 停止所有协程以防止在禁用时继续执行
         StopAllCoroutines();
-        //重置状态
         isAttacking = false;
         isSwitching = false;
         isInAttackRecovery = false;
         isInAttackProgress = false;
         horiz = 0f;
+        isOnWall = false;
+        wasOnWall = false;
+        airJumpsRemaining = 0;
         if (rb != null)
         {
             rb.velocity = Vector2.zero;

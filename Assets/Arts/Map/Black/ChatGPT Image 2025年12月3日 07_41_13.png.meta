@@ -100,12 +100,12 @@ TextureImporter:
       name: "ChatGPT Image 2025\u5E7412\u67083\u65E5 07_41_13_0"
       rect:
         serializedVersion: 2
-        x: 47
-        y: 687
-        width: 274
-        height: 288
+        x: 50
+        y: 694
+        width: 270
+        height: 270
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -121,12 +121,12 @@ TextureImporter:
       name: "ChatGPT Image 2025\u5E7412\u67083\u65E5 07_41_13_1"
       rect:
         serializedVersion: 2
-        x: 376
-        y: 687
-        width: 274
-        height: 288
+        x: 380
+        y: 697
+        width: 270
+        height: 270
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -142,12 +142,12 @@ TextureImporter:
       name: "ChatGPT Image 2025\u5E7412\u67083\u65E5 07_41_13_2"
       rect:
         serializedVersion: 2
-        x: 705
-        y: 687
-        width: 274
-        height: 288
+        x: 706
+        y: 699
+        width: 270
+        height: 270
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -163,12 +163,12 @@ TextureImporter:
       name: "ChatGPT Image 2025\u5E7412\u67083\u65E5 07_41_13_3"
       rect:
         serializedVersion: 2
-        x: 48
-        y: 362
-        width: 274
-        height: 288
+        x: 50
+        y: 372
+        width: 270
+        height: 270
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -184,12 +184,12 @@ TextureImporter:
       name: "ChatGPT Image 2025\u5E7412\u67083\u65E5 07_41_13_4"
       rect:
         serializedVersion: 2
-        x: 376
-        y: 362
-        width: 274
-        height: 288
+        x: 378
+        y: 371
+        width: 270
+        height: 270
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -205,12 +205,12 @@ TextureImporter:
       name: "ChatGPT Image 2025\u5E7412\u67083\u65E5 07_41_13_5"
       rect:
         serializedVersion: 2
-        x: 705
-        y: 362
-        width: 274
-        height: 288
+        x: 709
+        y: 373
+        width: 270
+        height: 270
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -226,12 +226,12 @@ TextureImporter:
       name: "ChatGPT Image 2025\u5E7412\u67083\u65E5 07_41_13_6"
       rect:
         serializedVersion: 2
-        x: 47
-        y: 43
-        width: 274
-        height: 288
+        x: 51
+        y: 53
+        width: 270
+        height: 270
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -247,12 +247,12 @@ TextureImporter:
       name: "ChatGPT Image 2025\u5E7412\u67083\u65E5 07_41_13_7"
       rect:
         serializedVersion: 2
-        x: 376
-        y: 43
-        width: 274
-        height: 288
+        x: 378
+        y: 52
+        width: 270
+        height: 270
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -268,12 +268,12 @@ TextureImporter:
       name: "ChatGPT Image 2025\u5E7412\u67083\u65E5 07_41_13_8"
       rect:
         serializedVersion: 2
-        x: 704
-        y: 43
-        width: 274
-        height: 288
+        x: 707
+        y: 52
+        width: 270
+        height: 270
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

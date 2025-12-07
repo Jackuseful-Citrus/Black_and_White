@@ -129,7 +129,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   acceleration: 15
-  maxSpeed: 5
+  maxSpeed: 10
+  damage: 10
 --- !u!58 &8267496388635307035
 CircleCollider2D:
   m_ObjectHideFlags: 0

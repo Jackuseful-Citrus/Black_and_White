@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8933136340950639278}
   - component: {fileID: 7634853492722623575}
   - component: {fileID: 5368907767499133526}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BlackBoss
   m_TagString: BlackEnemy
   m_Icon: {fileID: 0}
@@ -73,8 +73,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4e18141ecbef9f419a0ff18b0ef3ec4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  phaseDuration: 8
-  maxHealth: 12
   blackChargeSpeed: 10
   blackRestDuration: 3
   minChargeDuration: 0.25
@@ -94,7 +92,7 @@ GameObject:
   - component: {fileID: 8178099028925506403}
   - component: {fileID: 599535861278771170}
   - component: {fileID: 8885719691827287945}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BlackBossBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -180,7 +178,7 @@ CircleCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -200,9 +198,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.02967453}
+  m_Offset: {x: 0.0000019073486, y: 0.02967453}
   serializedVersion: 2
-  m_Radius: 5.5152473
+  m_Radius: 5.5152493
 --- !u!95 &8885719691827287945
 Animator:
   serializedVersion: 5

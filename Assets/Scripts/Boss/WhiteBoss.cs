@@ -16,9 +16,8 @@ public class WhiteBoss : MonoBehaviour
     [SerializeField] private EnemyBullet.BulletType bulletType = EnemyBullet.BulletType.Black;
     [SerializeField] private float bulletSpawnOffset = 0.7f;
 
-    [Header("Phase Control")]
-    [SerializeField] private float whitePhaseDuration = 5f;
-    [SerializeField] private float whitePhaseMaxHealth = 10f;
+    private float whitePhaseDuration = 0f;
+    private float whitePhaseMaxHealth = 0f;
 
     [Header("Body (visual)")]
     [SerializeField] private GameObject whiteBody;
@@ -127,12 +126,35 @@ public class WhiteBoss : MonoBehaviour
     {
         if (collision.contactCount == 0) return;
 
+        TryHitByBlade(collision.otherCollider);
+
+        if (collision.gameObject.CompareTag("Player") && LogicScript.Instance != null)
+        {
+            LogicScript.Instance.HitByWhiteEnemy();
+        }
+
         // reflect off the surface normal to bounce around the scene
         Vector2 normal = collision.GetContact(0).normal;
         moveDir = Vector2.Reflect(moveDir, normal);
 
         float angle = Random.Range(-randomBounceAngle, randomBounceAngle);
         moveDir = (Quaternion.Euler(0f, 0f, angle) * moveDir).normalized;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        TryHitByBlade(other);
+    }
+
+    private void TryHitByBlade(Collider2D col)
+    {
+        var blade = col.GetComponent<BladeScript>();
+        if (blade != null)
+        {
+            float dmg = blade.GetBossDamage();
+            Debug.Log($"[WhiteBoss] Hit by Blade ({col.name}), dealing {dmg}");
+            TakeDamage(dmg);
+        }
     }
 
     public void TakeDamage(float amount)
@@ -184,4 +206,6 @@ public class WhiteBoss : MonoBehaviour
             rb.velocity = Vector2.zero;
         }
     }
+
+    public bool HasPhaseEnded => phaseEnded;
 }

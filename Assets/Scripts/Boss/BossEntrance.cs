@@ -11,7 +11,7 @@ public class BossEntrance : MonoBehaviour
         if (!other.CompareTag("Player")) return;
 
         bossRoomManager.StartBossFight();
-        gameObject.SetActive(false); // 只触发一次
+        //gameObject.SetActive(false); // 只触发一次
     }
 }
 
