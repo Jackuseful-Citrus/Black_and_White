@@ -25,6 +25,24 @@ public class ButtonHoverEffect : MonoBehaviour, IPointerEnterHandler, IPointerEx
         TryInitialize();
     }
 
+    void OnDisable()
+    {
+        // 面板/按钮被禁用时清理状态，确保下一次打开时能正确初始化
+        StopAllCoroutines();
+
+        if (pointerIcon != null)
+            pointerIcon.gameObject.SetActive(false);
+
+        if (hoverBlockTransform != null)
+        {
+            // 把宽度重置为 0，保证下一次显示从左边开始展开
+            hoverBlockTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 0f);
+        }
+
+        // 允许下一次重新初始化（重新读取布局/宽度）
+        isInitialized = false;
+    }
+
     void TryInitialize()
     {
         if (isInitialized || hoverBlockTransform == null) return;
