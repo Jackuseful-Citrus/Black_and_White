@@ -43,10 +43,30 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] int maxAirJumpsFromWall = 1000;
     
     private float speedMultiplier = 1f;
+    private List<float> activeSlowEffects = new List<float>();
 
-    public void SetSpeedMultiplier(float multiplier)
+    public void AddSlowEffect(float multiplier)
     {
-        speedMultiplier = multiplier;
+        activeSlowEffects.Add(multiplier);
+        UpdateSpeedMultiplier();
+    }
+
+    public void RemoveSlowEffect(float multiplier)
+    {
+        activeSlowEffects.Remove(multiplier);
+        UpdateSpeedMultiplier();
+    }
+
+    private void UpdateSpeedMultiplier()
+    {
+        if (activeSlowEffects.Count > 0)
+        {
+            speedMultiplier = Mathf.Min(activeSlowEffects.ToArray());
+        }
+        else
+        {
+            speedMultiplier = 1f;
+        }
     }
 
     private void Start()

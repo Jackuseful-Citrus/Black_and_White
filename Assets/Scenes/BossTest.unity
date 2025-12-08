@@ -427,7 +427,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7767901815329087968, guid: ff167f92834a02340987550fec4e6bd0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1233826086}
   m_SourcePrefab: {fileID: 100100000, guid: ff167f92834a02340987550fec4e6bd0, type: 3}
 --- !u!1 &514315457 stripped
 GameObject:
@@ -1087,6 +1090,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1071914478}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1233826085 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7767901815329087968, guid: ff167f92834a02340987550fec4e6bd0, type: 3}
+  m_PrefabInstance: {fileID: 514315456}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1233826086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233826085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cfde199d7bbc6249b7f5667a0a73fec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 20
+  bossDamage: 1
 --- !u!1 &1237834536
 GameObject:
   m_ObjectHideFlags: 0
