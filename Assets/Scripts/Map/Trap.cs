@@ -22,7 +22,7 @@ public class Trap : MonoBehaviour
             playerControl = other.GetComponent<PlayerControl>();
             if (playerControl != null)
             {
-                playerControl.SetSpeedMultiplier(slowMultiplier);
+                playerControl.AddSlowEffect(slowMultiplier);
             }
         }
     }
@@ -34,7 +34,7 @@ public class Trap : MonoBehaviour
             isPlayerInTrap = false;
             if (playerControl != null)
             {
-                playerControl.SetSpeedMultiplier(1f); // 恢复正常速度
+                playerControl.RemoveSlowEffect(slowMultiplier);
                 playerControl = null;
             }
             timer = 0f; // 重置计时器
