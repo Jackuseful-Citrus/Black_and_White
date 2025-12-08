@@ -81,6 +81,8 @@ public class PlayerControl : MonoBehaviour
 
         actions.Player.Jump.canceled += ctx =>
         {
+            //防止传送到新场景之后继续调用原本的rb
+            if (rb == null || isSwitching)return;
             if (rb.velocity.y > 0f && !isSwitching)
             {
                 rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * jumpCutMultiplier);
@@ -89,7 +91,8 @@ public class PlayerControl : MonoBehaviour
 
         actions.Player.SwitchColor.performed += ctx =>
         {
-            if (isSwitching) return;
+            //防止传送到新场景之后继续调用原本的rb
+            if (rb == null || isSwitching)return;
             isSwitching = true;
             if (animCtrl != null)
             {
@@ -155,6 +158,12 @@ public class PlayerControl : MonoBehaviour
         }else if (isWhite)
         {
             isInAttackRecovery = lightBallSpawnerScript != null && lightBallSpawnerScript.inAttackRecovery;
+        }
+
+        var tp = LogicScript.Instance != null ? LogicScript.Instance.ConsumePendingTeleportPoint() : Vector3.zero;
+        if (tp != Vector3.zero)
+        {
+            transform.position = tp;
         }
     }
 

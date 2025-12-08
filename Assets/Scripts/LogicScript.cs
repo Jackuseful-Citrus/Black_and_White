@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class LogicScript : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class LogicScript : MonoBehaviour
     [SerializeField] GameObject player;
     [SerializeField] BossRoomManager bossRoomManager;
     private PlayerControl playerControl;
-    private int blackBar = 50;  //测试用，实际应为0
+    private int blackBar = 70;  //测试用，实际应为0
     private int whiteBar = 50;  //测试用，实际应为0
     public int blackBarDisplay = 0;
     public int whiteBarDisplay = 0;
@@ -22,6 +23,10 @@ public class LogicScript : MonoBehaviour
     private float maxWidth; // 黑白条最大宽度,即初始宽度
 
     private Vector3 respawnPoint;
+
+    private static bool hasPendingTeleport = false;
+    private static Vector3 pendingTeleportPoint = Vector3.zero;
+    private static bool hasPendingDoorTeleport = false;
 
     private void Awake()
     {
@@ -37,6 +42,12 @@ public class LogicScript : MonoBehaviour
     
     private void Start()
     {
+        // 如果没有手动指定 player，就自动查找
+        if (player == null)
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+        }
+        
         playerControl = player?.GetComponent<PlayerControl>();
         if (playerControl == null)
         {
@@ -53,8 +64,28 @@ public class LogicScript : MonoBehaviour
             bossRoomManager = FindObjectOfType<BossRoomManager>();
         }
 
-        // 获取黑白条的最大宽度
         maxWidth = blackBarImage.rectTransform.rect.width;
+        
+        if (hasPendingDoorTeleport)
+        {
+            hasPendingDoorTeleport = false;
+            Door door = FindObjectOfType<Door>();
+            if (door != null)
+            {
+                Vector3 spawnPoint = door.GetSpawnPoint();
+                respawnPoint = spawnPoint;
+
+                if (player != null)
+                {
+                    player.transform.position = spawnPoint;
+                }
+                Debug.Log($"[LogicScript] 通过门传送，出生在新场景门口：{spawnPoint}");
+            }
+            else
+            {
+                Debug.LogWarning("[LogicScript] 通过门传送，但新场景中未找到 Door 组件。");
+            }
+        }
     }
 
     public void SetRespawnPoint(Vector3 position)
@@ -230,5 +261,50 @@ public class LogicScript : MonoBehaviour
         }
         
     }
-    
+    public int GetBlackBar()
+    {
+        return blackBar;
+    }
+
+    public int GetWhiteBar()
+    {
+        return whiteBar;
+    }
+
+    public void SetTeleportPoint(Vector3 point)
+    {
+        respawnPoint = point;
+        Debug.Log($"[LogicScript] 传送点已设置为：{point}");
+    }
+
+    public Vector3 GetTeleportPoint()
+    {
+        return respawnPoint;
+    }
+
+    public void TeleportPlayerToScene(Vector3 teleportPos, string sceneName)
+    {
+        pendingTeleportPoint = teleportPos;
+        hasPendingTeleport = true;
+        SceneManager.LoadScene(sceneName);
+    }
+
+    public void TeleportViaDoor(string sceneName)
+    {
+        // 标记一下：下一次进入新场景时，要用“门”的位置作为出生点
+        hasPendingDoorTeleport = true;
+
+        // 不设置具体坐标，等新场景 Start 里用 Door 的位置
+        SceneManager.LoadScene(sceneName);
+    }
+
+
+    // 供玩家读取
+    public Vector3 ConsumePendingTeleportPoint()
+    {
+        if (!hasPendingTeleport) return Vector3.zero;
+        hasPendingTeleport = false;
+        respawnPoint = pendingTeleportPoint;
+        return pendingTeleportPoint;
+    }
 }

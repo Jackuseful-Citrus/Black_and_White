@@ -23,5 +23,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/WhiteMap.unity
     guid: 75d99b8e530a56843905db690df125b7
+  - enabled: 1
+    path: Assets/Scenes/SampleScene.unity
+    guid: 2cd561d029903604b8121cf965147c01
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 149647edc54a7ab428e4a6c9e09fd2f2, type: 3}
