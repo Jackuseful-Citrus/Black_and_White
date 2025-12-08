@@ -138,7 +138,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 2
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 59d28d64c7c36104b921ca57389abe01, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -166,6 +166,8 @@ MonoBehaviour:
   jumpCutMultiplier: 0.1
   groundCheck: {fileID: 6475735723196745076}
   groundRadius: 0.02
+  groundCheckDistance: 0.2
+  wallCheckDistance: 0.2
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -176,6 +178,7 @@ MonoBehaviour:
   isAttacking: 0
   BlackOutlook: {fileID: 8346795506088397217}
   WhiteOutlook: {fileID: 706655206407961663}
+  maxAirJumpsFromWall: 1000
 --- !u!61 &2291830075705909536
 BoxCollider2D:
   m_ObjectHideFlags: 0
