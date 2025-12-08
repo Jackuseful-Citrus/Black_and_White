@@ -11,7 +11,7 @@ public class LogicScript : MonoBehaviour
     [SerializeField] GameObject player;
     [SerializeField] BossRoomManager bossRoomManager;
     private PlayerControl playerControl;
-    private int blackBar = 70;  //测试用，实际应为0
+    private int blackBar = 50;  //测试用，实际应为0
     private int whiteBar = 50;  //测试用，实际应为0
     public int blackBarDisplay = 0;
     public int whiteBarDisplay = 0;
@@ -79,7 +79,6 @@ public class LogicScript : MonoBehaviour
                 {
                     player.transform.position = spawnPoint;
                 }
-                Debug.Log($"[LogicScript] 通过门传送，出生在新场景门口：{spawnPoint}");
             }
             else
             {
@@ -91,7 +90,6 @@ public class LogicScript : MonoBehaviour
     public void SetRespawnPoint(Vector3 position)
     {
         respawnPoint = position;
-        Debug.Log($"[LogicScript] Respawn point updated to {position}");
     }
 
     public void RespawnPlayer()
@@ -104,7 +102,6 @@ public class LogicScript : MonoBehaviour
             whiteBar = 50;
             blackBarMin = 0;
             whiteBarMin = 0;
-            Debug.Log("[LogicScript] Player respawned and stats reset.");
 
             if (bossRoomManager != null)
             {
@@ -298,8 +295,6 @@ public class LogicScript : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
-
-    // 供玩家读取
     public Vector3 ConsumePendingTeleportPoint()
     {
         if (!hasPendingTeleport) return Vector3.zero;
