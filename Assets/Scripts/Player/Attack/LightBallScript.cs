@@ -14,6 +14,14 @@ public class LightBallScript : MonoBehaviour
     private Vector3 moveDir = Vector3.zero;
     private Vector3 mousePos = Vector3.zero;
 
+    private Transform playerTransform;
+
+    private void Start()
+    {
+        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+        if (playerObj != null) playerTransform = playerObj.transform;
+    }
+
     private void Update()
     {
         Camera cam = Camera.main;
@@ -67,7 +75,7 @@ public class LightBallScript : MonoBehaviour
         Enemy enemy = collision.GetComponent<Enemy>();
         if (enemy != null)
         {
-            enemy.TakeDamage(damage);
+            enemy.TakeDamage(damage, playerTransform);
         }
 
         if (collision.gameObject.CompareTag("WhiteEnemy"))
@@ -95,7 +103,6 @@ public class LightBallScript : MonoBehaviour
             var blackBoss = collision.GetComponentInParent<BlackBoss>();
             if (blackBoss != null)
             {
-                Debug.Log($"[LightBall] Hit BlackBoss via {collision.name}, dealing {damage}");
                 blackBoss.TakeDamage(damage);
                 Destroy(gameObject);
                 return;
@@ -104,7 +111,6 @@ public class LightBallScript : MonoBehaviour
             var whiteBoss = collision.GetComponentInParent<WhiteBoss>();
             if (whiteBoss != null)
             {
-                Debug.Log($"[LightBall] Hit WhiteBoss via {collision.name}, dealing {damage}");
                 whiteBoss.TakeDamage(damage);
                 Destroy(gameObject);
                 return;

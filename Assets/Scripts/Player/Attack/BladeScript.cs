@@ -10,6 +10,8 @@ public class BladeScript : MonoBehaviour
     private readonly Collider2D[] overlapResults = new Collider2D[8];
     private ContactFilter2D contactFilter;
     private readonly HashSet<Collider2D> hitThisSwing = new HashSet<Collider2D>();
+    private Transform playerTransform;
+
     private void Start()
     {
         capsuleCollider2D = GetComponent<CapsuleCollider2D>();
@@ -18,18 +20,19 @@ public class BladeScript : MonoBehaviour
         contactFilter.SetLayerMask(Physics2D.DefaultRaycastLayers);
         contactFilter.useLayerMask = true;
         contactFilter.useTriggers = true;
+
+        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+        if (playerObj != null) playerTransform = playerObj.transform;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log($"[BladeScript] Trigger with {collision.name} (tag={collision.tag}, layer={LayerMask.LayerToName(collision.gameObject.layer)})");
-
         // 尝试获取 Enemy 组件
         Enemy enemy = collision.GetComponent<Enemy>();
         
         if (enemy != null)
         {
-            enemy.TakeDamage(damage);
+            enemy.TakeDamage(damage, playerTransform);
         }
 
         if (collision.gameObject.CompareTag("WhiteEnemy"))
@@ -50,14 +53,12 @@ public class BladeScript : MonoBehaviour
         var blackBoss = collision.GetComponentInParent<BlackBoss>();
         if (blackBoss != null)
         {
-            Debug.Log($"[BladeScript] Hit BlackBoss via {collision.name}, dealing {bossDamage}");
             blackBoss.TakeDamage(bossDamage);
         }
 
         var whiteBoss = collision.GetComponentInParent<WhiteBoss>();
         if (whiteBoss != null)
         {
-            Debug.Log($"[BladeScript] Hit WhiteBoss via {collision.name}, dealing {bossDamage}");
             whiteBoss.TakeDamage(bossDamage);
         }
     }
@@ -75,25 +76,21 @@ public class BladeScript : MonoBehaviour
 
             hitThisSwing.Add(col);
 
-            Debug.Log($"[BladeScript][Overlap] with {col.gameObject.name} (tag={col.tag}, layer={LayerMask.LayerToName(col.gameObject.layer)})");
-
             Enemy enemy = col.GetComponent<Enemy>();
             if (enemy != null)
             {
-                enemy.TakeDamage(damage);
+                enemy.TakeDamage(damage, playerTransform);
             }
 
             var blackBoss = col.GetComponentInParent<BlackBoss>();
             if (blackBoss != null)
             {
-                Debug.Log($"[BladeScript][Overlap] Hit BlackBoss via {col.name}, dealing {bossDamage}");
                 blackBoss.TakeDamage(bossDamage);
             }
 
             var whiteBoss = col.GetComponentInParent<WhiteBoss>();
             if (whiteBoss != null)
             {
-                Debug.Log($"[BladeScript][Overlap] Hit WhiteBoss via {col.name}, dealing {bossDamage}");
                 whiteBoss.TakeDamage(bossDamage);
             }
         }

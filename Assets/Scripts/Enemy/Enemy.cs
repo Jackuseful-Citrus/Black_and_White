@@ -74,6 +74,7 @@ public class Enemy : MonoBehaviour
     protected Rigidbody2D rb;
     protected Collider2D bodyCollider;
     protected bool isDead = false;
+    protected bool isProvoked = false;
     protected Transform currentTarget;
     protected float lastAttackTime;
     protected bool isAttacking = false;
@@ -142,6 +143,12 @@ public class Enemy : MonoBehaviour
     {
         if (player != null && player.gameObject.activeInHierarchy)
         {
+            if (isProvoked)
+            {
+                currentTarget = player;
+                return;
+            }
+
             float distToPlayer = Vector2.Distance(transform.position, player.position);
             if (distToPlayer <= playerDetectionRange)
             {
@@ -369,7 +376,7 @@ public class Enemy : MonoBehaviour
                 Enemy targetEnemy = currentTarget.GetComponent<Enemy>();
                 if (targetEnemy != null)
                 {
-                    targetEnemy.TakeDamage(damage);
+                    targetEnemy.TakeDamage(damage, transform);
                 }
             }
 
@@ -540,9 +547,14 @@ public class Enemy : MonoBehaviour
         }
     }
     
-    public virtual void TakeDamage(float damageAmount)
+    public virtual void TakeDamage(float damageAmount, Transform source = null)
     {
         if (isDead) return;
+
+        if (source != null && source.CompareTag("Player"))
+        {
+            isProvoked = true;
+        }
         
         currentHealth -= damageAmount;
         currentHealth = Mathf.Max(currentHealth, 0);
