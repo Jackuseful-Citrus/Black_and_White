@@ -1467,7 +1467,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -5
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.21176471, g: 0.21176471, b: 0.21176471, a: 1}
+  m_Color: {r: 0.23529412, g: 0.23529412, b: 0.23529412, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1490,7 +1490,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   normalAlpha: 1
-  triggerAlpha: 0.85
+  triggerAlpha: 0.8
   fadeDuration: 0.2
 --- !u!61 &124521994
 BoxCollider2D:
@@ -3389,7 +3389,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b95382f7e7dbf04897a4b2a8b905ace, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactionIcon: {fileID: 1417410037}
+  interactionIcon: {fileID: 0}
 --- !u!1 &298035522
 GameObject:
   m_ObjectHideFlags: 0
@@ -5655,11 +5655,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &430624132 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8564607124632253444, guid: 208e7af9aa5cc0048ba3693cd5a15cdb, type: 3}
-  m_PrefabInstance: {fileID: 8827246305880866985}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &434210941
 GameObject:
   m_ObjectHideFlags: 0
@@ -16249,11 +16244,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &1417410037 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8564607124632253444, guid: 208e7af9aa5cc0048ba3693cd5a15cdb, type: 3}
-  m_PrefabInstance: {fileID: 313192738}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1438909938
 GameObject:
   m_ObjectHideFlags: 0
@@ -16777,7 +16767,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -5
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.21176471, g: 0.21176471, b: 0.21176471, a: 1}
+  m_Color: {r: 0.23529412, g: 0.23529412, b: 0.23529412, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -16845,7 +16835,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   normalAlpha: 1
-  triggerAlpha: 0.85
+  triggerAlpha: 0.8
   fadeDuration: 0.2
 --- !u!1001 &1466593905
 PrefabInstance:
@@ -19543,7 +19533,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b95382f7e7dbf04897a4b2a8b905ace, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactionIcon: {fileID: 430624132}
+  interactionIcon: {fileID: 0}
 --- !u!1 &1774961145
 GameObject:
   m_ObjectHideFlags: 0
@@ -23961,11 +23951,11 @@ PrefabInstance:
       objectReference: {fileID: 1495954222}
     - target: {fileID: 8276461460672212480, guid: a24d8fb1c805884478032e8ac1c31ea9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 171.9
+      value: 140.52
       objectReference: {fileID: 0}
     - target: {fileID: 8276461460672212480, guid: a24d8fb1c805884478032e8ac1c31ea9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -28.3
+      value: -44.91
       objectReference: {fileID: 0}
     - target: {fileID: 8276461460672212480, guid: a24d8fb1c805884478032e8ac1c31ea9, type: 3}
       propertyPath: m_LocalPosition.z

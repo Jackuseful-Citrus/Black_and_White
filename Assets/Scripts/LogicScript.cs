@@ -11,8 +11,8 @@ public class LogicScript : MonoBehaviour
     [SerializeField] GameObject player;
     [SerializeField] BossRoomManager bossRoomManager;
     private PlayerControl playerControl;
-    private int blackBar = 50;  //测试用，实际应为0
-    private int whiteBar = 50;  //测试用，实际应为0
+    private int blackBar = 0;
+    private int whiteBar = 0;
     public int blackBarDisplay = 0;
     public int whiteBarDisplay = 0;
     public int blackBarMin = 0;
@@ -98,8 +98,8 @@ public class LogicScript : MonoBehaviour
         {
             player.transform.position = respawnPoint;
             // 初始化黑白条
-            blackBar = 50; 
-            whiteBar = 50;
+            blackBar = 0; 
+            whiteBar = 0;
             blackBarMin = 0;
             whiteBarMin = 0;
 
@@ -126,6 +126,7 @@ public class LogicScript : MonoBehaviour
         if(playerControl.isBlack)
         {
             blackBar -= 2;
+            whiteBar += 1;
         }
     }
 
@@ -133,50 +134,60 @@ public class LogicScript : MonoBehaviour
     {
         if(playerControl.isBlack)
         {
-            whiteBar -= 1;
+            whiteBar += 2;
+            blackBar -= 4;
+
         }
     }
 
     public void LightBallHitBlackEnemy()
     {
-        blackBar -= 1;
+        whiteBar -= 4;
+        blackBar += 2;
     }
 
     public void LightBallHitWhiteEnemy()
     {
         whiteBar -= 2;
+        blackBar += 1;
     }
 
     public void HitByBlackEnemy()
     {
         if(playerControl.isBlack)
         {
-            blackBar += 20;
+            blackBar += 14;
+            whiteBar -= 7;
         }
         else
         {
-            blackBar += 10;
+            blackBar += 28;
+            whiteBar -= 14;
         }
     }
     public void HitByWhiteEnemy()
     {
         if(playerControl.isBlack)
         {
-            whiteBar += 10;
+            whiteBar += 28;
+            blackBar -= 14;
         }
         else
         {
-            whiteBar += 20;
+            whiteBar += 14;
+            blackBar -= 7;
         }
     }
     
     public void getIntoWhiteTrap()
     {
-        whiteBarMin += 10;
+        whiteBar += 28;
+        blackBar -= 14;
     }
     public void getIntoBlackTrap()
     {
-        blackBarMin += 10;
+        blackBar += 28;
+        whiteBar -= 14;
     }
 
     public void InBlackZone()
@@ -199,6 +210,7 @@ public class LogicScript : MonoBehaviour
     public void FireLightBall()
     {
         whiteBar += 2;
+        blackBar -= 1;
     }
 
     public void AddBlackBar(int amount)

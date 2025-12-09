@@ -6,9 +6,9 @@ public class Trap : MonoBehaviour
     public TrapType trapType;
     
     [Header("Settings")]
-    [SerializeField] private float damageInterval = 1f; // 每隔多少秒增加一次数值
-    [SerializeField] private int damageAmount = 5;      // 每次增加的数值
-    [SerializeField] private float slowMultiplier = 0.5f; // 减速倍率 (0.5 = 50% 速度)
+    [SerializeField] private float damageInterval = 0.8f; // 每隔多少秒增加一次数值
+    //[SerializeField] private int damageAmount = 28;      // 每次增加的数值
+    [SerializeField] private float slowMultiplier = 0.2f;
 
     private bool isPlayerInTrap = false;
     private float timer = 0f;
@@ -37,7 +37,7 @@ public class Trap : MonoBehaviour
                 playerControl.RemoveSlowEffect(slowMultiplier);
                 playerControl = null;
             }
-            timer = 0f; // 重置计时器
+            timer = damageInterval - 0.1f; // 退出时稍微延迟一下下次伤害
         }
     }
 
@@ -51,11 +51,11 @@ public class Trap : MonoBehaviour
                 timer = 0f;
                 if (trapType == TrapType.Black)
                 {
-                    LogicScript.Instance.AddBlackBar(damageAmount);
+                    LogicScript.Instance.getIntoBlackTrap();
                 }
                 else
                 {
-                    LogicScript.Instance.AddWhiteBar(damageAmount);
+                    LogicScript.Instance.getIntoWhiteTrap();
                 }
             }
         }
