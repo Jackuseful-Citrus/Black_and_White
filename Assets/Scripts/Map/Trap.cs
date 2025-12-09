@@ -37,7 +37,7 @@ public class Trap : MonoBehaviour
                 playerControl.RemoveSlowEffect(slowMultiplier);
                 playerControl = null;
             }
-            timer = damageInterval - 0.1f; // 退出时稍微延迟一下下次伤害
+            timer = damageInterval;
         }
     }
 

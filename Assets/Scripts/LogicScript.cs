@@ -263,8 +263,14 @@ public class LogicScript : MonoBehaviour
             Debug.Log("Game Over - Respawning...");
             RespawnPlayer();
         }
-        
     }
+
+    public void ClearAllBars()
+    {
+        blackBar = 0;
+        whiteBar = 0;
+    }
+
     public int GetBlackBar()
     {
         return blackBar;
