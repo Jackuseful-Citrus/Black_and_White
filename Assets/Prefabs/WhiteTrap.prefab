@@ -515,7 +515,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c90acc555c260a4db059be45feb9f9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trapType: 0
+  trapType: 1
   damageInterval: 1
-  damageAmount: 5
   slowMultiplier: 0.5
