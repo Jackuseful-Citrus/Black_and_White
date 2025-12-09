@@ -178,7 +178,7 @@ MonoBehaviour:
   isAttacking: 0
   BlackOutlook: {fileID: 8346795506088397217}
   WhiteOutlook: {fileID: 706655206407961663}
-  maxAirJumpsFromWall: 1000
+  maxAirJumpsFromWall: 0
 --- !u!61 &2291830075705909536
 BoxCollider2D:
   m_ObjectHideFlags: 0
