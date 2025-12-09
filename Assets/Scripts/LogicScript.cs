@@ -134,16 +134,16 @@ public class LogicScript : MonoBehaviour
     {
         if(playerControl.isBlack)
         {
-            whiteBar += 2;
-            blackBar -= 4;
+            blackBar += 2;
+            whiteBar -= 4;
 
         }
     }
 
     public void LightBallHitBlackEnemy()
     {
-        whiteBar -= 4;
-        blackBar += 2;
+        blackBar -= 4;
+        whiteBar += 2;
     }
 
     public void LightBallHitWhiteEnemy()

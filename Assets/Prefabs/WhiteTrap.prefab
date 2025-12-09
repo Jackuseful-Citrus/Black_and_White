@@ -517,4 +517,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trapType: 1
   damageInterval: 1
-  slowMultiplier: 0.5
+  slowMultiplier: 0.2
