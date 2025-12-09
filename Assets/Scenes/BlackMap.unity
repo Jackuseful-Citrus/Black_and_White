@@ -333,6 +333,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 3830850990430963630}
+  bossRoomManager: {fileID: 0}
   blackBarDisplay: 0
   whiteBarDisplay: 0
   blackBarMin: 0
@@ -781,7 +782,7 @@ TilemapRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
-  m_ChunkCullingBounds: {x: 0.87, y: 0.94000006, z: 0}
+  m_ChunkCullingBounds: {x: 0.85, y: 0.85, z: 0}
   m_MaxChunkCount: 16
   m_MaxFrameAge: 16
   m_SortOrder: 0
@@ -3968,6 +3969,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cfde199d7bbc6249b7f5667a0a73fec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 20
+  bossDamage: 1
 --- !u!1 &2063263998
 GameObject:
   m_ObjectHideFlags: 0
