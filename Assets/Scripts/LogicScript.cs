@@ -28,6 +28,8 @@ public class LogicScript : MonoBehaviour
     private static Vector3 pendingTeleportPoint = Vector3.zero;
     private static bool hasPendingDoorTeleport = false;
 
+    private List<Enemy> sceneEnemies = new List<Enemy>();
+
     private void Awake()
     {
         if (Instance == null)
@@ -64,6 +66,8 @@ public class LogicScript : MonoBehaviour
             bossRoomManager = FindObjectOfType<BossRoomManager>();
         }
 
+        sceneEnemies.AddRange(FindObjectsOfType<Enemy>());
+
         maxWidth = blackBarImage.rectTransform.rect.width;
         
         if (hasPendingDoorTeleport)
@@ -97,6 +101,7 @@ public class LogicScript : MonoBehaviour
         if (player != null)
         {
             player.transform.position = respawnPoint;
+            RefreshEnemies();
             // 初始化黑白条
             blackBar = 0; 
             whiteBar = 0;
@@ -106,6 +111,17 @@ public class LogicScript : MonoBehaviour
             if (bossRoomManager != null)
             {
                 bossRoomManager.ResetEncounter();
+            }
+        }
+    }
+
+    public void RefreshEnemies()
+    {
+        foreach (var enemy in sceneEnemies)
+        {
+            if (enemy != null)
+            {
+                enemy.ResetEnemy();
             }
         }
     }

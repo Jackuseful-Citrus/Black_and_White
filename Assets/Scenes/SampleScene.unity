@@ -1732,9 +1732,17 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7767901815329087968, guid: ff167f92834a02340987550fec4e6bd0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8027514014388079892, guid: ff167f92834a02340987550fec4e6bd0, type: 3}
       propertyPath: m_Name
       value: Scythe
+      objectReference: {fileID: 0}
+    - target: {fileID: 8027514014388079892, guid: ff167f92834a02340987550fec4e6bd0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -10,7 +10,7 @@ public class Enemy : MonoBehaviour
     public AttackType attackType;
 
     [Header("基础属性")]
-    [SerializeField] protected float maxHealth = 100f;
+    [SerializeField] protected float maxHealth = 50f;
     [SerializeField] protected float moveSpeed = 3f;
     [SerializeField] protected float damage = 10f;
     [SerializeField] protected float moveAcceleration = 8f;
@@ -80,6 +80,7 @@ public class Enemy : MonoBehaviour
     protected bool isAttacking = false;
     
     protected Vector3 patrolCenter;
+    protected Vector3 initialScale;
     protected Vector3 currentPatrolTarget;
     protected bool hasPatrolTarget = false;
     protected bool wasInCombat = false;   
@@ -91,6 +92,7 @@ public class Enemy : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         bodyCollider = GetComponent<Collider2D>();
         patrolCenter = transform.position;
+        initialScale = transform.localScale;
         lastAttackTime = -999f;
         
         if (firePoint == null) firePoint = transform;
@@ -581,7 +583,29 @@ public class Enemy : MonoBehaviour
         isDead = true;
         if (rb != null) rb.velocity = Vector2.zero;
         OnDeath();
-        Destroy(gameObject, 0.5f);
+        Invoke(nameof(DisableEnemy), 0.5f);
+    }
+
+    protected void DisableEnemy()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public virtual void ResetEnemy()
+    {
+        CancelInvoke(nameof(DisableEnemy));
+        gameObject.SetActive(true);
+        transform.position = patrolCenter;
+        transform.localScale = initialScale;
+        currentHealth = maxHealth;
+        isDead = false;
+        isProvoked = false;
+        if (rb != null) rb.velocity = Vector2.zero;
+        
+        currentTarget = null;
+        isAttacking = false;
+        wasInCombat = false;
+        hasPatrolTarget = false;
     }
     
     protected virtual void OnDeath()
