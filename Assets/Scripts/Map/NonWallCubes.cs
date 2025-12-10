@@ -15,7 +15,7 @@ public class NonWallCubes : MonoBehaviour
     private Renderer areaRenderer;
     private Material originalMaterial;
     private Color originalColor;
-    private bool isTriggered = false;
+    //private bool isTriggered = false;
     
     void Start()
     {
@@ -33,7 +33,7 @@ public class NonWallCubes : MonoBehaviour
         // 检查进入的物体是否符合条件（可根据需要修改）
         if (collision.gameObject.CompareTag("Player"))
         {
-            isTriggered = true;
+            //isTriggered = true;
             ChangeTransparency(triggerAlpha);
         }
     }
@@ -42,7 +42,7 @@ public class NonWallCubes : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            isTriggered = false;
+            //isTriggered = false;
             ChangeTransparency(normalAlpha);
         }
     }
