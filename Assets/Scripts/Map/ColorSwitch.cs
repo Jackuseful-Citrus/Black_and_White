@@ -7,60 +7,50 @@ public class ColorSwitch : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private SwitchColor requiredColor;
     [SerializeField] private DoorController targetDoor;
-    [SerializeField] private KeyCode interactKey = KeyCode.E;
     [SerializeField] private bool isOneShot = false; // If true, can only be used once
     
-    private bool isPlayerInRange = false;
-    private PlayerControl playerControl;
     private bool hasBeenUsed = false;
 
-    private void Update()
-    {
-        if (isPlayerInRange && Input.GetKeyDown(interactKey))
-        {
-            TryActivateSwitch();
-        }
-    }
-
-    private void TryActivateSwitch()
+    private void ActivateSwitch()
     {
         if (isOneShot && hasBeenUsed) return;
-        if (playerControl == null) return;
 
-        bool isCorrectColor = false;
-        if (requiredColor == SwitchColor.White && playerControl.isWhite) isCorrectColor = true;
-        if (requiredColor == SwitchColor.Black && playerControl.isBlack) isCorrectColor = true;
-
-        if (isCorrectColor)
+        if (targetDoor != null)
         {
-            if (targetDoor != null)
-            {
-                targetDoor.ToggleDoor();
-                hasBeenUsed = true;
-                Debug.Log($"[ColorSwitch] Activated by {requiredColor} player.");
-            }
-        }
-        else
-        {
-            Debug.Log($"[ColorSwitch]Required: {requiredColor}, Player is White: {playerControl.isWhite}");
+            targetDoor.ToggleDoor();
+            hasBeenUsed = true;
+            Debug.Log($"[ColorSwitch] Activated by {requiredColor} attack.");
         }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        // Check for Blade (Black Attack)
+        if (other.GetComponent<BladeScript>() != null)
         {
-            isPlayerInRange = true;
-            playerControl = other.GetComponent<PlayerControl>();
+            if (requiredColor == SwitchColor.Black)
+            {
+                ActivateSwitch();
+            }
+            else
+            {
+                 Debug.Log($"[ColorSwitch] Wrong attack! Required: {requiredColor}, Hit by Blade (Black)");
+            }
+            return;
         }
-    }
 
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.CompareTag("Player"))
+        // Check for LightBall (White Attack)
+        if (other.GetComponent<LightBallScript>() != null)
         {
-            isPlayerInRange = false;
-            playerControl = null;
+            if (requiredColor == SwitchColor.White)
+            {
+                ActivateSwitch();
+            }
+            else
+            {
+                 Debug.Log($"[ColorSwitch] Wrong attack! Required: {requiredColor}, Hit by LightBall (White)");
+            }
+            return;
         }
     }
 }
