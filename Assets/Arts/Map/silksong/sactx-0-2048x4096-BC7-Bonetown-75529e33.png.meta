@@ -1,0 +1,3128 @@
+fileFormatVersion: 2
+guid: bb1c1c3e55befc84f901aab22ee21f5d
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_0
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 3949
+        width: 516
+        height: 147
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8dd9068437da7e346aa7c4efc46aeaca
+      internalID: 1865842905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_1
+      rect:
+        serializedVersion: 2
+        x: 580
+        y: 3857
+        width: 313
+        height: 239
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2b0879f127e950488c6e4b849ea75af
+      internalID: -357660110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_2
+      rect:
+        serializedVersion: 2
+        x: 1115
+        y: 3967
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e953e63165738184ba9779f4016cfe85
+      internalID: 2111211503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_3
+      rect:
+        serializedVersion: 2
+        x: 1146
+        y: 3967
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8500cd16067ffcd48b16ce0c735361d0
+      internalID: 877289143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_4
+      rect:
+        serializedVersion: 2
+        x: 1640
+        y: 3927
+        width: 306
+        height: 169
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e3d965426c52fb644b5a6c440ac32ba8
+      internalID: -772743580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_5
+      rect:
+        serializedVersion: 2
+        x: 1920
+        y: 3970
+        width: 122
+        height: 113
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2c31b6a52cb4d8448415ec029262c49
+      internalID: -1015043903
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_6
+      rect:
+        serializedVersion: 2
+        x: 1099
+        y: 3843
+        width: 70
+        height: 122
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45d100f8165268e438000d6be3a71e63
+      internalID: 2025696068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_7
+      rect:
+        serializedVersion: 2
+        x: 1750
+        y: 3963
+        width: 16
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cefc88b80a872104cb92d5133b9e1b3a
+      internalID: 2140078691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_8
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 3807
+        width: 312
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1223a05eae6cab24f81152edabf89a96
+      internalID: -1908009282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_9
+      rect:
+        serializedVersion: 2
+        x: 805
+        y: 3864
+        width: 258
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13b7c901ca3072a4680be9233849221d
+      internalID: 1047762780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_10
+      rect:
+        serializedVersion: 2
+        x: 1093
+        y: 3942
+        width: 4
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e0f03e3920358544d97fa13fe67cfbc2
+      internalID: -586613621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_11
+      rect:
+        serializedVersion: 2
+        x: 1412
+        y: 3943
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ce577af029c88746952c172f7a48fba
+      internalID: 151443903
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_12
+      rect:
+        serializedVersion: 2
+        x: 1617
+        y: 3863
+        width: 200
+        height: 97
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6cb99bdf9af80745b396d9b918781b3
+      internalID: -1580588362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_13
+      rect:
+        serializedVersion: 2
+        x: 1193
+        y: 3739
+        width: 138
+        height: 172
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aadd326e6818f654c84f4afc5ff03ef9
+      internalID: 1235335053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_14
+      rect:
+        serializedVersion: 2
+        x: 1302
+        y: 3889
+        width: 173
+        height: 52
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e5cb5f4c01520b4baedb5ad198371aa
+      internalID: -717832121
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_15
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 3271
+        width: 162
+        height: 552
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e64c06838fd85940a0c2f8ebaeca430
+      internalID: -1995209136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_16
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 3493
+        width: 166
+        height: 378
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 848beaff733fb4d4db66ffb95e142095
+      internalID: 1508332211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_17
+      rect:
+        serializedVersion: 2
+        x: 311
+        y: 3425
+        width: 902
+        height: 356
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c189b9a9fe24ac48b2b70fd3fa00bc2
+      internalID: 309999335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_18
+      rect:
+        serializedVersion: 2
+        x: 337
+        y: 3777
+        width: 560
+        height: 81
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18626b9821660c343b1f7b34c195f28a
+      internalID: 984853564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_19
+      rect:
+        serializedVersion: 2
+        x: 908
+        y: 3780
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a55d20c1e6bc4a44caab7d6a4129ebcc
+      internalID: -237194764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_20
+      rect:
+        serializedVersion: 2
+        x: 909
+        y: 3747
+        width: 270
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f8250ddf38f178e4e82b72fd8d66bc28
+      internalID: -2063551826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_21
+      rect:
+        serializedVersion: 2
+        x: 1333
+        y: 3715
+        width: 112
+        height: 153
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b5c801e4a8673ee4791ec887aa24de44
+      internalID: 3189860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_22
+      rect:
+        serializedVersion: 2
+        x: 1509
+        y: 3739
+        width: 146
+        height: 146
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80172643924d87f41b7079e4011580f8
+      internalID: -207256740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_23
+      rect:
+        serializedVersion: 2
+        x: 1205
+        y: 3621
+        width: 270
+        height: 97
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ffd4b27406638e04abff198f6aaa036d
+      internalID: 1082330959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_24
+      rect:
+        serializedVersion: 2
+        x: 1387
+        y: 3502
+        width: 374
+        height: 202
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77b8914bb48bafc44882edf6820d59e3
+      internalID: 1539923292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_25
+      rect:
+        serializedVersion: 2
+        x: 1471
+        y: 3625
+        width: 134
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1840343e2c76b954d86fdff636e69d5d
+      internalID: -995535787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_26
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 3375
+        width: 564
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae8e34bf95324104da44a02b29b65b20
+      internalID: -147973448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_27
+      rect:
+        serializedVersion: 2
+        x: 821
+        y: 3124
+        width: 214
+        height: 383
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a856ce4343b2fd24f9eba21fdfb5f592
+      internalID: 1501322192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_28
+      rect:
+        serializedVersion: 2
+        x: 1131
+        y: 3403
+        width: 338
+        height: 118
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8fd1c07a8f24724c82d7baa1ee9ee14
+      internalID: -384313464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_29
+      rect:
+        serializedVersion: 2
+        x: 1609
+        y: 3451
+        width: 294
+        height: 58
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f13116dfe38beeb49b98c244cfb45674
+      internalID: -1763081908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_30
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 3207
+        width: 494
+        height: 184
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cffc8131ea56bfc4991c58ef97451799
+      internalID: 1528076286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_31
+      rect:
+        serializedVersion: 2
+        x: 611
+        y: 3286
+        width: 247
+        height: 105
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0be1f588e2ad4f341b66633b31882ff9
+      internalID: -342548200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_32
+      rect:
+        serializedVersion: 2
+        x: 1011
+        y: 3295
+        width: 336
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ecf49188c4f31e4786b95a310f390ba
+      internalID: 886681781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_33
+      rect:
+        serializedVersion: 2
+        x: 1442
+        y: 3340
+        width: 265
+        height: 109
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b68756c45ffdda49b8a24ea0433affb
+      internalID: 1460694964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_34
+      rect:
+        serializedVersion: 2
+        x: 1456
+        y: 3330
+        width: 6
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b66423573cab1f4a970c91cbeb0e0b1
+      internalID: -160306334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_35
+      rect:
+        serializedVersion: 2
+        x: 1516
+        y: 3330
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7877f5938b0bd614a96cbf23ad6ab7fd
+      internalID: 689005475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_36
+      rect:
+        serializedVersion: 2
+        x: 1707
+        y: 3339
+        width: 218
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4a8ca54773744c4685b1ef9dad25bbb
+      internalID: -1551691230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_37
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 2887
+        width: 274
+        height: 384
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07d40605acbf3394bbb124e04df27eba
+      internalID: -580050271
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_38
+      rect:
+        serializedVersion: 2
+        x: 1305
+        y: 3171
+        width: 362
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0bf963298d36ad04991e5223f0bc276e
+      internalID: -1233700654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_39
+      rect:
+        serializedVersion: 2
+        x: 1629
+        y: 3244
+        width: 313
+        height: 89
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4857cd697f4900e4f9100fe6dc357d36
+      internalID: -1348091691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_40
+      rect:
+        serializedVersion: 2
+        x: 1872
+        y: 3242
+        width: 11
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 868b317b0c8bc4b4fa15b0de07d5382e
+      internalID: 2015279467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_41
+      rect:
+        serializedVersion: 2
+        x: 660
+        y: 3239
+        width: 20
+        height: 4
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d716bbc81e0c9b7478e8b3efd08b0ad2
+      internalID: 656586078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_42
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 2963
+        width: 212
+        height: 248
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 456aa81a501e07344bb30b1cf1777678
+      internalID: -810149190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_43
+      rect:
+        serializedVersion: 2
+        x: 453
+        y: 2747
+        width: 238
+        height: 398
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5569246140a0cc4588e55d6ba4497fc
+      internalID: -1155937299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_44
+      rect:
+        serializedVersion: 2
+        x: 526
+        y: 3037
+        width: 415
+        height: 198
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 514eb3caae3525e4698dc8e541d8c0d3
+      internalID: 1928585601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_45
+      rect:
+        serializedVersion: 2
+        x: 1030
+        y: 3065
+        width: 284
+        height: 143
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e4e8d70a20e0cf478cff69d132188db
+      internalID: 1058981736
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_46
+      rect:
+        serializedVersion: 2
+        x: 804
+        y: 2520
+        width: 96
+        height: 214
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eeb0ae61ac154f640b4ba26f15a70c91
+      internalID: -1550416451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_47
+      rect:
+        serializedVersion: 2
+        x: 1821
+        y: 2883
+        width: 90
+        height: 174
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e90eaa82dff266b4e9f092b6f9c6493b
+      internalID: -941277902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_48
+      rect:
+        serializedVersion: 2
+        x: 1939
+        y: 2565
+        width: 109
+        height: 556
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0ae0bcacddd6134591d19902de23afd
+      internalID: -393938456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_49
+      rect:
+        serializedVersion: 2
+        x: 805
+        y: 3029
+        width: 5
+        height: 4
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c400d92003454fe4c963f6b0b4f9f182
+      internalID: 2131414955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_50
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2277
+        width: 431
+        height: 618
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4540c2c8ceb1270418ca94b4b50bbff6
+      internalID: 503007918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_51
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 2791
+        width: 120
+        height: 139
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 525ab9b17b28a084599ac76f40a4fbd0
+      internalID: 1650285643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_52
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 2874
+        width: 487
+        height: 126
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 389e2ec83d4578242af2b8909d02e21e
+      internalID: 2069188823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_53
+      rect:
+        serializedVersion: 2
+        x: 1343
+        y: 2713
+        width: 380
+        height: 96
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42096b7b254767e498d0ec241f20d5c4
+      internalID: 1193975786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_54
+      rect:
+        serializedVersion: 2
+        x: 1555
+        y: 2806
+        width: 386
+        height: 77
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: efb20d1785456c94f80de36d62f757a2
+      internalID: -1927776589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_55
+      rect:
+        serializedVersion: 2
+        x: 692
+        y: 2031
+        width: 463
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bdd7c13f3b886a649bbbc125e6b9475f
+      internalID: -1792111057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_56
+      rect:
+        serializedVersion: 2
+        x: 1726
+        y: 2719
+        width: 8
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e3e4c29999681f4fb81d0880e4dfd1e
+      internalID: 1758196199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_57
+      rect:
+        serializedVersion: 2
+        x: 1795
+        y: 2605
+        width: 144
+        height: 124
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7604050df0045f646921b7c7124f5cf9
+      internalID: -1576953813
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_58
+      rect:
+        serializedVersion: 2
+        x: 1049
+        y: 2349
+        width: 699
+        height: 368
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f91999f59be21f4d901aa9305fc10b3
+      internalID: 1085928358
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_59
+      rect:
+        serializedVersion: 2
+        x: 1391
+        y: 2325
+        width: 266
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b8080cdf12477b4bb8176665381e72e
+      internalID: -726867582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_60
+      rect:
+        serializedVersion: 2
+        x: 1645
+        y: 2481
+        width: 221
+        height: 156
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7433f4434bdc5954993fb139dcdc50b6
+      internalID: 247413375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_61
+      rect:
+        serializedVersion: 2
+        x: 1883
+        y: 2351
+        width: 72
+        height: 244
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dda6fea7ff0e6b5418cbffd270f2e61a
+      internalID: -586440636
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_62
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2124
+        width: 733
+        height: 309
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9f15f2ffb824b04989154f067d56318
+      internalID: 1670478893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_63
+      rect:
+        serializedVersion: 2
+        x: 643
+        y: 2235
+        width: 792
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 52cb415ca4c86434fbcc5525067e4673
+      internalID: 97906864
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_64
+      rect:
+        serializedVersion: 2
+        x: 1406
+        y: 1853
+        width: 285
+        height: 443
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a07ba7f57cc169f4ba3cca053928f7d3
+      internalID: -1141310671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_65
+      rect:
+        serializedVersion: 2
+        x: 1682
+        y: 2048
+        width: 366
+        height: 404
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 290e972569dad6f41a361664a6f5f76d
+      internalID: 154088547
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_66
+      rect:
+        serializedVersion: 2
+        x: 365
+        y: 1889
+        width: 1030
+        height: 286
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f5352f275424c34596dc4a543c7bd54
+      internalID: 901383522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_67
+      rect:
+        serializedVersion: 2
+        x: 777
+        y: 2155
+        width: 188
+        height: 60
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f4d8498e5af91a419ae8206795f7f56
+      internalID: 1929508868
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_68
+      rect:
+        serializedVersion: 2
+        x: 1059
+        y: 2129
+        width: 274
+        height: 98
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b5594dbc8301f034c8891327871c10a4
+      internalID: 888709235
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_69
+      rect:
+        serializedVersion: 2
+        x: 1643
+        y: 2073
+        width: 262
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36263c6abcf82c84fa9e09821d1351b0
+      internalID: 256125830
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_70
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1803
+        width: 391
+        height: 348
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 793b913b2154381488f94e1ab1b71e3d
+      internalID: 1673911698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_71
+      rect:
+        serializedVersion: 2
+        x: 321
+        y: 1485
+        width: 530
+        height: 412
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c13cc873b5187a7449aed22e3da52aa3
+      internalID: 1550392576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_72
+      rect:
+        serializedVersion: 2
+        x: 1009
+        y: 1427
+        width: 316
+        height: 470
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7bf3e253de7e174998ef10459b061b0
+      internalID: 1061706420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_73
+      rect:
+        serializedVersion: 2
+        x: 1287
+        y: 1463
+        width: 342
+        height: 398
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 831a3cb7819e58244a38336b234b5846
+      internalID: 7288614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_74
+      rect:
+        serializedVersion: 2
+        x: 1607
+        y: 1489
+        width: 340
+        height: 372
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4387a05d4fa3a4342aeb64330f3d11ee
+      internalID: 1538564090
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_75
+      rect:
+        serializedVersion: 2
+        x: 1641
+        y: 1858
+        width: 196
+        height: 222
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be7da95a7c294c0479f9345d964a7075
+      internalID: 500278906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_76
+      rect:
+        serializedVersion: 2
+        x: 1829
+        y: 1849
+        width: 132
+        height: 122
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0417f440b9a3adb4a876574e7aed1a2f
+      internalID: -2064735178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_77
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 1750
+        width: 6
+        height: 4
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb55d9f4e839b514c954896318e285ce
+      internalID: 1599852588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_78
+      rect:
+        serializedVersion: 2
+        x: 833
+        y: 1719
+        width: 70
+        height: 126
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8fee2ee3e030aa249b1d95ad9fae6d43
+      internalID: -626217342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_79
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 848
+        width: 752
+        height: 900
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c47ba43294ebccd429031cd2a32226a5
+      internalID: -2124937699
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_80
+      rect:
+        serializedVersion: 2
+        x: 515
+        y: 1269
+        width: 238
+        height: 254
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f02a2c3409741b944aba9c5f6dda0b0c
+      internalID: 2023158817
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_81
+      rect:
+        serializedVersion: 2
+        x: 777
+        y: 1401
+        width: 146
+        height: 324
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5dcc0f5f099933143b274b52d7a812a5
+      internalID: -1596338277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_82
+      rect:
+        serializedVersion: 2
+        x: 865
+        y: 1467
+        width: 90
+        height: 264
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7165c29a7ad3cd049a1296e77386ef29
+      internalID: -848827130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_83
+      rect:
+        serializedVersion: 2
+        x: 1207
+        y: 1332
+        width: 26
+        height: 228
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f0d3d3de9766da4dbaa6913cf30c6c1
+      internalID: 294868569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_84
+      rect:
+        serializedVersion: 2
+        x: 1455
+        y: 1030
+        width: 348
+        height: 459
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 415b4a02ec8055b40ae7faf52d4882fd
+      internalID: 1575314856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_85
+      rect:
+        serializedVersion: 2
+        x: 741
+        y: 1081
+        width: 416
+        height: 385
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 121c4353c99859845bde9a23f87741d1
+      internalID: -1648332889
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_86
+      rect:
+        serializedVersion: 2
+        x: 1137
+        y: 1065
+        width: 288
+        height: 324
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 313f1bc9b417b2e439b28085f5b0df9e
+      internalID: -1955025716
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_87
+      rect:
+        serializedVersion: 2
+        x: 1739
+        y: 1216
+        width: 142
+        height: 139
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 614cabc777a56ad4bafaf38e6217c576
+      internalID: -1190555328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_88
+      rect:
+        serializedVersion: 2
+        x: 1906
+        y: 641
+        width: 142
+        height: 610
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f7c38ad6f5585e4b9183436044daeb4
+      internalID: 148372122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_89
+      rect:
+        serializedVersion: 2
+        x: 687
+        y: 919
+        width: 1060
+        height: 158
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dffb2e817d19f0f448317099739ed547
+      internalID: -1870695363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_90
+      rect:
+        serializedVersion: 2
+        x: 813
+        y: 1067
+        width: 179
+        height: 92
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 398d0c0cf6af7a5418c7b7de4152b73d
+      internalID: 1397574001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_91
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 694
+        width: 37
+        height: 91
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1886d1ca8decfd04ea44064b990bedad
+      internalID: 105775082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_92
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 0
+        width: 488
+        height: 731
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 074b1b709a5acf44ebeeb4d8d80b118b
+      internalID: 725410354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_93
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 505
+        width: 828
+        height: 446
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9316c0939bb7a0c488a0119b720a7395
+      internalID: -1782899853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_94
+      rect:
+        serializedVersion: 2
+        x: 803
+        y: 553
+        width: 231
+        height: 364
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ac9e633eb5e59643bf050e8ee307e17
+      internalID: 1124657806
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_95
+      rect:
+        serializedVersion: 2
+        x: 1057
+        y: 523
+        width: 197
+        height: 415
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e168d29ba6c3c7242922903ca406c609
+      internalID: -298218020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_96
+      rect:
+        serializedVersion: 2
+        x: 1253
+        y: 707
+        width: 589
+        height: 240
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 108ad0d40bd19f0419a232c203da5f3e
+      internalID: 1573755224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_97
+      rect:
+        serializedVersion: 2
+        x: 1599
+        y: 305
+        width: 348
+        height: 427
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb89f5a0fc9fbc44badcd791b80e78ab
+      internalID: 889883952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_98
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 579
+        width: 219
+        height: 112
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0139be8b9e6cda846b126480a815af2e
+      internalID: 1984418493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_99
+      rect:
+        serializedVersion: 2
+        x: 1185
+        y: 584
+        width: 270
+        height: 83
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 378170fa6ccf0a841a2b55e463edebb8
+      internalID: 664748666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_100
+      rect:
+        serializedVersion: 2
+        x: 1417
+        y: 565
+        width: 118
+        height: 127
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e644c10bdd73a9641a6de5d257273b91
+      internalID: 403060323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_101
+      rect:
+        serializedVersion: 2
+        x: 1937
+        y: 283
+        width: 26
+        height: 304
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2f0b9c6092a11f4a96a4e8c4844a995
+      internalID: 770471892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_102
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 251
+        width: 171
+        height: 332
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cfaaf3eda65dddc45871809d2f069c59
+      internalID: 1100461469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_103
+      rect:
+        serializedVersion: 2
+        x: 1165
+        y: 477
+        width: 256
+        height: 102
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: afef937f8640ee742b6b5615e6e512e1
+      internalID: 509665102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_104
+      rect:
+        serializedVersion: 2
+        x: 1967
+        y: 565
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30a467f388fa5fa4b91c69ba3bdbe075
+      internalID: 1678859179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_105
+      rect:
+        serializedVersion: 2
+        x: 1967
+        y: 545
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 109c995c973625d43aae59dd154e60c7
+      internalID: 1608418762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_106
+      rect:
+        serializedVersion: 2
+        x: 1967
+        y: 525
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4b90d434274e1b4f9d2a969abe292c1
+      internalID: 541099147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_107
+      rect:
+        serializedVersion: 2
+        x: 341
+        y: 399
+        width: 245
+        height: 126
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f34e8653c6becf46b004ae703c52926
+      internalID: 1597407069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_108
+      rect:
+        serializedVersion: 2
+        x: 1967
+        y: 506
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8fb3865f96a2aad4ca7a161497a231de
+      internalID: 694529316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_109
+      rect:
+        serializedVersion: 2
+        x: 1967
+        y: 470
+        width: 81
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fff7097ae5444ec48962bc841fd1067b
+      internalID: 962447212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_110
+      rect:
+        serializedVersion: 2
+        x: 1967
+        y: 488
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd8a03c5b6689e3429f297726fe2824c
+      internalID: -732500434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_111
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 0
+        width: 623
+        height: 485
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0208b9a7f845eaf428527988e19f8e26
+      internalID: -1409315981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_112
+      rect:
+        serializedVersion: 2
+        x: 875
+        y: 57
+        width: 461
+        height: 420
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5db18c70f4a1d643851239a2cd4e400
+      internalID: -122349465
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_113
+      rect:
+        serializedVersion: 2
+        x: 1392
+        y: 131
+        width: 443
+        height: 328
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3786f55be741eac48883c484aaaddfc7
+      internalID: -388894893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_114
+      rect:
+        serializedVersion: 2
+        x: 1967
+        y: 450
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f8b39bc371294ea45b5dba9b833efc0b
+      internalID: -244876027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_115
+      rect:
+        serializedVersion: 2
+        x: 1967
+        y: 430
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2eff32ab534e684aa64968adf904f67
+      internalID: -245290101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_116
+      rect:
+        serializedVersion: 2
+        x: 1967
+        y: 411
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba3511fbfe7c345448dd5ea784953285
+      internalID: -1693206724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_117
+      rect:
+        serializedVersion: 2
+        x: 1967
+        y: 393
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7aa22da7fb35f214e97c2ccb9876e5c6
+      internalID: -1739069845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_118
+      rect:
+        serializedVersion: 2
+        x: 1967
+        y: 376
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5733b865764d91c4aa2b68df894c5a5c
+      internalID: -2074928196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_119
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 229
+        width: 25
+        height: 146
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe23b40c7418e2e49b0d2adc8874be2b
+      internalID: 1911054401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_120
+      rect:
+        serializedVersion: 2
+        x: 1325
+        y: 339
+        width: 15
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48c5a4886bb2bcf40a9ab779a169cd4f
+      internalID: -1485897368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_121
+      rect:
+        serializedVersion: 2
+        x: 1907
+        y: 161
+        width: 141
+        height: 199
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ceb020398cc22c4b9ec3caa348ea8d3
+      internalID: 863364633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_122
+      rect:
+        serializedVersion: 2
+        x: 1967
+        y: 356
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d166be427687f44585098235bf617b5
+      internalID: 2067211483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_123
+      rect:
+        serializedVersion: 2
+        x: 1967
+        y: 336
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43b81fa8f5a58fa41846577e961a352f
+      internalID: 1081197007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_124
+      rect:
+        serializedVersion: 2
+        x: 1967
+        y: 317
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0c68ad6c3b772344bd658e781d54dbf
+      internalID: 185059314
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_125
+      rect:
+        serializedVersion: 2
+        x: 1930
+        y: 300
+        width: 6
+        height: 4
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65e84bf390de2ce40a36f30c17e30aa3
+      internalID: 1360130366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_126
+      rect:
+        serializedVersion: 2
+        x: 1967
+        y: 299
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27d0af3858ff5ad4bb7e6570c4b3a593
+      internalID: 607658644
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_127
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 152
+        width: 63
+        height: 91
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46ab77c105ed868409a22eb908718dbd
+      internalID: 629437460
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_128
+      rect:
+        serializedVersion: 2
+        x: 1249
+        y: 0
+        width: 382
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9860255e4718ebe4caa024818e163b30
+      internalID: -1962251067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_129
+      rect:
+        serializedVersion: 2
+        x: 1800
+        y: 209
+        width: 53
+        height: 74
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64075360f73a4fd488765a6b9f248c5e
+      internalID: 282204104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_130
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 0
+        width: 64
+        height: 179
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 49272907656ba4546aadae0f94f62b4f
+      internalID: -1919431211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_131
+      rect:
+        serializedVersion: 2
+        x: 1838
+        y: 168
+        width: 6
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dcd7ed9860d085147b2d862b403536d6
+      internalID: 797447424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_132
+      rect:
+        serializedVersion: 2
+        x: 1890
+        y: 170
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 73939dc48ba538c44ad278107696b411
+      internalID: -636040656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_133
+      rect:
+        serializedVersion: 2
+        x: 1846
+        y: 0
+        width: 87
+        height: 169
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 85352bb5c96328c4f9f1a85dd0c5eab8
+      internalID: 722016770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_134
+      rect:
+        serializedVersion: 2
+        x: 1935
+        y: 126
+        width: 5
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ab6e598681defd4c974122db33e792f
+      internalID: 940324564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_135
+      rect:
+        serializedVersion: 2
+        x: 1230
+        y: 50
+        width: 5
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7db3ea530c4526d4ca489040989ad507
+      internalID: -1509857874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x4096-BC7-Bonetown-75529e33_136
+      rect:
+        serializedVersion: 2
+        x: 1635
+        y: 0
+        width: 202
+        height: 93
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8aaf0ee7a01c45547a0e5de8bdde95e1
+      internalID: 624586562
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_0: 1865842905
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_1: -357660110
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_10: -586613621
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_100: 403060323
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_101: 770471892
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_102: 1100461469
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_103: 509665102
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_104: 1678859179
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_105: 1608418762
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_106: 541099147
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_107: 1597407069
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_108: 694529316
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_109: 962447212
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_11: 151443903
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_110: -732500434
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_111: -1409315981
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_112: -122349465
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_113: -388894893
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_114: -244876027
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_115: -245290101
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_116: -1693206724
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_117: -1739069845
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_118: -2074928196
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_119: 1911054401
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_12: -1580588362
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_120: -1485897368
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_121: 863364633
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_122: 2067211483
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_123: 1081197007
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_124: 185059314
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_125: 1360130366
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_126: 607658644
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_127: 629437460
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_128: -1962251067
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_129: 282204104
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_13: 1235335053
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_130: -1919431211
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_131: 797447424
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_132: -636040656
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_133: 722016770
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_134: 940324564
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_135: -1509857874
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_136: 624586562
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_14: -717832121
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_15: -1995209136
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_16: 1508332211
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_17: 309999335
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_18: 984853564
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_19: -237194764
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_2: 2111211503
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_20: -2063551826
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_21: 3189860
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_22: -207256740
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_23: 1082330959
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_24: 1539923292
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_25: -995535787
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_26: -147973448
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_27: 1501322192
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_28: -384313464
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_29: -1763081908
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_3: 877289143
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_30: 1528076286
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_31: -342548200
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_32: 886681781
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_33: 1460694964
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_34: -160306334
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_35: 689005475
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_36: -1551691230
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_37: -580050271
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_38: -1233700654
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_39: -1348091691
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_4: -772743580
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_40: 2015279467
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_41: 656586078
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_42: -810149190
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_43: -1155937299
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_44: 1928585601
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_45: 1058981736
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_46: -1550416451
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_47: -941277902
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_48: -393938456
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_49: 2131414955
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_5: -1015043903
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_50: 503007918
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_51: 1650285643
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_52: 2069188823
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_53: 1193975786
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_54: -1927776589
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_55: -1792111057
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_56: 1758196199
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_57: -1576953813
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_58: 1085928358
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_59: -726867582
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_6: 2025696068
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_60: 247413375
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_61: -586440636
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_62: 1670478893
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_63: 97906864
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_64: -1141310671
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_65: 154088547
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_66: 901383522
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_67: 1929508868
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_68: 888709235
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_69: 256125830
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_7: 2140078691
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_70: 1673911698
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_71: 1550392576
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_72: 1061706420
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_73: 7288614
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_74: 1538564090
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_75: 500278906
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_76: -2064735178
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_77: 1599852588
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_78: -626217342
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_79: -2124937699
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_8: -1908009282
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_80: 2023158817
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_81: -1596338277
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_82: -848827130
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_83: 294868569
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_84: 1575314856
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_85: -1648332889
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_86: -1955025716
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_87: -1190555328
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_88: 148372122
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_89: -1870695363
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_9: 1047762780
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_90: 1397574001
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_91: 105775082
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_92: 725410354
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_93: -1782899853
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_94: 1124657806
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_95: -298218020
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_96: 1573755224
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_97: 889883952
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_98: 1984418493
+      sactx-0-2048x4096-BC7-Bonetown-75529e33_99: 664748666
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
