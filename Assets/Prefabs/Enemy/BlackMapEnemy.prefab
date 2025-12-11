@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BlackMapEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 8548098905030924315, guid: 5912e6f385063ef4795b6cdf74dc4993, type: 3}
+      propertyPath: m_GravityScale
+      value: 0.7
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8963888372664110853, guid: 5912e6f385063ef4795b6cdf74dc4993, type: 3}
     m_RemovedGameObjects: []
@@ -81,7 +85,7 @@ MonoBehaviour:
   enemyColor: 1
   attackType: 0
   maxHealth: 1
-  moveSpeed: 5
+  moveSpeed: 6
   damage: 10
   moveAcceleration: 10
   rotationSpeed: 360
@@ -103,19 +107,19 @@ MonoBehaviour:
   bulletSpeed: 10
   minRangedDistance: 5
   maxRangedDistance: 7
-  meleeAttackRange: 3
+  meleeAttackRange: 1
   meleeAttackCooldown: 0.5
-  meleeChaseSpeed: 6
+  meleeChaseSpeed: 7
   attackAnimationDuration: 0.3
   attackHeightTolerance: 0.8
   recoilForce: 5
   recoilDuration: 0.5
   recoilUpwardForce: 0
-  canFallOffLedge: 0
+  canFallOffLedge: 1
   detectHeightTolerance: 1
   groundMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   groundCheckExtraHeight: 0.1
   ledgeCheckDistance: 0.2
   jumpForce: 5
@@ -124,7 +128,7 @@ MonoBehaviour:
   wallCheckDistance: 0.6
   enablePatrol: 1
   patrolRadius: 5
-  patrolSpeed: 2
+  patrolSpeed: 3
   waypointReachDistance: 0.5
   combatMoveSpeed: 1.5
   combatMoveInterval: 1.5
