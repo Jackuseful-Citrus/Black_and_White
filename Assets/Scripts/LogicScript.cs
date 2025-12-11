@@ -239,6 +239,12 @@ public class LogicScript : MonoBehaviour
         whiteBar += amount;
     }
 
+    public void DieImmediately()
+    {
+        blackBar = 100;
+        whiteBar = 100;
+    }
+
     private void Update()
     {   
         //场景黑白条交互
