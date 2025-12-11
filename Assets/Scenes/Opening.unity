@@ -275,7 +275,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -22
   m_Sprite: {fileID: 21300000, guid: 26aa16b84433f7f41bb6a39664b70fc6, type: 3}
-  m_Color: {r: 0.581132, g: 0.57455313, b: 0.57455313, a: 1}
+  m_Color: {r: 0.754717, g: 0.754717, b: 0.754717, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -6499,7 +6499,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -12
   m_Sprite: {fileID: 21300000, guid: f175f3ff010d31d428633b39bcb0263d, type: 3}
-  m_Color: {r: 0.5849056, g: 0.57386965, b: 0.57386965, a: 1}
+  m_Color: {r: 0.7509433, g: 0.7509433, b: 0.7509433, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -6817,10 +6817,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   invertMat: {fileID: 2100000, guid: 4ddf742300666bd41807d920643cea35, type: 2}
-  hoverRadius: 0.07
+  hoverRadius: 0.05
   hoverGrowDuration: 0.3
   enableBreath: 1
-  breathAmplitude: 0.17
+  breathAmplitude: 0.3
   breathSpeed: 0.9
   featherOnHover: 0
 --- !u!114 &2017298781
