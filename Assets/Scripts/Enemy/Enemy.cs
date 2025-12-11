@@ -10,7 +10,7 @@ public class Enemy : MonoBehaviour
     public AttackType attackType;
 
     [Header("基础属性")]
-    [SerializeField] protected float maxHealth = 50f;
+    [SerializeField] protected float maxHealth = 100f;
     [SerializeField] protected float moveSpeed = 3f;
     [SerializeField] protected float damage = 10f;
     [SerializeField] protected float moveAcceleration = 8f;

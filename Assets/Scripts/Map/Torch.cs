@@ -35,6 +35,7 @@ public class Torch : MonoBehaviour
                 Debug.Log("Torch activated! Respawn point set.");
 
                 LogicScript.Instance.ClearAllBars();
+                LogicScript.Instance.RefreshEnemies();
                 
                 if (successTextPanel != null)
                 {
