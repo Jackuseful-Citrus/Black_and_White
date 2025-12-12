@@ -328,7 +328,8 @@ MonoBehaviour:
   whiteAnimator: {fileID: 3482031552728995130}
   blackOutlookGO: {fileID: 5759503793614578480}
   whiteOutlookGO: {fileID: 6547936626240858181}
-  switchAnimDuration: 0.3
+  switchPreDuration: 0.8
+  switchPostDuration: 0.5
 --- !u!114 &3215549992112573064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -374,6 +375,7 @@ MonoBehaviour:
   lightBallPrefab: {fileID: 4420177038273116322, guid: 5a896adc3f3be974499b85946d6d6323, type: 3}
   mirrorLightSpawnPoint: {fileID: 7165815533581699327}
   lightBallCooldown: 0.35
+  mirrorAimPoint: {fileID: 0}
 --- !u!61 &4827417688435083538
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -473,6 +475,10 @@ PrefabInstance:
       objectReference: {fileID: 6809696989519254543}
     - target: {fileID: 5783409917200911946, guid: ff167f92834a02340987550fec4e6bd0, type: 3}
       propertyPath: usePlayerInput
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7767901815329087968, guid: ff167f92834a02340987550fec4e6bd0, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8027514014388079892, guid: ff167f92834a02340987550fec4e6bd0, type: 3}
