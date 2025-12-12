@@ -7,14 +7,19 @@ public class BlackBoss : MonoBehaviour
     private float maxHealth = 0f;
 
     [Header("Charge Movement")]
-    [SerializeField] private float blackChargeSpeed = 10f;
-    [SerializeField] private float blackRestDuration = 3f;
+    [SerializeField] private float blackChargeSpeed = 12f;
+    [SerializeField] private float blackRestDuration = 2f;
     [SerializeField] private float minChargeDuration = 0.25f;
     [SerializeField] private float maxChargeDuration = 1.5f;
 
+    [Header("Advanced Difficulty")]
+    [SerializeField] private float roamSpeed = 4f;
+    [SerializeField] private int maxChainCharges = 2;
+    [SerializeField] private float roamChangeInterval = 0.5f;
+
     [Header("Targeting")]
     [SerializeField] private PlayerControl mainPlayer;
-    [SerializeField] private Transform mirrorPlayer; // optional mirror target
+    [SerializeField] private Transform mirrorPlayer;
 
     [Header("Body (visual)")]
     [SerializeField] private GameObject blackBody;
@@ -29,6 +34,12 @@ public class BlackBoss : MonoBehaviour
     private float currentHealth;
     private float phaseStartTime;
     private bool phaseEnded;
+
+    private Vector2 roamDir;
+    private float nextRoamChangeTime;
+    private Vector3 arenaCenter;
+    private bool isReturning;
+    private float chargeStartTime;
 
     public System.Action onPhaseEnded;
     public System.Action onBossDied;
@@ -45,7 +56,7 @@ public class BlackBoss : MonoBehaviour
 
     private void Start()
     {
-        restTimer = 0f; // start charging immediately
+        restTimer = 0f;
         if (mainPlayer == null)
         {
             mainPlayer = FindObjectOfType<PlayerControl>();
@@ -92,21 +103,46 @@ public class BlackBoss : MonoBehaviour
 
             if (chargeTimer <= 0f)
             {
-                StopCharge();
+                StartReturnToCenter();
+            }
+        }
+        else if (isReturning)
+        {
+            Vector2 dir = (arenaCenter - transform.position).normalized;
+            rb.velocity = dir * (blackChargeSpeed * 0.8f);
+
+            if (Vector2.Distance(transform.position, arenaCenter) < 0.5f)
+            {
+                StopReturn();
             }
         }
         else
         {
-            rb.velocity = Vector2.zero;
+            HandleRoaming();
+
             restTimer -= Time.fixedDeltaTime;
             if (restTimer <= 0f)
             {
-                StartCharge();
+                ExecuteCharge();
             }
         }
     }
 
-    private void StartCharge()
+    private void HandleRoaming()
+    {
+        if (Time.time >= nextRoamChangeTime)
+        {
+            Vector3 targetPos = GetBlackPlayerPosition();
+            Vector2 toPlayer = (targetPos - transform.position).normalized;
+            Vector2 randomDir = Random.insideUnitCircle.normalized;
+            
+            roamDir = (toPlayer * 0.7f + randomDir * 0.3f).normalized;
+            nextRoamChangeTime = Time.time + roamChangeInterval;
+        }
+        rb.velocity = roamDir * roamSpeed;
+    }
+
+    private void ExecuteCharge()
     {
         Vector3 targetPos = GetBlackPlayerPosition();
         Vector2 dir = (targetPos - transform.position).normalized;
@@ -114,13 +150,20 @@ public class BlackBoss : MonoBehaviour
 
         chargeDir = dir;
         float estimatedTime = Vector2.Distance(transform.position, targetPos) / Mathf.Max(blackChargeSpeed, 0.01f);
-        chargeTimer = Mathf.Clamp(estimatedTime, minChargeDuration, maxChargeDuration);
+        chargeTimer = Mathf.Clamp(estimatedTime * 1.2f, minChargeDuration, maxChargeDuration);
         isCharging = true;
+        chargeStartTime = Time.time;
     }
 
-    private void StopCharge()
+    private void StartReturnToCenter()
     {
         isCharging = false;
+        isReturning = true;
+    }
+
+    private void StopReturn()
+    {
+        isReturning = false;
         rb.velocity = Vector2.zero;
         restTimer = blackRestDuration;
     }
@@ -163,10 +206,9 @@ public class BlackBoss : MonoBehaviour
             LogicScript.Instance.HitByBlackEnemy();
         }
 
-        // end the charge when colliding with any obstacle in the scene
-        if (isCharging)
+        if (isCharging && Time.time - chargeStartTime > 0.1f)
         {
-            StopCharge();
+            StartReturnToCenter();
         }
     }
 
@@ -189,9 +231,11 @@ public class BlackBoss : MonoBehaviour
     public void BeginFight()
     {
         fightActive = true;
-        restTimer = 0f; // immediately start first charge loop
+        restTimer = 0f;
         phaseStartTime = Time.time;
         phaseEnded = false;
+        arenaCenter = transform.position;
+        roamDir = Random.insideUnitCircle.normalized;
     }
 
     public void PauseFight()
