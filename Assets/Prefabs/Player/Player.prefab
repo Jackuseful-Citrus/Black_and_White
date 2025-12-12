@@ -188,7 +188,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 484681280615418621}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: a73d963a726f53d4facdd293a48aeb9e, type: 2}
+  m_Material: {fileID: 6200000, guid: 59d28d64c7c36104b921ca57389abe01, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -800,7 +800,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.851
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.46
+  m_Intensity: 0
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: 00000000
