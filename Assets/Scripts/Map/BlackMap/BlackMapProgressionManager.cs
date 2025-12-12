@@ -220,7 +220,7 @@ public void ResetEndingPhase()
         pickupCollectible.SetActive(true);
 
         // ✅ 尝试在同一个物体上重置终点逻辑
-        var endPoint = pickupCollectible.GetComponent<BlackMapEndPoint>();
+        var endPoint = pickupCollectible.GetComponent<FragmentEndPoint>();
         if (endPoint != null)
         {
             endPoint.ResetState();
@@ -229,7 +229,7 @@ public void ResetEndingPhase()
     else
     {
         // 如果终点不在同一个物体上，可以用这种方式兜底：
-        var endPoint = FindObjectOfType<BlackMapEndPoint>();
+        var endPoint = FindObjectOfType<FragmentEndPoint>();
         if (endPoint != null)
         {
             endPoint.gameObject.SetActive(true);

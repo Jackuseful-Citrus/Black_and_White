@@ -41,7 +41,7 @@ public class LogicScript : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    
+
     private void Start()
     {
         // 如果没有手动指定 player，就自动查找
@@ -49,13 +49,13 @@ public class LogicScript : MonoBehaviour
         {
             player = GameObject.FindGameObjectWithTag("Player");
         }
-        
+
         playerControl = player?.GetComponent<PlayerControl>();
         if (playerControl == null)
         {
             Debug.LogError("[LogicScript] Player 物体上未找到 PlayerControl 脚本！");
         }
-        
+
         if (player != null)
         {
             respawnPoint = player.transform.position;
@@ -68,8 +68,22 @@ public class LogicScript : MonoBehaviour
 
         sceneEnemies.AddRange(FindObjectsOfType<Enemy>());
 
-        maxWidth = blackBarImage.rectTransform.rect.width;
-        
+        if (blackBarImage != null)
+        {
+            maxWidth = blackBarImage.rectTransform.rect.width;
+        }
+
+
+        if (hasPendingTeleport)
+        {
+            hasPendingTeleport = false;
+            respawnPoint = pendingTeleportPoint;
+            if (player != null)
+            {
+                player.transform.position = respawnPoint;
+            }
+        }
+
         if (hasPendingDoorTeleport)
         {
             hasPendingDoorTeleport = false;
@@ -86,7 +100,11 @@ public class LogicScript : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning("[LogicScript] 通过门传送，但新场景中未找到 Door 组件。");
+                Debug.LogWarning("[LogicScript] 通过门传送，但新场景中未找到 Door 组件，将使用原 respawnPoint。");
+                if (player != null)
+                {
+                    player.transform.position = respawnPoint;
+                }
             }
         }
     }
@@ -108,7 +126,7 @@ public class LogicScript : MonoBehaviour
 
                 player.transform.position = targetPos;
                 RefreshEnemies();
-                blackBar = 0; 
+                blackBar = 0;
                 whiteBar = 0;
                 blackBarMin = 0;
                 whiteBarMin = 0;
@@ -120,7 +138,7 @@ public class LogicScript : MonoBehaviour
             player.transform.position = respawnPoint;
             RefreshEnemies();
             // 初始化黑白条
-            blackBar = 0; 
+            blackBar = 0;
             whiteBar = 0;
             blackBarMin = 0;
             whiteBarMin = 0;
@@ -145,18 +163,20 @@ public class LogicScript : MonoBehaviour
 
     private void UpdateBlackBarValue(float x)
     {
+        if (blackBarImage == null) return;
         float ratio = Mathf.Clamp01(x / 100f);
         blackBarImage.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, maxWidth * ratio);
     }
     private void UpdateWhiteBarValue(float x)
     {
+        if (whiteBarImage == null) return;
         float ratio = Mathf.Clamp01(x / 100f);
         whiteBarImage.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, maxWidth * ratio);
     }
 
     public void BladeHitBlackEnemy()
     {
-        if(playerControl.isBlack)
+        if (playerControl.isBlack)
         {
             blackBar -= 2;
             whiteBar += 1;
@@ -165,7 +185,7 @@ public class LogicScript : MonoBehaviour
 
     public void BladeHitWhiteEnemy()
     {
-        if(playerControl.isBlack)
+        if (playerControl.isBlack)
         {
             blackBar += 2;
             whiteBar -= 4;
@@ -187,7 +207,7 @@ public class LogicScript : MonoBehaviour
 
     public void HitByBlackEnemy()
     {
-        if(playerControl.isBlack)
+        if (playerControl.isBlack)
         {
             blackBar += 14;
             whiteBar -= 7;
@@ -200,7 +220,7 @@ public class LogicScript : MonoBehaviour
     }
     public void HitByWhiteEnemy()
     {
-        if(playerControl.isBlack)
+        if (playerControl.isBlack)
         {
             whiteBar += 28;
             blackBar -= 14;
@@ -211,7 +231,7 @@ public class LogicScript : MonoBehaviour
             blackBar -= 7;
         }
     }
-    
+
     public void getIntoWhiteTrap()
     {
         whiteBar += 28;
@@ -226,7 +246,7 @@ public class LogicScript : MonoBehaviour
     public void InBlackZone()
     {
         blackBar += 1;
-        if(playerControl.isWhite)
+        if (playerControl.isWhite)
         {
             whiteBar -= 1;
         }
@@ -234,7 +254,7 @@ public class LogicScript : MonoBehaviour
     public void InWhiteZone()
     {
         whiteBar += 1;
-        if(playerControl.isBlack)
+        if (playerControl.isBlack)
         {
             blackBar -= 1;
         }
@@ -263,7 +283,7 @@ public class LogicScript : MonoBehaviour
     }
 
     private void Update()
-    {   
+    {
         //场景黑白条交互
         /*
         timer += Time.deltaTime;
@@ -275,19 +295,19 @@ public class LogicScript : MonoBehaviour
         }
         */
         // 黑白条限制、死亡判断与UI显示
-        if(blackBar < blackBarMin)
+        if (blackBar < blackBarMin)
         {
             blackBar = blackBarMin;
         }
-        if(whiteBar < whiteBarMin)
+        if (whiteBar < whiteBarMin)
         {
             whiteBar = whiteBarMin;
         }
-        if(blackBar > 100)
+        if (blackBar > 100)
         {
             blackBar = 100;
         }
-        if(whiteBar > 100)
+        if (whiteBar > 100)
         {
             whiteBar = 100;
         }
@@ -348,10 +368,12 @@ public class LogicScript : MonoBehaviour
 
     public void TeleportViaDoor(string sceneName)
     {
-        // 标记一下：下一次进入新场景时，要用“门”的位置作为出生点
+        // 这是“通过门切场景”，只在新场景找门决定出生点
         hasPendingDoorTeleport = true;
 
-        // 不设置具体坐标，等新场景 Start 里用 Door 的位置
+        // 避免上次普通传送遗留的 pendingTeleport 干扰
+        hasPendingTeleport = false;
+
         SceneManager.LoadScene(sceneName);
     }
 

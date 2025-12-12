@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections;
-using UnityEngine.InputSystem;
 
 public class ScytheScript : MonoBehaviour
 {
@@ -15,15 +14,19 @@ public class ScytheScript : MonoBehaviour
     public bool inAttackRecovery = false;
     public bool inAttackProgress = false;
 
+    private void Awake()
+    {
+        TryResolvePlayer();
+    }
+
     private void Start()
     {
-        // 仅在使用玩家输入时才需要 PlayerControl
         if (usePlayerInput)
         {
-            playerControl = Player?.GetComponent<PlayerControl>();
+            TryResolvePlayer();
             if (playerControl == null)
             {
-                Debug.LogError("[ScytheScript] Player 物体上未找到 PlayerControl 脚本！");
+                Debug.LogError("[ScytheScript] PlayerControl not found on Player.");
             }
         }
     }
@@ -41,6 +44,7 @@ public class ScytheScript : MonoBehaviour
             StartCoroutine(Attack());
         }
     }
+
     private IEnumerator Attack()
     {
         yield return new WaitForSeconds(0.05f);
@@ -57,6 +61,8 @@ public class ScytheScript : MonoBehaviour
 
     private void Update()
     {
+        TryResolvePlayer();
+
         if (usePlayerInput && playerControl != null)
         {
             if (playerControl.isBlack && !isWaiting && playerControl.isAttacking)
@@ -68,7 +74,6 @@ public class ScytheScript : MonoBehaviour
         if (Player != null) transform.position = Player.transform.position;
         if (AimPoint == null)
         {
-            // 尝试兜底获取场景中的 AimPoint（镜像忘记赋值时仍能旋转）
             AimPoint = FindObjectOfType<AimPointScript>()?.gameObject;
             if (AimPoint == null) return;
         }
@@ -85,16 +90,30 @@ public class ScytheScript : MonoBehaviour
         float newAngle = currentAngle + clamped;
         transform.rotation = Quaternion.AngleAxis(newAngle, Vector3.forward);
     }
+
     private void OnDisable()
-    {        
+    {
         isWaiting = false;
         inAttackRecovery = false;
         inAttackProgress = false;
-        
-        if (Blade != null) 
+
+        if (Blade != null)
         {
             Blade.SetActive(false);
         }
         StopAllCoroutines();
+    }
+
+    private void TryResolvePlayer()
+    {
+        if (Player == null)
+        {
+            var found = GameObject.FindGameObjectWithTag("Player");
+            if (found != null) Player = found;
+        }
+        if (usePlayerInput && playerControl == null && Player != null)
+        {
+            playerControl = Player.GetComponent<PlayerControl>();
+        }
     }
 }

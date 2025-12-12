@@ -5,7 +5,7 @@ using UnityEngine.Rendering.Universal;
 /// Controls endpoint visual: slow rotation + vertical bob + pulsating light.
 /// Attach to EndPoint root; assign light2D and optional target transform to rotate/bob.
 /// </summary>
-public class BlackMapEndPointVFX : MonoBehaviour
+public class CollectionVFX : MonoBehaviour
 {
     [Header("Rotation")]
     [SerializeField] private Transform target;
