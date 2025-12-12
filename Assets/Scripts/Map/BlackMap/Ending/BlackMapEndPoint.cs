@@ -172,4 +172,21 @@ public class BlackMapEndPoint : MonoBehaviour
         lockedRb = null;
         movementLocked = false;
     }
+    public void ResetState()
+{
+    // 把内部状态恢复成刚进图时的样子
+    reachedEnd = false;
+    collected = false;
+    playerInside = false;
+
+    if (movementLocked)
+    {
+        UnlockPlayer();
+    }
+
+    // 清引用
+    lockedPlayer = null;
+    lockedRb = null;
+}
+
 }

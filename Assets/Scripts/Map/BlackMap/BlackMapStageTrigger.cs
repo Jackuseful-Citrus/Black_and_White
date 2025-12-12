@@ -14,12 +14,14 @@ public class BlackMapStageTrigger : MonoBehaviour
     [SerializeField] private BlackMapStageOne stageOne;
     [SerializeField] private BlackMapEnemyRing stageTwo;
     [SerializeField] private bool singleUse = true; // trigger once then disable
+    [SerializeField] private float stageStartDelay = 0.05f; // avoid starting coroutines while inactive
     [SerializeField] private GameObject[] enableOnStart;
     [SerializeField] private GameObject[] disableOnStart;
     [SerializeField] private GameObject[] enableOnEnd;
     [SerializeField] private GameObject[] disableOnEnd;
 
     private bool triggered;
+    private Coroutine triggerRoutine;
 
     private void Reset()
     {
@@ -33,7 +35,22 @@ public class BlackMapStageTrigger : MonoBehaviour
         if (singleUse && triggered) return;
         triggered = true;
 
+        if (triggerRoutine != null) StopCoroutine(triggerRoutine);
+        if (stageStartDelay > 0f)
+        {
+            triggerRoutine = StartCoroutine(TriggerWithDelay(stageStartDelay));
+        }
+        else
+        {
+            TriggerStages();
+        }
+    }
+
+    private System.Collections.IEnumerator TriggerWithDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
         TriggerStages();
+        triggerRoutine = null;
     }
 
     private void TriggerStages()

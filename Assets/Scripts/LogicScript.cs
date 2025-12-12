@@ -98,9 +98,25 @@ public class LogicScript : MonoBehaviour
 
     public void RespawnPlayer()
     {
-
         if (player != null)
         {
+            if (BlackMapProgressionManager.Instance != null && BlackMapProgressionManager.Instance.HasPickup)
+            {
+                Vector3 targetPos = respawnPoint;
+                Transform pickupRespawn = BlackMapProgressionManager.Instance.PickupRespawnPoint;
+                if (pickupRespawn != null) targetPos = pickupRespawn.position;
+
+                player.transform.position = targetPos;
+                RefreshEnemies();
+                blackBar = 0; 
+                whiteBar = 0;
+                blackBarMin = 0;
+                whiteBarMin = 0;
+
+                BlackMapProgressionManager.Instance.ResetEndingPhase();
+                return;
+            }
+
             player.transform.position = respawnPoint;
             RefreshEnemies();
             // 初始化黑白条
@@ -303,6 +319,14 @@ public class LogicScript : MonoBehaviour
     {
         return whiteBar;
     }
+
+    public void SwapBars()
+    {
+        int temp = blackBar;
+        blackBar = whiteBar;
+        whiteBar = temp;
+    }
+
 
     public void SetTeleportPoint(Vector3 point)
     {

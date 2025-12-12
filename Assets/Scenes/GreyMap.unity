@@ -51696,6 +51696,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BarUI
       objectReference: {fileID: 0}
+    - target: {fileID: 3864722201335233912, guid: c345e9172f3ff3d48b1b82f08ab789bf, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6815021915740777096, guid: c345e9172f3ff3d48b1b82f08ab789bf, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -51774,6 +51778,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6815021915740777096, guid: c345e9172f3ff3d48b1b82f08ab789bf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7106741566638593044, guid: c345e9172f3ff3d48b1b82f08ab789bf, type: 3}
+      propertyPath: m_Color.a
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

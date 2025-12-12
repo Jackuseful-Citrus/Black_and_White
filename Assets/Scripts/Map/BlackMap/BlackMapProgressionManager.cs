@@ -14,6 +14,8 @@ public class BlackMapProgressionManager : MonoBehaviour
     [SerializeField] private Camera targetCamera;
     [SerializeField] private Light2D playerLight;
     [SerializeField] private Light2D globalLight;
+    [SerializeField] private Transform pickupRespawnPoint;
+    [SerializeField] private GameObject pickupCollectible; // 可选：收集物体的根，用于重置
 
     [Header("Camera")]
     [SerializeField] private float minOrthoSize = 4f;
@@ -77,12 +79,16 @@ public class BlackMapProgressionManager : MonoBehaviour
     private Coroutine sizeRoutine;
     private Coroutine globalLightRoutine;
     private Coroutine lightRadiusRoutine;
+    private Coroutine cameraShakeRoutine;
     private bool reachedEnd;
     private bool pickupTriggered;
     private float baseOuterRadius;
     private float baseInnerRadius;
     private float innerOuterRatio = 0.5f;
     private int lightRadiusStepCount;
+    private readonly List<GameObject> spawnedPickupEnemies = new List<GameObject>();
+    private bool cancelPickupWaves;
+    private bool stopShake;
 
     private void Awake()
     {
@@ -153,11 +159,14 @@ public class BlackMapProgressionManager : MonoBehaviour
     {
         if (pickupTriggered) return;
         pickupTriggered = true;
+        cancelPickupWaves = false;
 
         StartGlobalLightLerp(pickupGlobalLightIntensity);
         if (targetCamera != null && cameraShakeDuration > 0f && cameraShakeIntensity > 0f)
         {
-            StartCoroutine(ShakeCamera());
+            stopShake = false;
+            if (cameraShakeRoutine != null) StopCoroutine(cameraShakeRoutine);
+            cameraShakeRoutine = StartCoroutine(ShakeCamera());
         }
 
         if (diagonalSpawnAnchor != null)
@@ -174,6 +183,62 @@ public class BlackMapProgressionManager : MonoBehaviour
         {
             stageOneJitter.enabled = true;
         }
+
+        if (LogicScript.Instance != null)
+        {
+            // removed balance behaviour
+        }
+    }
+
+    public bool HasPickup => pickupTriggered;
+    public Transform PickupRespawnPoint => pickupRespawnPoint;
+
+public void ResetEndingPhase()
+{
+    cancelPickupWaves = true;
+    for (int i = spawnedPickupEnemies.Count - 1; i >= 0; i--)
+    {
+        if (spawnedPickupEnemies[i] != null)
+        {
+            Destroy(spawnedPickupEnemies[i]);
+        }
+    }
+    spawnedPickupEnemies.Clear();
+
+    pickupTriggered = false;
+    if (globalLight != null)
+    {
+        globalLight.intensity = startGlobalLightIntensity;
+    }
+    if (stageOneJitter != null) stageOneJitter.enabled = false;
+
+    stopShake = true;
+    // 不要把相机暴力归零，让 ShakeCamera 自己收尾
+
+    if (pickupCollectible != null)
+    {
+        pickupCollectible.SetActive(true);
+
+        // ✅ 尝试在同一个物体上重置终点逻辑
+        var endPoint = pickupCollectible.GetComponent<BlackMapEndPoint>();
+        if (endPoint != null)
+        {
+            endPoint.ResetState();
+        }
+    }
+    else
+    {
+        // 如果终点不在同一个物体上，可以用这种方式兜底：
+        var endPoint = FindObjectOfType<BlackMapEndPoint>();
+        if (endPoint != null)
+        {
+            endPoint.gameObject.SetActive(true);
+            endPoint.ResetState();
+        }
+    }
+
+        // stop ongoing balance if needed
+        // balance behaviour removed
     }
 
     private void RestartSizeLerp(float newTarget)
@@ -313,6 +378,7 @@ public class BlackMapProgressionManager : MonoBehaviour
             camTransform.localPosition = original + new Vector3(offset.x, offset.y, 0f);
             timer += Time.deltaTime;
             yield return null;
+            if (stopShake) { camTransform.localPosition = original; yield break; }
         }
 
         // phase 2: sustain low-intensity shake
@@ -323,6 +389,7 @@ public class BlackMapProgressionManager : MonoBehaviour
                 Vector2 offset = Random.insideUnitCircle * cameraShakeTailIntensity;
                 camTransform.localPosition = original + new Vector3(offset.x, offset.y, 0f);
                 yield return null;
+                if (stopShake) { camTransform.localPosition = original; yield break; }
             }
         }
         else
@@ -353,6 +420,7 @@ public class BlackMapProgressionManager : MonoBehaviour
                 Vector2 local = (-c * colSpacing) * right + (-r * rowSpacing) * down;
                 Vector3 pos = diagonalSpawnAnchor.position + new Vector3(local.x, local.y, 0f);
                 GameObject enemy = Instantiate(prefabToUse, pos, Quaternion.identity);
+                spawnedPickupEnemies.Add(enemy);
 
                 // 锁定自带 AI，但保留碰撞伤害
                 Enemy ai = enemy.GetComponent<Enemy>();
@@ -387,8 +455,11 @@ public class BlackMapProgressionManager : MonoBehaviour
 
             if (interval > 0f)
             {
+                if (cancelPickupWaves) yield break;
                 yield return new WaitForSeconds(interval);
             }
+
+            if (cancelPickupWaves) yield break;
         }
     }
 
@@ -411,6 +482,7 @@ public class BlackMapProgressionManager : MonoBehaviour
                 Vector3 offset = new Vector3(c * colSpacing, -r * rowSpacing, 0f);
                 Vector3 pos = horizontalSpawnAnchor.position + offset;
                 GameObject enemy = Instantiate(prefabToUse, pos, Quaternion.identity);
+                spawnedPickupEnemies.Add(enemy);
 
                 Enemy ai = enemy.GetComponent<Enemy>();
                 if (ai != null) ai.enabled = false;
@@ -444,8 +516,11 @@ public class BlackMapProgressionManager : MonoBehaviour
 
             if (interval > 0f)
             {
+                if (cancelPickupWaves) yield break;
                 yield return new WaitForSeconds(interval);
             }
+
+            if (cancelPickupWaves) yield break;
         }
     }
 }
