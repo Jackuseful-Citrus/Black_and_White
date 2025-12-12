@@ -429,8 +429,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8250041056600031442}
-  - component: {fileID: 5802949897810192162}
   - component: {fileID: 4702593273893350192}
+  - component: {fileID: 8031709316954211564}
   m_Layer: 0
   m_Name: WhiteTrap
   m_TagString: Untagged
@@ -458,8 +458,23 @@ Transform:
   - {fileID: 361852472477732719}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &5802949897810192162
-BoxCollider2D:
+--- !u!114 &4702593273893350192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7735861830704942160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c90acc555c260a4db059be45feb9f9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trapType: 1
+  damageInterval: 1
+  slowMultiplier: 0.2
+--- !u!60 &8031709316954211564
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -487,10 +502,10 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.19718647, y: 1.1120982}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -500,21 +515,11 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 3.894864, y: 0.71093965}
-  m_EdgeRadius: 0
---- !u!114 &4702593273893350192
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7735861830704942160}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c90acc555c260a4db059be45feb9f9f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  trapType: 1
-  damageInterval: 1
-  slowMultiplier: 0.2
+  m_Points:
+    m_Paths:
+    - - {x: 0.1828146, y: 1.6340498}
+      - {x: -1.4401317, y: 1.629158}
+      - {x: -1.9407463, y: 0.7613211}
+      - {x: 2.2968411, y: 0.766944}
+      - {x: 1.7969275, y: 1.6346943}
+  m_UseDelaunayMesh: 0
