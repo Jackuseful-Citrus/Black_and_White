@@ -34,11 +34,43 @@ public class BlackMapProgressionManager : MonoBehaviour
     [SerializeField] private float maxLightOuterRadius = 5f;
     [SerializeField] private float lightRadiusLerpDuration = 0.8f;
 
-    [Header("Pickup Spawn Wave")]
-    [SerializeField] private GameObject enemyPrefab;
-    [SerializeField] private List<Transform> rightSpawnPoints = new List<Transform>();
-    [SerializeField] private int spawnCount = 8;
-    [SerializeField] private float spawnInterval = 0.25f;
+    [Header("Pickup Extra Effects")]
+    [SerializeField] private float cameraShakeDuration = 1f;
+    [SerializeField] private float cameraShakeIntensity = 0.35f;
+    [SerializeField] private float cameraShakeTailIntensity = 0.05f; // residual shake after duration
+    [SerializeField] private bool cameraShakeSustain = true;        // keep shaking lightly after duration
+    [SerializeField] private GameObject diagonalEnemyPrefab;
+    [SerializeField] private Transform diagonalSpawnAnchor;
+    [SerializeField] private int diagonalRows = 3;
+    [SerializeField] private int diagonalCols = 4;
+    [SerializeField] private float diagonalRowSpacing = 1.5f;
+    [SerializeField] private float diagonalColSpacing = 1.5f;
+    [SerializeField] private float diagonalAngleDeg = -30f; // formation tilt
+    [SerializeField] private Vector2 diagonalMoveDir = new Vector2(-1f, -1f); // formation move direction
+    [SerializeField] private float diagonalMoveSpeed = 3f;
+    [SerializeField] private float diagonalLifeTime = 12f;
+    [SerializeField] private float diagonalRowInterval = 0.15f;
+    [SerializeField] private float diagonalContactDamage = 10f;
+    [SerializeField] private Vector2 diagonalWobbleAmpRange = new Vector2(0.1f, 0.25f);
+    [SerializeField] private Vector2 diagonalWobbleFreqRange = new Vector2(0.6f, 1.2f);
+
+    [Header("Pickup Stage3 Horizontal Wave")]
+    [SerializeField] private GameObject horizontalEnemyPrefab;
+    [SerializeField] private Transform horizontalSpawnAnchor;
+    [SerializeField] private int horizontalRows = 3;
+    [SerializeField] private int horizontalCols = 6;
+    [SerializeField] private float horizontalRowSpacing = 1.5f;
+    [SerializeField] private float horizontalColSpacing = 1.5f;
+    [SerializeField] private Vector2 horizontalMoveDir = new Vector2(0f, -1f);
+    [SerializeField] private float horizontalMoveSpeed = 2.5f;
+    [SerializeField] private float horizontalLifeTime = 12f;
+    [SerializeField] private float horizontalRowInterval = 0.15f;
+    [SerializeField] private float horizontalContactDamage = 10f;
+    [SerializeField] private Vector2 horizontalWobbleAmpRange = new Vector2(0.1f, 0.25f);
+    [SerializeField] private Vector2 horizontalWobbleFreqRange = new Vector2(0.6f, 1.2f);
+
+    [Header("Stage1 Jitter Control")]
+    [SerializeField] private MonoBehaviour stageOneJitter; // e.g., BlackMapStageOneJitter; kept disabled until pickup
 
     private int killCount;
     private float targetSize;
@@ -123,9 +155,24 @@ public class BlackMapProgressionManager : MonoBehaviour
         pickupTriggered = true;
 
         StartGlobalLightLerp(pickupGlobalLightIntensity);
-        if (enemyPrefab != null && rightSpawnPoints.Count > 0 && spawnCount > 0)
+        if (targetCamera != null && cameraShakeDuration > 0f && cameraShakeIntensity > 0f)
         {
-            StartCoroutine(SpawnWaveFromRight());
+            StartCoroutine(ShakeCamera());
+        }
+
+        if (diagonalSpawnAnchor != null)
+        {
+            StartCoroutine(SpawnDiagonalWave());
+        }
+
+        if (horizontalSpawnAnchor != null)
+        {
+            StartCoroutine(SpawnHorizontalWave());
+        }
+
+        if (stageOneJitter != null)
+        {
+            stageOneJitter.enabled = true;
         }
     }
 
@@ -249,21 +296,156 @@ public class BlackMapProgressionManager : MonoBehaviour
         lightRadiusRoutine = null;
     }
 
-    private IEnumerator SpawnWaveFromRight()
+    private IEnumerator ShakeCamera()
     {
-        int spawned = 0;
-        float interval = Mathf.Max(0.01f, spawnInterval);
+        if (targetCamera == null) yield break;
 
-        while (spawned < spawnCount)
+        Transform camTransform = targetCamera.transform;
+        Vector3 original = camTransform.localPosition;
+        float timer = 0f;
+
+        // phase 1: decay from main intensity to tail intensity
+        while (timer < cameraShakeDuration)
         {
-            foreach (Transform point in rightSpawnPoints)
+            float t = timer / Mathf.Max(0.0001f, cameraShakeDuration);
+            float currentIntensity = Mathf.Lerp(cameraShakeIntensity, cameraShakeTailIntensity, t);
+            Vector2 offset = Random.insideUnitCircle * currentIntensity;
+            camTransform.localPosition = original + new Vector3(offset.x, offset.y, 0f);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        // phase 2: sustain low-intensity shake
+        if (cameraShakeSustain && cameraShakeTailIntensity > 0f)
+        {
+            while (true)
             {
-                if (point == null) continue;
-                Instantiate(enemyPrefab, point.position, point.rotation);
-                spawned++;
-                if (spawned >= spawnCount) break;
+                Vector2 offset = Random.insideUnitCircle * cameraShakeTailIntensity;
+                camTransform.localPosition = original + new Vector3(offset.x, offset.y, 0f);
+                yield return null;
             }
-            yield return new WaitForSeconds(interval);
+        }
+        else
+        {
+            camTransform.localPosition = original;
+        }
+    }
+
+    private IEnumerator SpawnDiagonalWave()
+    {
+        GameObject prefabToUse = diagonalEnemyPrefab;
+        if (prefabToUse == null || diagonalSpawnAnchor == null) yield break;
+
+        int rows = Mathf.Max(1, diagonalRows);
+        int cols = Mathf.Max(1, diagonalCols);
+        float rowSpacing = Mathf.Max(0.1f, diagonalRowSpacing);
+        float colSpacing = Mathf.Max(0.1f, diagonalColSpacing);
+        float interval = Mathf.Max(0f, diagonalRowInterval);
+        float angleRad = diagonalAngleDeg * Mathf.Deg2Rad;
+        Vector2 right = new Vector2(Mathf.Cos(angleRad), Mathf.Sin(angleRad)); // local +X after tilt
+        Vector2 down = new Vector2(-Mathf.Sin(angleRad), Mathf.Cos(angleRad)); // local -Y after tilt (perpendicular)
+        Vector2 moveDir = diagonalMoveDir.sqrMagnitude > 0.0001f ? diagonalMoveDir.normalized : right.normalized;
+
+        for (int r = 0; r < rows; r++)
+        {
+            for (int c = 0; c < cols; c++)
+            {
+                Vector2 local = (-c * colSpacing) * right + (-r * rowSpacing) * down;
+                Vector3 pos = diagonalSpawnAnchor.position + new Vector3(local.x, local.y, 0f);
+                GameObject enemy = Instantiate(prefabToUse, pos, Quaternion.identity);
+
+                // 锁定自带 AI，但保留碰撞伤害
+                Enemy ai = enemy.GetComponent<Enemy>();
+                if (ai != null) ai.enabled = false;
+
+                Rigidbody2D rb = enemy.GetComponent<Rigidbody2D>();
+                if (rb != null)
+                {
+                    rb.velocity = Vector2.zero;
+                    rb.isKinematic = true;
+                    rb.simulated = true;
+                }
+
+                BlackMapContactDamage dmg = enemy.GetComponent<BlackMapContactDamage>();
+                if (dmg == null)
+                {
+                    dmg = enemy.AddComponent<BlackMapContactDamage>();
+                }
+                dmg.damage = diagonalContactDamage;
+
+                BlackMapDiagonalMover mover = enemy.GetComponent<BlackMapDiagonalMover>();
+                if (mover == null)
+                {
+                    mover = enemy.AddComponent<BlackMapDiagonalMover>();
+                }
+                float wobbleAmp = Random.Range(diagonalWobbleAmpRange.x, diagonalWobbleAmpRange.y);
+                float wobbleFreq = Random.Range(diagonalWobbleFreqRange.x, diagonalWobbleFreqRange.y);
+                Vector2 wobbleDir = new Vector2(-moveDir.y, moveDir.x); // perpendicular wobble
+                float wobblePhase = Random.Range(0f, Mathf.PI * 2f);
+                mover.Init(moveDir, diagonalMoveSpeed, diagonalLifeTime, wobbleAmp, wobbleFreq, wobbleDir, wobblePhase);
+            }
+
+            if (interval > 0f)
+            {
+                yield return new WaitForSeconds(interval);
+            }
+        }
+    }
+
+    private IEnumerator SpawnHorizontalWave()
+    {
+        GameObject prefabToUse = horizontalEnemyPrefab != null ? horizontalEnemyPrefab : diagonalEnemyPrefab;
+        if (prefabToUse == null || horizontalSpawnAnchor == null) yield break;
+
+        int rows = Mathf.Max(1, horizontalRows);
+        int cols = Mathf.Max(1, horizontalCols);
+        float rowSpacing = Mathf.Max(0.1f, horizontalRowSpacing);
+        float colSpacing = Mathf.Max(0.1f, horizontalColSpacing);
+        float interval = Mathf.Max(0f, horizontalRowInterval);
+        Vector2 moveDir = horizontalMoveDir.sqrMagnitude > 0.0001f ? horizontalMoveDir.normalized : Vector2.down;
+
+        for (int r = 0; r < rows; r++)
+        {
+            for (int c = 0; c < cols; c++)
+            {
+                Vector3 offset = new Vector3(c * colSpacing, -r * rowSpacing, 0f);
+                Vector3 pos = horizontalSpawnAnchor.position + offset;
+                GameObject enemy = Instantiate(prefabToUse, pos, Quaternion.identity);
+
+                Enemy ai = enemy.GetComponent<Enemy>();
+                if (ai != null) ai.enabled = false;
+
+                Rigidbody2D rb = enemy.GetComponent<Rigidbody2D>();
+                if (rb != null)
+                {
+                    rb.velocity = Vector2.zero;
+                    rb.isKinematic = true;
+                    rb.simulated = true;
+                }
+
+                BlackMapContactDamage dmg = enemy.GetComponent<BlackMapContactDamage>();
+                if (dmg == null)
+                {
+                    dmg = enemy.AddComponent<BlackMapContactDamage>();
+                }
+                dmg.damage = horizontalContactDamage;
+
+                BlackMapDiagonalMover mover = enemy.GetComponent<BlackMapDiagonalMover>();
+                if (mover == null)
+                {
+                    mover = enemy.AddComponent<BlackMapDiagonalMover>();
+                }
+                float wobbleAmp = Random.Range(horizontalWobbleAmpRange.x, horizontalWobbleAmpRange.y);
+                float wobbleFreq = Random.Range(horizontalWobbleFreqRange.x, horizontalWobbleFreqRange.y);
+                Vector2 wobbleDir = new Vector2(-moveDir.y, moveDir.x);
+                float wobblePhase = Random.Range(0f, Mathf.PI * 2f);
+                mover.Init(moveDir, horizontalMoveSpeed, horizontalLifeTime, wobbleAmp, wobbleFreq, wobbleDir, wobblePhase);
+            }
+
+            if (interval > 0f)
+            {
+                yield return new WaitForSeconds(interval);
+            }
         }
     }
 }
