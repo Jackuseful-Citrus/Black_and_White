@@ -348,6 +348,12 @@ public class BossRoomManager : MonoBehaviour
 
         if (overlay != null) yield return overlay;
 
+        // Start rotation coroutine separately so we don't wait for it
+        if (finalPhaseOverlay != null)
+        {
+            StartCoroutine(RotateFinalOverlay());
+        }
+
         if (activeBlack != null)
         {
             activeBlack.BeginFight();
@@ -474,6 +480,7 @@ public class BossRoomManager : MonoBehaviour
             float t = Mathf.Clamp01(timer / Mathf.Max(finalPhaseOverlayFadeDuration, 0.01f));
             c.a = Mathf.Lerp(0f, finalPhaseOverlayTargetAlpha, t);
             finalPhaseOverlay.color = c;
+            // Rotate while fading
             finalPhaseOverlay.transform.Rotate(Vector3.forward, finalPhaseOverlayRotationSpeed * Time.deltaTime);
             timer += Time.deltaTime;
             yield return null;
@@ -481,6 +488,10 @@ public class BossRoomManager : MonoBehaviour
 
         c.a = finalPhaseOverlayTargetAlpha;
         finalPhaseOverlay.color = c;
+    }
+
+    private IEnumerator RotateFinalOverlay()
+    {
         while (finalPhaseOverlay != null && finalPhaseOverlay.gameObject.activeInHierarchy)
         {
             finalPhaseOverlay.transform.Rotate(Vector3.forward, finalPhaseOverlayRotationSpeed * Time.deltaTime);
