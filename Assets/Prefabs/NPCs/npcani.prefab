@@ -403,8 +403,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: tt
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 089cd0577aaee6d4ab442834c3e274d8, type: 2}
+  m_sharedMaterial: {fileID: -4817601578958562854, guid: 089cd0577aaee6d4ab442834c3e274d8, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -598,11 +598,16 @@ MonoBehaviour:
   talkKey: 101
   dialoguePanel: {fileID: 3134926915542684993}
   dialogueText: {fileID: 4882513859205323956}
-  dialogueLines:
-  - find three hidden treasures in the xxx.
-  - I don't trust strangers easily
-  - Try go through the different paths by the door
-  dialogueDuration: 3
+  dialogueGroups:
+  - lines:
+    - Left-click.
+    - 'Break the silence.
+
+      Strike the switch.
+
+'
+  lineDuration: 1.5
+  endHoldDuration: 0.2
 --- !u!61 &2727479887846617074
 BoxCollider2D:
   m_ObjectHideFlags: 0

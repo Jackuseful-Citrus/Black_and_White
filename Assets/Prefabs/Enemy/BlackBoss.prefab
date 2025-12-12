@@ -83,7 +83,7 @@ MonoBehaviour:
   mainPlayer: {fileID: 0}
   mirrorPlayer: {fileID: 0}
   blackBody: {fileID: 8477716557831435428}
-  minionPrefab: {fileID: 7261082403097560602, guid: 5912e6f385063ef4795b6cdf74dc4993, type: 3}
+  minionPrefab: {fileID: 828603731793141568, guid: 36a8f40b37156324d8aba1729cc2969c, type: 3}
   minionSpawnOffset: 1
 --- !u!1 &8477716557831435428
 GameObject:

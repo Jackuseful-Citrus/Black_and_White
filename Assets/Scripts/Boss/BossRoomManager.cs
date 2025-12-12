@@ -57,6 +57,8 @@ public class BossRoomManager : MonoBehaviour
     public Vector3 roarEndScale = new Vector3(2f, 2f, 1f);
     public float roarTiltAngle = 30f;
     public float roarScaleMultiplier = 1.1f;
+    [SerializeField] private AudioClip roarSfx;
+    [SerializeField] private AudioSource sfxAudioSource;
     [Header("White Screen UI")]
     [SerializeField] private SpriteRenderer whiteFadeQuad; // 场景里的白色方块（SpriteRenderer）
     [SerializeField] private float whiteFadeDuration = 1.5f;
@@ -431,20 +433,41 @@ public class BossRoomManager : MonoBehaviour
         {
             Debug.LogWarning("[BossRoomManager] roarEffectPrefab 未设置，跳过吼叫特效");
             if (white != null) white.SetRoarLock(false);
-            yield break;
+            // 仍然可以播放音效
         }
 
+        // 吼叫姿态
         boss.rotation = Quaternion.Euler(0f, 0f, roarTiltAngle);
         boss.localScale = originalScale * roarScaleMultiplier;
+
+        // 播放一次吼叫音效
+        if (roarSfx != null)
+        {
+            if (sfxAudioSource != null)
+            {
+                sfxAudioSource.PlayOneShot(roarSfx);
+            }
+            else
+            {
+                AudioSource.PlayClipAtPoint(roarSfx, boss.position);
+            }
+        }
 
         for (int i = 0; i < roarWaves; i++)
         {
             if (boss == null) break;
 
-            Vector3 spawnPos = boss.position;
-            GameObject wave = Instantiate(roarEffectPrefab, spawnPos, Quaternion.identity);
-            yield return ScaleOverTime(wave.transform, roarStartScale, roarEndScale, roarWaveDuration);
-            Destroy(wave);
+            if (roarEffectPrefab != null)
+            {
+                Vector3 spawnPos = boss.position;
+                GameObject wave = Instantiate(roarEffectPrefab, spawnPos, Quaternion.identity);
+                yield return ScaleOverTime(wave.transform, roarStartScale, roarEndScale, roarWaveDuration);
+                Destroy(wave);
+            }
+            else
+            {
+                yield return new WaitForSeconds(roarWaveDuration);
+            }
             yield return new WaitForSeconds(roarWaveInterval);
         }
 

@@ -132,6 +132,11 @@ public class LogicScript : MonoBehaviour
                 whiteBarMin = 0;
 
                 BlackMapProgressionManager.Instance.ResetEndingPhase();
+
+                if (BlackMapAudioManager.Instance != null)
+                {
+                    BlackMapAudioManager.Instance.ResetBgm();
+                }
                 return;
             }
 

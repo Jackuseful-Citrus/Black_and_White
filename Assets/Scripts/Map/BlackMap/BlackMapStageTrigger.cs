@@ -61,6 +61,15 @@ public class BlackMapStageTrigger : MonoBehaviour
             if (stageTwo != null) stageTwo.SpawnRing();
             SetActiveBatch(enableOnStart, true);
             SetActiveBatch(disableOnStart, false);
+
+            // BGM 切换：Stage1 -> Stage2
+            if (BlackMapAudioManager.Instance != null)
+            {
+                if (stageTwo != null)
+                    BlackMapAudioManager.Instance.PlayStage2();
+                else
+                    BlackMapAudioManager.Instance.PlayStage1();
+            }
         }
         else
         {

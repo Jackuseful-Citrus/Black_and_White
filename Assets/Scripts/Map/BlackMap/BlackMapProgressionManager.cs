@@ -184,9 +184,9 @@ public class BlackMapProgressionManager : MonoBehaviour
             stageOneJitter.enabled = true;
         }
 
-        if (LogicScript.Instance != null)
+        if (BlackMapAudioManager.Instance != null)
         {
-            // removed balance behaviour
+            BlackMapAudioManager.Instance.PlayEnding();
         }
     }
 

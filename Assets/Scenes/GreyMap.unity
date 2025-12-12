@@ -32609,7 +32609,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3055405861562076626, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
       propertyPath: lineDuration
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3055405861562076626, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
       propertyPath: dialogueGroups.Array.data[0].lines.Array.size
@@ -32621,23 +32621,64 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3055405861562076626, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
       propertyPath: dialogueGroups.Array.data[0].lines.Array.data[1]
-      value: "Out there, they\u2019ll try to drag you into Black or White."
+      value: 'Use A and D to move.
+
+        Press Space to jump. Hold it for a higher
+        jump.'
       objectReference: {fileID: 0}
     - target: {fileID: 3055405861562076626, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
       propertyPath: dialogueGroups.Array.data[0].lines.Array.data[2]
-      value: Press C. Switch before the world switches you.
+      value: "Out there, they\u2019ll try to drag you into Black or White.\nPress
+        C. Switch before the world switches you."
       objectReference: {fileID: 0}
     - target: {fileID: 3055405861562076626, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
       propertyPath: dialogueGroups.Array.data[0].lines.Array.data[3]
-      value: Try go through the different paths by the door
+      value: "Press Left Click to strike.\nBlack cuts close. White strikes from afar.\nYou
+        can\u2019t move much while attacking\u2014choose your timing."
+      objectReference: {fileID: 0}
+    - target: {fileID: 3055405861562076626, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
+      propertyPath: dialogueGroups.Array.data[0].lines.Array.data[4]
+      value: Press C. Switch before the world switches you.
+      objectReference: {fileID: 0}
+    - target: {fileID: 3488790169989719919, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1621.31
+      objectReference: {fileID: 0}
+    - target: {fileID: 3488790169989719919, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 73.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 3488790169989719919, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 55
+      objectReference: {fileID: 0}
+    - target: {fileID: 3488790169989719919, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 155.52
+      objectReference: {fileID: 0}
+    - target: {fileID: 4882513859205323956, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 089cd0577aaee6d4ab442834c3e274d8, type: 2}
+    - target: {fileID: 4882513859205323956, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -4817601578958562854, guid: 089cd0577aaee6d4ab442834c3e274d8, type: 2}
+    - target: {fileID: 4882513859205323956, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4882513859205323956, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8368877038155632120, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.55
+      value: 1.26
       objectReference: {fileID: 0}
     - target: {fileID: 8368877038155632120, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -14.39
+      value: -14.18
       objectReference: {fileID: 0}
     - target: {fileID: 8368877038155632120, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
       propertyPath: m_LocalPosition.z
@@ -45793,24 +45834,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 25027ebdd9ab6d44f8d7f220eac930e7, type: 3}
---- !u!1 &1750893563 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5196055381755836180, guid: 208e7af9aa5cc0048ba3693cd5a15cdb, type: 3}
-  m_PrefabInstance: {fileID: 8827246305880866985}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1750893568
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1750893563}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b95382f7e7dbf04897a4b2a8b905ace, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactionIcon: {fileID: 0}
 --- !u!1001 &1764033123
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -52453,26 +52476,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3055405861562076626, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
-      propertyPath: lineDuration
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3055405861562076626, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
-      propertyPath: dialogueGroups.Array.data[0].lines.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3055405861562076626, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
-      propertyPath: dialogueGroups.Array.data[0].lines.Array.data[0]
-      value: Left-click.
-      objectReference: {fileID: 0}
-    - target: {fileID: 3055405861562076626, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
-      propertyPath: dialogueGroups.Array.data[0].lines.Array.data[1]
-      value: 'Break the silence.
-
-        Strike the switch.
-
-'
-      objectReference: {fileID: 0}
     - target: {fileID: 8368877038155632120, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
       propertyPath: m_LocalPosition.x
       value: 68.24
@@ -55704,11 +55707,11 @@ PrefabInstance:
       objectReference: {fileID: 1495954222}
     - target: {fileID: 8276461460672212480, guid: a24d8fb1c805884478032e8ac1c31ea9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 210.68
+      value: -9
       objectReference: {fileID: 0}
     - target: {fileID: 8276461460672212480, guid: a24d8fb1c805884478032e8ac1c31ea9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -19.38
+      value: -11.8
       objectReference: {fileID: 0}
     - target: {fileID: 8276461460672212480, guid: a24d8fb1c805884478032e8ac1c31ea9, type: 3}
       propertyPath: m_LocalPosition.z
@@ -55766,11 +55769,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7929115581814015312, guid: 0a2425c76d6433e44b233cc1f4b612f8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -161.07
+      value: -165.28
       objectReference: {fileID: 0}
     - target: {fileID: 7929115581814015312, guid: 0a2425c76d6433e44b233cc1f4b612f8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 52.48
+      value: 52.46
       objectReference: {fileID: 0}
     - target: {fileID: 7929115581814015312, guid: 0a2425c76d6433e44b233cc1f4b612f8, type: 3}
       propertyPath: m_LocalPosition.z
@@ -55969,10 +55972,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5196055381755836180, guid: 208e7af9aa5cc0048ba3693cd5a15cdb, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1750893568}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 208e7af9aa5cc0048ba3693cd5a15cdb, type: 3}
 --- !u!1001 &8856682219465022431
 PrefabInstance:
