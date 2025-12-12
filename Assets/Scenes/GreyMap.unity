@@ -30384,6 +30384,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3055405861562076626, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
+      propertyPath: lineDuration
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3055405861562076626, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
+      propertyPath: dialogueGroups.Array.data[0].lines.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3055405861562076626, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
+      propertyPath: dialogueGroups.Array.data[0].lines.Array.data[0]
+      value: "Light reaches. Shadow grips.\r"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3055405861562076626, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
+      propertyPath: dialogueGroups.Array.data[0].lines.Array.data[1]
+      value: "\rBut neither hunts what it believes is its own.\r\n"
+      objectReference: {fileID: 0}
     - target: {fileID: 8368877038155632120, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
       propertyPath: m_LocalPosition.x
       value: 113.65
@@ -32583,6 +32599,87 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1001 &1219657835
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3055405861562076626, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
+      propertyPath: lineDuration
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3055405861562076626, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
+      propertyPath: dialogueGroups.Array.data[0].lines.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3055405861562076626, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
+      propertyPath: dialogueGroups.Array.data[0].lines.Array.data[0]
+      value: You woke up in Gray.
+      objectReference: {fileID: 0}
+    - target: {fileID: 3055405861562076626, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
+      propertyPath: dialogueGroups.Array.data[0].lines.Array.data[1]
+      value: "Out there, they\u2019ll try to drag you into Black or White."
+      objectReference: {fileID: 0}
+    - target: {fileID: 3055405861562076626, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
+      propertyPath: dialogueGroups.Array.data[0].lines.Array.data[2]
+      value: Press C. Switch before the world switches you.
+      objectReference: {fileID: 0}
+    - target: {fileID: 3055405861562076626, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
+      propertyPath: dialogueGroups.Array.data[0].lines.Array.data[3]
+      value: Try go through the different paths by the door
+      objectReference: {fileID: 0}
+    - target: {fileID: 8368877038155632120, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 8368877038155632120, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -14.39
+      objectReference: {fileID: 0}
+    - target: {fileID: 8368877038155632120, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8368877038155632120, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8368877038155632120, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8368877038155632120, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8368877038155632120, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8368877038155632120, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8368877038155632120, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8368877038155632120, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8739045620846830337, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
+      propertyPath: m_Name
+      value: npcani (3)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
 --- !u!1 &1220869687
 GameObject:
   m_ObjectHideFlags: 0
@@ -50076,13 +50173,59 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3055405861562076626, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
+      propertyPath: dialogueGroups.Array.data[0].lines.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3055405861562076626, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
+      propertyPath: dialogueGroups.Array.data[0].lines.Array.data[0]
+      value: stop
+      objectReference: {fileID: 0}
+    - target: {fileID: 3055405861562076626, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
+      propertyPath: dialogueGroups.Array.data[0].lines.Array.data[1]
+      value: "That isn\u2019t a trophy door"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3055405861562076626, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
+      propertyPath: dialogueGroups.Array.data[0].lines.Array.data[2]
+      value: "Inside, the eclipse doesn\u2019t kill you first.\r\nIt finishes you\u2014into
+        Black or White.\r\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3055405861562076626, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
+      propertyPath: dialogueGroups.Array.data[0].lines.Array.data[3]
+      value: You need three parts before it will open.
+      objectReference: {fileID: 0}
+    - target: {fileID: 3055405861562076626, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
+      propertyPath: dialogueGroups.Array.data[0].lines.Array.data[4]
+      value: "Bring all three.\r\nThen the door will recognize you as someone who
+        can come back\u2026 still you.\r\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3055405861562076626, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
+      propertyPath: dialogueGroups.Array.data[0].lines.Array.data[5]
+      value: Try go through the different paths by the door
+      objectReference: {fileID: 0}
+    - target: {fileID: 3055405861562076626, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
+      propertyPath: dialogueGroups.Array.data[0].lines.Array.data[6]
+      value: Try go through the different paths by the door
+      objectReference: {fileID: 0}
+    - target: {fileID: 3055405861562076626, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
+      propertyPath: dialogueGroups.Array.data[0].lines.Array.data[7]
+      value: Try go through the different paths by the door
+      objectReference: {fileID: 0}
+    - target: {fileID: 3055405861562076626, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
+      propertyPath: dialogueGroups.Array.data[0].lines.Array.data[8]
+      value: Try go through the different paths by the door
+      objectReference: {fileID: 0}
+    - target: {fileID: 3488790169989719919, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 177
+      objectReference: {fileID: 0}
     - target: {fileID: 8368877038155632120, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 169.67
+      value: 216.28
       objectReference: {fileID: 0}
     - target: {fileID: 8368877038155632120, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -28.23
+      value: -22.11
       objectReference: {fileID: 0}
     - target: {fileID: 8368877038155632120, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
       propertyPath: m_LocalPosition.z
@@ -52310,6 +52453,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3055405861562076626, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
+      propertyPath: lineDuration
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3055405861562076626, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
+      propertyPath: dialogueGroups.Array.data[0].lines.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3055405861562076626, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
+      propertyPath: dialogueGroups.Array.data[0].lines.Array.data[0]
+      value: Left-click.
+      objectReference: {fileID: 0}
+    - target: {fileID: 3055405861562076626, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
+      propertyPath: dialogueGroups.Array.data[0].lines.Array.data[1]
+      value: 'Break the silence.
+
+        Strike the switch.
+
+'
+      objectReference: {fileID: 0}
     - target: {fileID: 8368877038155632120, guid: 39cd3dc93168c51408225d2491f62709, type: 3}
       propertyPath: m_LocalPosition.x
       value: 68.24
@@ -55541,11 +55704,11 @@ PrefabInstance:
       objectReference: {fileID: 1495954222}
     - target: {fileID: 8276461460672212480, guid: a24d8fb1c805884478032e8ac1c31ea9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -11.8
+      value: 210.68
       objectReference: {fileID: 0}
     - target: {fileID: 8276461460672212480, guid: a24d8fb1c805884478032e8ac1c31ea9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -12.9
+      value: -19.38
       objectReference: {fileID: 0}
     - target: {fileID: 8276461460672212480, guid: a24d8fb1c805884478032e8ac1c31ea9, type: 3}
       propertyPath: m_LocalPosition.z
@@ -55902,6 +56065,7 @@ SceneRoots:
   - {fileID: 1905767473}
   - {fileID: 1142265389}
   - {fileID: 1987589584}
+  - {fileID: 1219657835}
   - {fileID: 1075434}
   - {fileID: 1959251770}
   - {fileID: 1066884986}
