@@ -550,6 +550,11 @@ public class Enemy : MonoBehaviour
         }
     }
     
+    public void SetProvoked(bool provoked)
+    {
+        isProvoked = provoked;
+    }
+
     public virtual void TakeDamage(float damageAmount, Transform source = null)
     {
         if (isDead) return;

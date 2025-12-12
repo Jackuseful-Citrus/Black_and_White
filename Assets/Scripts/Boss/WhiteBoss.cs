@@ -62,7 +62,7 @@ public class WhiteBoss : MonoBehaviour
 
         if (Time.time >= nextAttackTime)
         {
-            FireInEightDirections();
+            StartCoroutine(FireAttackSequence());
             nextAttackTime = Time.time + attackInterval;
         }
 
@@ -79,6 +79,16 @@ public class WhiteBoss : MonoBehaviour
         // keep constant speed
         if (moveDir == Vector2.zero) moveDir = Vector2.right;
         rb.velocity = moveDir.normalized * speed;
+    }
+
+    private System.Collections.IEnumerator FireAttackSequence()
+    {
+        // Fire 2 rounds
+        for (int i = 0; i < 2; i++)
+        {
+            FireInEightDirections();
+            yield return new WaitForSeconds(0.3f); // Small delay between rounds
+        }
     }
 
     private void FireInEightDirections()
@@ -109,7 +119,8 @@ public class WhiteBoss : MonoBehaviour
             var enemyBullet = bulletObj.GetComponent<EnemyBullet>();
             if (enemyBullet != null)
             {
-                enemyBullet.Initialize(dir, bulletSpeed, bulletDamage, bulletType, gameObject);
+                // Pass 1 bounce
+                enemyBullet.Initialize(dir, bulletSpeed, bulletDamage, bulletType, gameObject, 0f, default, 1);
             }
             else
             {

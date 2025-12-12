@@ -18,6 +18,9 @@ public class EnemyBullet : MonoBehaviour
     private Rigidbody2D rb;
     private Vector3 startPosition; 
     
+    private int maxBounces = 0;
+    private int currentBounces = 0;
+    
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -35,7 +38,7 @@ public class EnemyBullet : MonoBehaviour
         }
     }
     
-    public void Initialize(Vector2 moveDirection, float bulletSpeed, float bulletDamage, BulletType type = BulletType.White, GameObject shooterObject = null, float enemyDamage = 0f, LayerMask enemyLayer = default)
+    public void Initialize(Vector2 moveDirection, float bulletSpeed, float bulletDamage, BulletType type = BulletType.White, GameObject shooterObject = null, float enemyDamage = 0f, LayerMask enemyLayer = default, int bounces = 0)
     {
         direction = moveDirection.normalized;
         speed = bulletSpeed;
@@ -44,6 +47,8 @@ public class EnemyBullet : MonoBehaviour
         shooter = shooterObject;
         damageToEnemy = enemyDamage;
         targetEnemyLayer = enemyLayer;
+        maxBounces = bounces;
+        currentBounces = 0;
         isInitialized = true;
         startPosition = transform.position;
         
@@ -141,7 +146,53 @@ public class EnemyBullet : MonoBehaviour
                 HasTag(other.gameObject, "Ground") || 
                 HasTag(other.gameObject, "Obstacle"))
         {
-            Destroy(gameObject);
+            if (currentBounces < maxBounces)
+            {
+                currentBounces++;
+                ReflectBullet(other);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
+    }
+
+    private void ReflectBullet(Collider2D hitCollider)
+    {
+        // Try to find the normal
+        Vector2 hitNormal = Vector2.zero;
+        
+        // Raycast back a bit to find the surface
+        // We cast from slightly behind current position in the direction of movement
+        // But since we are already inside (TriggerEnter), we might need to cast from outside.
+        // Let's cast from previous position (approximated) towards current velocity direction
+        
+        Vector2 origin = (Vector2)transform.position - direction * 1.0f; 
+        RaycastHit2D hit = Physics2D.Raycast(origin, direction, 2.0f, 1 << hitCollider.gameObject.layer);
+        
+        if (hit.collider != null)
+        {
+            hitNormal = hit.normal;
+        }
+        else
+        {
+            // Fallback: use direction to center of collider
+            Vector2 closestPoint = hitCollider.ClosestPoint(transform.position);
+            hitNormal = ((Vector2)transform.position - closestPoint).normalized;
+        }
+
+        // Reflect direction
+        direction = Vector2.Reflect(direction, hitNormal).normalized;
+        
+        // Update rotation
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0, 0, angle);
+        
+        // Update velocity
+        if (rb != null)
+        {
+            rb.velocity = direction * speed;
         }
     }
 }

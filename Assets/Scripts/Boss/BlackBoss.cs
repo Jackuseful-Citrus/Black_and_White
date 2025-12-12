@@ -24,6 +24,10 @@ public class BlackBoss : MonoBehaviour
     [Header("Body (visual)")]
     [SerializeField] private GameObject blackBody;
 
+    [Header("Minion Spawning")]
+    [SerializeField] private GameObject minionPrefab;
+    [SerializeField] private float minionSpawnOffset = 1.0f;
+
     private Rigidbody2D rb;
     private bool isCharging;
     private float chargeTimer;
@@ -153,6 +157,29 @@ public class BlackBoss : MonoBehaviour
         chargeTimer = Mathf.Clamp(estimatedTime * 1.2f, minChargeDuration, maxChargeDuration);
         isCharging = true;
         chargeStartTime = Time.time;
+
+        SpawnMinions();
+    }
+
+    private void SpawnMinions()
+    {
+        if (minionPrefab == null) return;
+
+        // Spawn 2 minions
+        for (int i = 0; i < 2; i++)
+        {
+            // Random offset around boss
+            Vector2 offset = Random.insideUnitCircle.normalized * minionSpawnOffset;
+            Vector3 spawnPos = transform.position + (Vector3)offset;
+
+            GameObject minionObj = Instantiate(minionPrefab, spawnPos, Quaternion.identity);
+            Enemy enemyScript = minionObj.GetComponent<Enemy>();
+            if (enemyScript != null)
+            {
+                // Force provoke so they target player regardless of color
+                enemyScript.SetProvoked(true);
+            }
+        }
     }
 
     private void StartReturnToCenter()

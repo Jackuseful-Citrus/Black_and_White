@@ -57478,20 +57478,20 @@ MonoBehaviour:
   mirrorLineY: 0
   whiteBossPrefab: {fileID: 4030357653497650741, guid: f1d33b89908f3294297c8dea6731406b, type: 3}
   whiteSpawnPoint: {fileID: 1441908289}
-  whitePhaseDuration: 1
-  whitePhaseMaxHealth: 1
+  whitePhaseDuration: 30
+  whitePhaseMaxHealth: 30
   whiteRetreatTarget: {fileID: 1540362321}
   whiteRetreatDuration: 1.2
   blackBossPrefab: {fileID: 318825641091888088, guid: 578f1aee23944c14bb82e6af7a873f9b, type: 3}
   blackEntranceStart: {fileID: 1540362321}
   blackEntranceEnd: {fileID: 1441908289}
   blackEntranceDuration: 1.2
-  blackPhaseDuration: 1
-  blackPhaseMaxHealth: 1
+  blackPhaseDuration: 30
+  blackPhaseMaxHealth: 30
   finalWhiteSpawnPoint: {fileID: 104097376}
   finalBlackSpawnPoint: {fileID: 1237834537}
-  finalBlackPhaseDuration: 1
-  finalBlackPhaseMaxHealth: 1
+  finalBlackPhaseDuration: 30
+  finalBlackPhaseMaxHealth: 30
   finalPhaseOverlay: {fileID: 1072653535}
   finalPhaseOverlayFadeDuration: 1
   finalPhaseOverlayRotationSpeed: 60
@@ -58105,6 +58105,10 @@ PrefabInstance:
       propertyPath: mainPlayer
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5368907767499133526, guid: 578f1aee23944c14bb82e6af7a873f9b, type: 3}
+      propertyPath: minionPrefab
+      value: 
+      objectReference: {fileID: 7261082403097560602, guid: 5912e6f385063ef4795b6cdf74dc4993, type: 3}
     - target: {fileID: 5368907767499133526, guid: 578f1aee23944c14bb82e6af7a873f9b, type: 3}
       propertyPath: mirrorPlayer
       value: 
