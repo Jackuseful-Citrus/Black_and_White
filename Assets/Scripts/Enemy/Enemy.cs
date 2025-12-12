@@ -48,6 +48,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected LayerMask groundMask;               // 地面/平台的 Layer
     [SerializeField] protected float groundCheckExtraHeight = 0.1f;// 射线额外长度
     [SerializeField] protected float ledgeCheckDistance = 0.2f;    // 向前探出的水平距离
+    [SerializeField] protected bool ignoreHeightTolerance = false; // 为 true 时近战不因高度差放弃追击
 
     [Header("跳跃设置")]
     [SerializeField] protected float jumpForce = 5f;
@@ -209,7 +210,7 @@ public class Enemy : MonoBehaviour
         if (attackType == AttackType.Melee)
         {
             float absDy = Mathf.Abs(currentTarget.position.y - transform.position.y);
-            if (absDy > detectHeightTolerance)
+            if (!ignoreHeightTolerance && absDy > detectHeightTolerance)
             {
                 if (enablePatrol)
                 {

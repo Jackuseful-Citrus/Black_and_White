@@ -98,6 +98,7 @@ public class LogicScript : MonoBehaviour
 
     public void RespawnPlayer()
     {
+
         if (player != null)
         {
             player.transform.position = respawnPoint;
@@ -337,4 +338,5 @@ public class LogicScript : MonoBehaviour
         respawnPoint = pendingTeleportPoint;
         return pendingTeleportPoint;
     }
+    public GameObject Player => player;
 }

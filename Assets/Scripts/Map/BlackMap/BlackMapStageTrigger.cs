@@ -1,8 +1,9 @@
 using UnityEngine;
 
 /// <summary>
-/// 进入开始触发器后开启生成，进入结束触发器后停止生成。
-/// 可分别挂在 StartTrigger / EndTrigger 上，选择对应模式。
+/// Start/End trigger to control stage 1 and stage 2.
+/// - Stage1: BlackMapStageOne (start/stop)
+/// - Stage2: BlackMapEnemyRing (spawn/clear)
 /// </summary>
 [RequireComponent(typeof(Collider2D))]
 public class BlackMapStageTrigger : MonoBehaviour
@@ -11,7 +12,12 @@ public class BlackMapStageTrigger : MonoBehaviour
 
     [SerializeField] private TriggerMode mode = TriggerMode.Start;
     [SerializeField] private BlackMapStageOne stageOne;
-    [SerializeField] private bool singleUse = true; // 触发一次后即失效
+    [SerializeField] private BlackMapEnemyRing stageTwo;
+    [SerializeField] private bool singleUse = true; // trigger once then disable
+    [SerializeField] private GameObject[] enableOnStart;
+    [SerializeField] private GameObject[] disableOnStart;
+    [SerializeField] private GameObject[] enableOnEnd;
+    [SerializeField] private GameObject[] disableOnEnd;
 
     private bool triggered;
 
@@ -27,15 +33,41 @@ public class BlackMapStageTrigger : MonoBehaviour
         if (singleUse && triggered) return;
         triggered = true;
 
-        if (stageOne == null) return;
+        TriggerStages();
+    }
 
+    private void TriggerStages()
+    {
         if (mode == TriggerMode.Start)
         {
-            stageOne.StartStage();
+            if (stageOne != null) stageOne.StartStage();
+            if (stageTwo != null) stageTwo.SpawnRing();
+            SetActiveBatch(enableOnStart, true);
+            SetActiveBatch(disableOnStart, false);
         }
         else
         {
-            stageOne.StopStage();
+            if (stageOne != null) stageOne.StopStage();
+            if (stageTwo != null) stageTwo.ClearRing();
+            SetActiveBatch(enableOnEnd, true);
+            SetActiveBatch(disableOnEnd, false);
         }
+    }
+
+    private void SetActiveBatch(GameObject[] targets, bool active)
+    {
+        if (targets == null) return;
+        for (int i = 0; i < targets.Length; i++)
+        {
+            if (targets[i] != null)
+            {
+                targets[i].SetActive(active);
+            }
+        }
+    }
+
+    public void ResetTriggerState()
+    {
+        triggered = false;
     }
 }
