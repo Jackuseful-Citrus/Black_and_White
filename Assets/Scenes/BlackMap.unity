@@ -218,7 +218,7 @@ MonoBehaviour:
   sizeStep: 1
   killsPerStep: 2
   sizeLerpDuration: 1.2
-  startGlobalLightIntensity: 1
+  startGlobalLightIntensity: 0.1
   pickupGlobalLightIntensity: 1
   globalLightLerpDuration: 1.2
   playerLightIntensity: 0.2
@@ -10283,31 +10283,43 @@ PrefabInstance:
       value: Decorate1_0
       objectReference: {fileID: 0}
     - target: {fileID: 3426740730360649502, guid: 208e7af9aa5cc0048ba3693cd5a15cdb, type: 3}
+      propertyPath: m_fontSize
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3426740730360649502, guid: 208e7af9aa5cc0048ba3693cd5a15cdb, type: 3}
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: 089cd0577aaee6d4ab442834c3e274d8, type: 2}
     - target: {fileID: 3426740730360649502, guid: 208e7af9aa5cc0048ba3693cd5a15cdb, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3426740730360649502, guid: 208e7af9aa5cc0048ba3693cd5a15cdb, type: 3}
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: -4817601578958562854, guid: 089cd0577aaee6d4ab442834c3e274d8, type: 2}
+    - target: {fileID: 3426740730360649502, guid: 208e7af9aa5cc0048ba3693cd5a15cdb, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3426740730360649502, guid: 208e7af9aa5cc0048ba3693cd5a15cdb, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4271380589392326227, guid: 208e7af9aa5cc0048ba3693cd5a15cdb, type: 3}
       propertyPath: message
-      value: 'The Black World is filled with worst mind and that is no return unless
+      value: 'The Black World is filled with worst mind and there is no return unless
         you get the white cube back.
 
         Try going up as far as you can.'
       objectReference: {fileID: 0}
     - target: {fileID: 5305077288031770621, guid: 208e7af9aa5cc0048ba3693cd5a15cdb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -13.75
+      value: -11.34
       objectReference: {fileID: 0}
     - target: {fileID: 5305077288031770621, guid: 208e7af9aa5cc0048ba3693cd5a15cdb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.0154655
+      value: -1.94
       objectReference: {fileID: 0}
     - target: {fileID: 5305077288031770621, guid: 208e7af9aa5cc0048ba3693cd5a15cdb, type: 3}
       propertyPath: m_LocalPosition.z
@@ -10343,19 +10355,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8974697081462309215, guid: 208e7af9aa5cc0048ba3693cd5a15cdb, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 845
+      value: 1964.2
       objectReference: {fileID: 0}
     - target: {fileID: 8974697081462309215, guid: 208e7af9aa5cc0048ba3693cd5a15cdb, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 405.2
+      value: 520
       objectReference: {fileID: 0}
     - target: {fileID: 8974697081462309215, guid: 208e7af9aa5cc0048ba3693cd5a15cdb, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -164
+      value: 41
       objectReference: {fileID: 0}
     - target: {fileID: 8974697081462309215, guid: 208e7af9aa5cc0048ba3693cd5a15cdb, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 98
+      value: 202
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -10376,11 +10388,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7929115581814015312, guid: 0a2425c76d6433e44b233cc1f4b612f8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9.05
+      value: -3.02
       objectReference: {fileID: 0}
     - target: {fileID: 7929115581814015312, guid: 0a2425c76d6433e44b233cc1f4b612f8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.57
+      value: -2.24
       objectReference: {fileID: 0}
     - target: {fileID: 7929115581814015312, guid: 0a2425c76d6433e44b233cc1f4b612f8, type: 3}
       propertyPath: m_LocalPosition.z
