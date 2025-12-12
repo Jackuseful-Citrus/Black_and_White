@@ -260,6 +260,7 @@ GameObject:
   - component: {fileID: 6664202652707914695}
   - component: {fileID: 6223880962468228735}
   - component: {fileID: 4827417688435083538}
+  - component: {fileID: 7494249605640417027}
   m_Layer: 0
   m_Name: PlayerMirror
   m_TagString: PlayerMirror
@@ -299,7 +300,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: -1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -343,7 +344,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainPlayer: {fileID: 0}
-  copyVerticalVelocity: 1
+  symmetryPivot: {fileID: 0}
+  mirrorNormal: {x: 1, y: 0}
+  copyVelocity: 1
 --- !u!114 &6664202652707914695
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -421,6 +424,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.708025}
   m_EdgeRadius: 0
+--- !u!114 &7494249605640417027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6809696989519254543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 846d932a0327a35498ead2c15f8db2e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTag: Player
+  mirrorTag: PlayerMirror
 --- !u!1001 &7022004915209779538
 PrefabInstance:
   m_ObjectHideFlags: 0

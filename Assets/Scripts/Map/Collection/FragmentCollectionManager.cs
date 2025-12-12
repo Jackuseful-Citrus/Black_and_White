@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class FragmentCollectionManager : MonoBehaviour
@@ -9,59 +10,75 @@ public class FragmentCollectionManager : MonoBehaviour
     [System.Serializable]
     public class FragmentSlot
     {
-        public FragmentId id;      // 对应哪块碎片
-        public Image icon;         // Slot 上的 Image（已经放好暗淡版本的碎片）
+        public FragmentId id;
+        public Image icon;
     }
 
-    [Header("三个碎片 UI 槽位")]
+    [Header("Slots")]
     public List<FragmentSlot> slots = new List<FragmentSlot>();
 
-    [Header("透明度设置")]
-    [Range(0f, 1f)] public float dimAlpha  = 0.25f;   // 未收集用的暗淡透明度
-    [Range(0f, 1f)] public float litAlpha  = 1.00f;   // 已收集用的高亮透明度
+    [Header("Alpha")]
+    [Range(0f, 1f)] public float dimAlpha = 0.25f;
+    [Range(0f, 1f)] public float litAlpha = 1.0f;
 
-    // 跨场景的真实收集状态
-    private HashSet<FragmentId> collected = new HashSet<FragmentId>();
+    private static readonly HashSet<FragmentId> collected = new HashSet<FragmentId>();
+    public int CollectedCount => collected.Count;
 
     private void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
         Instance = this;
-        DontDestroyOnLoad(gameObject);
-    }
+        SceneManager.sceneLoaded += OnSceneLoaded;
 
-    private void Start()
-    {
+        TryBindSlotsFromScene();
         RefreshAllIcons();
     }
 
-    private void OnEnable()
+    private void OnDestroy()
     {
-        // 场景切换回来时，重新套一次透明度
+        if (Instance == this)
+        {
+            Instance = null;
+        }
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        TryBindSlotsFromScene();
         RefreshAllIcons();
     }
 
-    /// <summary> 是否已经收集了某个碎片（跨场景）。 </summary>
+    /// <summary>Ensure slot icons are bound after scene changes.</summary>
+    private void TryBindSlotsFromScene()
+    {
+        var mainUi = GameObject.FindGameObjectWithTag("MainUI");
+        if (mainUi == null) return;
+
+        foreach (var slot in slots)
+        {
+            if (slot.icon != null) continue;
+
+            Transform child = mainUi.transform.Find(slot.id.ToString());
+            if (child != null)
+            {
+                slot.icon = child.GetComponent<Image>();
+            }
+        }
+    }
+
     public bool IsCollected(FragmentId id)
     {
         return collected.Contains(id);
     }
 
-    /// <summary> 标记某个碎片已经被收集，并立即点亮对应 UI。 </summary>
     public void MarkCollected(FragmentId id)
     {
-        // 如果之前收集过，就啥也不干
         if (!collected.Add(id))
             return;
 
         RefreshIcon(id);
     }
 
-    /// <summary> 刷新所有 Slot 的透明度（根据当前 collected 集合）。 </summary>
     public void RefreshAllIcons()
     {
         foreach (var slot in slots)
@@ -73,7 +90,6 @@ public class FragmentCollectionManager : MonoBehaviour
         }
     }
 
-    /// <summary> 只刷新某一个碎片的图标。 </summary>
     private void RefreshIcon(FragmentId id)
     {
         foreach (var slot in slots)
@@ -89,7 +105,8 @@ public class FragmentCollectionManager : MonoBehaviour
     private void ApplyAlpha(Image img, float alpha)
     {
         if (img == null) return;
-        var c = img.color;
+
+        Color c = img.color;
         c.a = alpha;
         img.color = c;
     }

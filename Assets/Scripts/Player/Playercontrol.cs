@@ -7,14 +7,15 @@ using UnityEngine.EventSystems;
 public class PlayerControl : MonoBehaviour
 {
     public event System.Action<bool> OnSwitchStart; // bool: toWhite
+    public bool topDownMode = false;
 
     [SerializeField] float speed = 6f;
     [SerializeField] float jumpForce = 12f;
     [SerializeField] float jumpCutMultiplier = 0.1f;
     [SerializeField] Transform groundCheck;
     [SerializeField] float groundRadius = 0.1f;
-    [SerializeField] float groundCheckDistance = 0.2f; // downwards ground check only
-    [SerializeField] float wallCheckDistance = 0.2f;  // horizontal wall check distance
+    [SerializeField] float groundCheckDistance = 0.3f; // downwards ground check only
+    [SerializeField] float wallCheckDistance = 0.2f;   // horizontal wall check distance
     [SerializeField] LayerMask groundLayer;
     [SerializeField] GameObject Scythe;
     [SerializeField] GameObject LightBallSpawner;
@@ -24,9 +25,10 @@ public class PlayerControl : MonoBehaviour
 
     Rigidbody2D rb;
     public float horiz = 0f;
+    private Vector2 moveInput;              // ⭐ 保存 WASD 输入
     public bool isGrounded;
     public bool isAttacking = false;
-    
+
     public GameObject BlackOutlook;
     public GameObject WhiteOutlook;
     private bool isWhiteOutlook = false;
@@ -41,7 +43,7 @@ public class PlayerControl : MonoBehaviour
     private bool wasOnWall = false;
     private int airJumpsRemaining = 0;
     [SerializeField] int maxAirJumpsFromWall = 1000;
-    
+
     private float speedMultiplier = 1f;
     private List<float> activeSlowEffects = new List<float>();
 
@@ -78,15 +80,16 @@ public class PlayerControl : MonoBehaviour
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         BlackOutlook.SetActive(true);
         WhiteOutlook.SetActive(false);
-        animCtrl = GetComponent<PlayerAnimationController>(); 
+        animCtrl = GetComponent<PlayerAnimationController>();
 
         var actions = InputManager.Instance.PlayerInputActions;
 
         actions.Player.Attack.performed += ctx =>
         {
-            if (!isSwitching){
+            if (!isSwitching)
+            {
                 isAttacking = true;
-                }
+            }
         };
 
         actions.Player.Attack.canceled += ctx =>
@@ -101,8 +104,8 @@ public class PlayerControl : MonoBehaviour
 
         actions.Player.Jump.canceled += ctx =>
         {
-            //防止传送到新场景之后继续调用原本的rb
-            if (rb == null || isSwitching)return;
+            // 防止传送到新场景之后继续调用原本的rb
+            if (rb == null || isSwitching) return;
             if (rb.velocity.y > 0f && !isSwitching)
             {
                 rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * jumpCutMultiplier);
@@ -111,8 +114,8 @@ public class PlayerControl : MonoBehaviour
 
         actions.Player.SwitchColor.performed += ctx =>
         {
-            //防止传送到新场景之后继续调用原本的rb
-            if (rb == null || isSwitching)return;
+            // 防止传送到新场景之后继续调用原本的rb
+            if (rb == null || isSwitching) return;
             isSwitching = true;
             if (animCtrl != null)
             {
@@ -124,14 +127,16 @@ public class PlayerControl : MonoBehaviour
             StartCoroutine(SwitchColor(switchToWhite));
         };
 
+        // ⭐ 接收 2D Vector 输入（WASD）
         actions.Player.Move.performed += ctx =>
         {
-            Vector2 input = ctx.ReadValue<Vector2>();
-            horiz = input.x;
+            moveInput = ctx.ReadValue<Vector2>();  // 完整向量
+            horiz = moveInput.x;                   // 仍然保留给朝向/动画
         };
 
         actions.Player.Move.canceled += ctx =>
         {
+            moveInput = Vector2.zero;
             horiz = 0f;
         };
     }
@@ -139,6 +144,9 @@ public class PlayerControl : MonoBehaviour
     private void AttemptJump()
     {
         if (isSwitching || rb == null) return;
+
+        // 顶视角模式禁止跳跃
+        if (topDownMode) return;
 
         if (isGrounded)
         {
@@ -165,17 +173,20 @@ public class PlayerControl : MonoBehaviour
     private void Update()
     {
         if (!isActiveAndEnabled) return;
+
         if (horiz != 0f)
         {
             Vector3 s = transform.localScale;
             s.x = Mathf.Sign(horiz) * Mathf.Abs(s.x);
             transform.localScale = s;
         }
+
         if (isBlack)
         {
             isInAttackRecovery = scytheScript != null && scytheScript.inAttackRecovery;
             isInAttackProgress = scytheScript != null && scytheScript.inAttackProgress;
-        }else if (isWhite)
+        }
+        else if (isWhite)
         {
             isInAttackRecovery = lightBallSpawnerScript != null && lightBallSpawnerScript.inAttackRecovery;
         }
@@ -189,7 +200,21 @@ public class PlayerControl : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!isActiveAndEnabled) return;
+        if (!isActiveAndEnabled || rb == null) return;
+
+        // ⭐ 顶视角模式：WASD 控制 XY 速度
+        if (topDownMode)
+        {
+            Vector2 v = moveInput;
+            if (v.sqrMagnitude > 1e-4f)
+            {
+                v = v.normalized;
+            }
+            rb.velocity = v * speed * speedMultiplier;
+            return;    // 不再执行下面的横版逻辑
+        }
+
+        // ===== 横版模式原逻辑 =====
         wasOnWall = isOnWall;
         isOnWall = false;
 
@@ -219,10 +244,11 @@ public class PlayerControl : MonoBehaviour
 
         if (isSwitching)
         {
-            rb.velocity = new Vector2(0f, 0f);
+            rb.velocity = Vector2.zero;
         }
-        else if ((isAttacking && !isInAttackRecovery)|| isInAttackProgress){
-            rb.velocity = new Vector2(rb.velocity.x *0.9f, rb.velocity.y);
+        else if ((isAttacking && !isInAttackRecovery) || isInAttackProgress)
+        {
+            rb.velocity = new Vector2(rb.velocity.x * 0.9f, rb.velocity.y);
         }
         else
         {
@@ -259,6 +285,8 @@ public class PlayerControl : MonoBehaviour
         isOnWall = false;
         wasOnWall = false;
         airJumpsRemaining = 0;
+        moveInput = Vector2.zero;
+
         if (rb != null)
         {
             rb.velocity = Vector2.zero;

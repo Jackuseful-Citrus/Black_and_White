@@ -15,14 +15,14 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected float damage = 10f;
     [SerializeField] protected float moveAcceleration = 8f;
     [SerializeField] protected float rotationSpeed = 360f;
-    
+
     [Header("检测设置")]
     [SerializeField] protected float playerDetectionRange = 5f;
     [SerializeField] protected float enemyDetectionRange = 5f;
     [SerializeField] protected LayerMask playerLayer;
     [SerializeField] protected LayerMask whiteEnemyLayer;
     [SerializeField] protected LayerMask blackEnemyLayer;
-    
+
     [Header("远程攻击设置")]
     [SerializeField] protected GameObject bulletPrefab;
     [SerializeField] protected Transform firePoint;
@@ -68,7 +68,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected float combatMoveInterval = 1.5f;
     protected float nextCombatMoveChangeTime;
     protected float combatMoveDirectionX;
-    
+
     protected float currentHealth;
     protected Transform player;
     protected PlayerControl playerControl;
@@ -79,12 +79,12 @@ public class Enemy : MonoBehaviour
     protected Transform currentTarget;
     protected float lastAttackTime;
     protected bool isAttacking = false;
-    
+
     protected Vector3 patrolCenter;
     protected Vector3 initialScale;
     protected Vector3 currentPatrolTarget;
     protected bool hasPatrolTarget = false;
-    protected bool wasInCombat = false;   
+    protected bool wasInCombat = false;
     protected int patrolDirection = 1; // 1: Right, -1: Left
 
     protected virtual void Start()
@@ -95,25 +95,25 @@ public class Enemy : MonoBehaviour
         patrolCenter = transform.position;
         initialScale = transform.localScale;
         lastAttackTime = -999f;
-        
+
         if (firePoint == null) firePoint = transform;
-        
+
         nextJumpTime = Time.time + Random.Range(jumpIntervalMin, jumpIntervalMax);
-        
+
         FindPlayer();
     }
-    
+
     protected virtual void Update()
     {
         if (isDead) return;
-        
+
         if (player == null || !player.gameObject.activeInHierarchy)
         {
             FindPlayer();
         }
-        
+
         UpdateTarget();
-        
+
         if (currentTarget != null)
         {
             if (!wasInCombat)
@@ -121,7 +121,7 @@ public class Enemy : MonoBehaviour
                 wasInCombat = true;
                 hasPatrolTarget = false;
             }
-            
+
             EngageTarget();
         }
         else
@@ -130,7 +130,7 @@ public class Enemy : MonoBehaviour
             {
                 wasInCombat = false;
             }
-            
+
             if (enablePatrol)
             {
                 Patrol();
@@ -177,7 +177,7 @@ public class Enemy : MonoBehaviour
 
         LayerMask targetLayer = (enemyColor == EnemyColor.White) ? blackEnemyLayer : whiteEnemyLayer;
         Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, enemyDetectionRange, targetLayer);
-        
+
         Transform nearest = null;
         float minDistance = float.MaxValue;
 
@@ -199,14 +199,13 @@ public class Enemy : MonoBehaviour
 
         currentTarget = nearest;
     }
-    
+
     protected virtual void EngageTarget()
     {
         if (currentTarget == null) return;
 
         float distance = Vector2.Distance(transform.position, currentTarget.position);
-        
-        // 对于近战敌人，增加高度差检查
+
         if (attackType == AttackType.Melee)
         {
             float absDy = Mathf.Abs(currentTarget.position.y - transform.position.y);
@@ -253,7 +252,7 @@ public class Enemy : MonoBehaviour
             if (Time.time >= nextCombatMoveChangeTime)
             {
                 nextCombatMoveChangeTime = Time.time + Random.Range(0.5f, combatMoveInterval);
-                int rand = Random.Range(0, 3); 
+                int rand = Random.Range(0, 3);
                 if (rand == 0) combatMoveDirectionX = -1f;
                 else if (rand == 1) combatMoveDirectionX = 1f;
                 else combatMoveDirectionX = 0f;
@@ -263,9 +262,9 @@ public class Enemy : MonoBehaviour
             {
                 if (!HasGroundAhead(combatMoveDirectionX))
                 {
-                    combatMoveDirectionX *= -1; // 反向
+                    combatMoveDirectionX *= -1;
                 }
-                
+
                 if (rb != null)
                 {
                     Vector2 targetVel = new Vector2(combatMoveDirectionX * combatMoveSpeed, rb.velocity.y);
@@ -295,7 +294,6 @@ public class Enemy : MonoBehaviour
         float absDx = Mathf.Abs(currentTarget.position.x - transform.position.x);
         float absDy = Mathf.Abs(currentTarget.position.y - transform.position.y);
 
-        // 攻击判定：水平距离在范围内且高度差在允许范围内
         if (absDx <= meleeAttackRange && absDy <= attackHeightTolerance)
         {
             StopMoving();
@@ -306,23 +304,29 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            // 追击逻辑：只在水平方向移动，且不走出平台
             float dx = currentTarget.position.x - transform.position.x;
             float moveDir = Mathf.Sign(dx);
 
-            // 如果在地面上，才检查前方是否有路，防止在空中时停止移动
-            if (IsGrounded() && !HasGroundAhead(moveDir))
+            if (IsGrounded())
             {
-                StopMoving();
-                return;
+                if (!HasGroundAhead(moveDir))
+                {
+                    StopMoving();
+                    return;
+                }
+
+                if (HasWallAhead(moveDir))
+                {
+                    StopMoving();
+                    return;
+                }
             }
 
             if (rb != null)
             {
                 rb.velocity = new Vector2(moveDir * meleeChaseSpeed, rb.velocity.y);
-                
-                bool wallAhead = HasWallAhead(moveDir);
 
+                bool wallAhead = HasWallAhead(moveDir);
                 if (Time.time >= nextJumpTime || wallAhead)
                 {
                     Jump();
@@ -340,11 +344,11 @@ public class Enemy : MonoBehaviour
         if (bulletPrefab == null || firePoint == null) return;
 
         lastAttackTime = Time.time;
-        
+
         Vector2 direction = (currentTarget.position - firePoint.position).normalized;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         Quaternion rotation = Quaternion.Euler(0, 0, angle);
-        
+
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, rotation);
         if (bullet != null)
         {
@@ -354,7 +358,7 @@ public class Enemy : MonoBehaviour
             {
                 EnemyBullet.BulletType type = (enemyColor == EnemyColor.White) ? EnemyBullet.BulletType.White : EnemyBullet.BulletType.Black;
                 LayerMask targetLayer = (enemyColor == EnemyColor.White) ? blackEnemyLayer : whiteEnemyLayer;
-                
+
                 bulletScript.Initialize(direction, bulletSpeed, damage, type, gameObject, damage, targetLayer);
             }
         }
@@ -364,7 +368,7 @@ public class Enemy : MonoBehaviour
     {
         lastAttackTime = Time.time;
         isAttacking = true;
-        
+
         if (currentTarget != null)
         {
             if (currentTarget.CompareTag("Player"))
@@ -392,7 +396,7 @@ public class Enemy : MonoBehaviour
                 }
                 else
                 {
-                    rb.velocity = new Vector2(recoilDir * recoilForce, recoilUpwardForce); 
+                    rb.velocity = new Vector2(recoilDir * recoilForce, recoilUpwardForce);
                 }
             }
         }
@@ -409,7 +413,6 @@ public class Enemy : MonoBehaviour
     {
         if (attackType == AttackType.Melee)
         {
-            // 平台巡逻逻辑
             float leftLimit = patrolCenter.x - patrolRadius;
             float rightLimit = patrolCenter.x + patrolRadius;
             float x = transform.position.x;
@@ -417,10 +420,12 @@ public class Enemy : MonoBehaviour
             if (x >= rightLimit) patrolDirection = -1;
             else if (x <= leftLimit) patrolDirection = 1;
 
-            // 只有在地面上时才检测边缘，防止在空中时因为检测不到地面而卡住
             if (IsGrounded())
             {
-                if (!HasGroundAhead(patrolDirection))
+                bool noGroundAhead = !HasGroundAhead(patrolDirection);
+                bool wallAhead = HasWallAhead(patrolDirection);
+
+                if (noGroundAhead || wallAhead)
                 {
                     patrolDirection *= -1;
                 }
@@ -429,9 +434,8 @@ public class Enemy : MonoBehaviour
             if (rb != null)
             {
                 rb.velocity = new Vector2(patrolDirection * patrolSpeed, rb.velocity.y);
-                
-                bool wallAhead = HasWallAhead(patrolDirection);
 
+                bool wallAhead = HasWallAhead(patrolDirection);
                 if (Time.time >= nextJumpTime || wallAhead)
                 {
                     Jump();
@@ -455,7 +459,6 @@ public class Enemy : MonoBehaviour
             }
             MoveTowards(currentPatrolTarget, patrolSpeed);
 
-            // 远程敌人巡逻时也进行左右翻转
             Vector2 dir = (currentPatrolTarget - transform.position).normalized;
             if (Mathf.Abs(dir.x) > 0.01f)
             {
@@ -470,12 +473,11 @@ public class Enemy : MonoBehaviour
     protected bool IsGrounded()
     {
         if (bodyCollider == null) return false;
-        
+
         Bounds bounds = bodyCollider.bounds;
-        // 从中心向下发射射线检测地面
         Vector2 origin = new Vector2(bounds.center.x, bounds.min.y + 0.05f);
         float rayLength = Mathf.Max(groundCheckExtraHeight, 0.6f) + 0.05f;
-        
+
         RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.down, rayLength, groundMask);
         return hit.collider != null;
     }
@@ -493,19 +495,19 @@ public class Enemy : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.down, rayLength, groundMask);
         return hit.collider != null;
     }
-    
+
     protected virtual void GenerateNewPatrolTarget()
     {
         Vector2 randomDirection = Random.insideUnitCircle * patrolRadius;
         currentPatrolTarget = patrolCenter + new Vector3(randomDirection.x, randomDirection.y, 0);
         hasPatrolTarget = true;
     }
-    
+
     protected virtual void MoveTowards(Vector3 target, float speed)
     {
         Vector2 direction = (target - transform.position).normalized;
         Vector2 targetVelocity = direction * speed;
-        
+
         if (rb != null)
         {
             rb.velocity = Vector2.MoveTowards(rb.velocity, targetVelocity, moveAcceleration * Time.deltaTime);
@@ -527,7 +529,7 @@ public class Enemy : MonoBehaviour
     protected void LookAtTargetSmooth()
     {
         if (currentTarget == null) return;
-        
+
         Vector2 direction = (currentTarget.position - transform.position).normalized;
         if (direction == Vector2.zero) return;
 
@@ -539,7 +541,7 @@ public class Enemy : MonoBehaviour
         }
         transform.rotation = Quaternion.identity;
     }
-    
+
     protected virtual void FindPlayer()
     {
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
@@ -549,7 +551,7 @@ public class Enemy : MonoBehaviour
             playerControl = playerObject.GetComponent<PlayerControl>();
         }
     }
-    
+
     public void SetProvoked(bool provoked)
     {
         isProvoked = provoked;
@@ -563,12 +565,12 @@ public class Enemy : MonoBehaviour
         {
             isProvoked = true;
         }
-        
+
         currentHealth -= damageAmount;
         currentHealth = Mathf.Max(currentHealth, 0);
-        
+
         OnDamaged();
-        
+
         if (currentHealth <= 0)
         {
             Die();
@@ -579,11 +581,11 @@ public class Enemy : MonoBehaviour
     {
         return isDead;
     }
-    
+
     protected virtual void OnDamaged()
     {
     }
-    
+
     protected virtual void Die()
     {
         isDead = true;
@@ -607,17 +609,17 @@ public class Enemy : MonoBehaviour
         isDead = false;
         isProvoked = false;
         if (rb != null) rb.velocity = Vector2.zero;
-        
+
         currentTarget = null;
         isAttacking = false;
         wasInCombat = false;
         hasPatrolTarget = false;
     }
-    
+
     protected virtual void OnDeath()
     {
     }
-    
+
     protected virtual void Jump()
     {
         if (rb != null && IsGrounded())
@@ -630,24 +632,23 @@ public class Enemy : MonoBehaviour
     protected bool HasWallAhead(float moveDirX)
     {
         if (bodyCollider == null) return false;
-        
+
         Bounds bounds = bodyCollider.bounds;
         float x = moveDirX > 0 ? bounds.max.x : bounds.min.x;
-        // 从中心高度发射射线检测墙壁
         Vector2 origin = new Vector2(x, bounds.center.y);
-        
+
         RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.right * moveDirX, wallCheckDistance, groundMask);
         return hit.collider != null;
     }
-    
+
     protected virtual void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireSphere(transform.position, playerDetectionRange);
-        
+
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, enemyDetectionRange);
-        
+
         if (attackType == AttackType.Ranged)
         {
             Gizmos.color = Color.yellow;
@@ -668,8 +669,7 @@ public class Enemy : MonoBehaviour
                 Vector2 origin = new Vector2(x + moveDirX * ledgeCheckDistance, bounds.min.y + 0.05f);
                 Gizmos.color = Color.magenta;
                 Gizmos.DrawLine(origin, origin + Vector2.down * (groundCheckExtraHeight + 0.05f));
-                
-                // 绘制墙壁检测射线
+
                 Vector2 wallOrigin = new Vector2(moveDirX > 0 ? bounds.max.x : bounds.min.x, bounds.center.y);
                 Gizmos.color = Color.yellow;
                 Gizmos.DrawLine(wallOrigin, wallOrigin + Vector2.right * moveDirX * wallCheckDistance);

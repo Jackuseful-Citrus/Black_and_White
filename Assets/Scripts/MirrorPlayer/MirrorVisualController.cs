@@ -5,16 +5,15 @@ public class MirrorVisualController : MonoBehaviour
     [Header("主角引用")]
     public PlayerControl mainPlayer;
 
-    // 如果你有单独的视觉根节点，就拖它；不填就用自身
+    // 可选：单独的视觉根节点
     public Transform visualRoot;
 
-    // 记录初始缩放，避免覆盖原有缩放配置
+    // 记录初始缩放，避免覆盖原有缩放
     private Vector3 baseScale;
 
     private void Awake()
     {
         CacheBaseScale();
-        ApplyMirrorFlip(false); // 生成当帧就翻转，避免先出现正向
     }
 
     private void LateUpdate()
@@ -35,14 +34,19 @@ public class MirrorVisualController : MonoBehaviour
         float dir = 1f;
         if (followMainFacing && mainPlayer != null)
         {
-            dir = Mathf.Sign(mainPlayer.transform.localScale.x);
+            // 优先使用横向输入（horiz）决定朝向；否则用缩放
+            float vx = mainPlayer.horiz;
+            if (Mathf.Abs(vx) < 0.01f)
+            {
+                vx = mainPlayer.transform.localScale.x;
+            }
+            dir = Mathf.Sign(vx);
             if (dir == 0) dir = 1f;
         }
 
-        // 保留初始缩放，x 跟随主角朝向，y 永远反转贴天花板
         target.localScale = new Vector3(
-            Mathf.Abs(baseScale.x) * dir,
-            -Mathf.Abs(baseScale.y),
+            Mathf.Abs(baseScale.x) * -dir,
+            Mathf.Abs(baseScale.y), // 不再翻转 Y
             baseScale.z
         );
     }

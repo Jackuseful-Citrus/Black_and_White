@@ -76,7 +76,7 @@
                 {
                     "name": "up",
                     "id": "c1df15ee-37a2-4d3c-ad7d-6b1cde6c2364",
-                    "path": "",
+                    "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -87,7 +87,7 @@
                 {
                     "name": "down",
                     "id": "6f987872-87e5-40ab-8cf0-4bfc473c2fe1",
-                    "path": "",
+                    "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

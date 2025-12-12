@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BossRoomManager : MonoBehaviour
 {
@@ -27,17 +28,25 @@ public class BossRoomManager : MonoBehaviour
     public float blackPhaseDuration = 8f;
     public float blackPhaseMaxHealth = 15f;
 
-    [Header("Final Dual Phase")] 
+    [Header("Final Dual Phase")]
     public Transform finalWhiteSpawnPoint;
     public Transform finalBlackSpawnPoint;
     public float finalBlackPhaseDuration = 10f;
     public float finalBlackPhaseMaxHealth = 20f;
 
-    [Header("Final Phase Overlay")]
-    public SpriteRenderer finalPhaseOverlay;
-    public float finalPhaseOverlayFadeDuration = 2f;
-    public float finalPhaseOverlayRotationSpeed = 60f;
-    [Range(0f, 1f)] public float finalPhaseOverlayTargetAlpha = 0.5f;
+    [Header("Final Phase Overlay (碎片父物体)")]
+    [SerializeField] private Transform finalOverlayRoot; // 三个碎片的父物体
+    [SerializeField]
+    private System.Collections.Generic.List<SpriteRenderer> finalOverlayPieces =
+        new System.Collections.Generic.List<SpriteRenderer>(); // 碎片 sprite
+    [SerializeField] private float finalOverlayDuration = 2.5f;      // 碎片旋转+放大+变白的总时间
+    [SerializeField] private float finalOverlayRotationSpeed = 360f; // 每秒旋转角速度（度）
+    [SerializeField] private float finalOverlayScaleMultiplier = 4f; // 最终放大倍数
+    [SerializeField, Range(0f, 1f)] private float finalOverlayStartAlpha = 0f;
+    [SerializeField, Range(0f, 1f)] private float finalOverlayEndAlpha = 1f;
+
+    [Header("Ending")]
+    [SerializeField] private string nextSceneName; // 结局之后跳转的场景（可选）
 
     [Header("Roar Effect")]
     public GameObject roarEffectPrefab;
@@ -48,6 +57,10 @@ public class BossRoomManager : MonoBehaviour
     public Vector3 roarEndScale = new Vector3(2f, 2f, 1f);
     public float roarTiltAngle = 30f;
     public float roarScaleMultiplier = 1.1f;
+    [Header("White Screen UI")]
+    [SerializeField] private SpriteRenderer whiteFadeQuad; // 场景里的白色方块（SpriteRenderer）
+    [SerializeField] private float whiteFadeDuration = 1.5f;
+
 
     private GameObject mirrorInstance;
     private WhiteBoss activeWhite;
@@ -56,9 +69,18 @@ public class BossRoomManager : MonoBehaviour
     private bool whitePhaseFinished;
     private bool blackPhaseFinished;
 
+    // 终幕 overlay 状态
+    private Vector3 finalOverlayBaseScale;
+
     private void Awake()
     {
-        // 兜底：如果忘了在 Inspector 里拖 mainPlayer，就自动找场景里的 PlayerControl
+        // 开局隐藏碎片父物体
+        if (finalOverlayRoot != null)
+        {
+            finalOverlayRoot.gameObject.SetActive(false);
+        }
+
+        // 自动找主角
         if (mainPlayer == null)
         {
             mainPlayer = FindObjectOfType<PlayerControl>();
@@ -93,7 +115,7 @@ public class BossRoomManager : MonoBehaviour
         mirrorInstance = Instantiate(mirrorPlayerPrefab, spawnPos, Quaternion.identity);
         mirrorInstance.tag = "PlayerMirror";
 
-        // 物理同步（横向速度）
+        // 物理同步
         var phys = mirrorInstance.GetComponent<MirrorPhysicalController>();
         if (phys != null)
         {
@@ -101,7 +123,7 @@ public class BossRoomManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("[BossRoomManager] mirrorPlayerPrefab 上没有 MirrorPhysicalController（如果你想要物理倒挂，这个脚本要挂上）");
+            Debug.LogWarning("[BossRoomManager] mirrorPlayerPrefab 上没有 MirrorPhysicalController");
         }
 
         // 视觉倒挂
@@ -115,7 +137,7 @@ public class BossRoomManager : MonoBehaviour
             Debug.LogWarning("[BossRoomManager] mirrorPlayerPrefab 上没有 MirrorVisualController");
         }
 
-        // 动画同步（黑白形态 + 行走）
+        // 动画同步
         var mirrorAnimSync = mirrorInstance.GetComponent<MirrorAnimationSync>();
         if (mirrorAnimSync != null)
         {
@@ -126,7 +148,7 @@ public class BossRoomManager : MonoBehaviour
             Debug.LogWarning("[BossRoomManager] mirrorPlayerPrefab 上没有 MirrorAnimationSync");
         }
 
-        // 攻击同步（如果你已经挂好 MirrorAttackController）
+        // 攻击同步
         var mirrorAttack = mirrorInstance.GetComponent<MirrorAttackController>();
         if (mirrorAttack != null)
         {
@@ -174,7 +196,7 @@ public class BossRoomManager : MonoBehaviour
 
     private IEnumerator BossSequence()
     {
-        // 2. 生成白 Boss 并等待阶段结束
+        // 白 Boss 阶段
         if (whiteBossPrefab == null || whiteSpawnPoint == null)
         {
             Debug.LogError("[BossRoomManager] 白 Boss 预制体或生成点未设置，流程中断！");
@@ -188,25 +210,26 @@ public class BossRoomManager : MonoBehaviour
         {
             activeWhite.ConfigurePhase(whitePhaseDuration, whitePhaseMaxHealth);
             activeWhite.onPhaseEnded += OnWhitePhaseEnded;
-            // 入场吼叫效果（与黑 Boss 相同的光波 + 仰头）
             StartCoroutine(PlayRoarWaves(activeWhite.transform));
         }
         else
         {
             Debug.LogWarning("[BossRoomManager] 白 Boss 预制体上没有 WhiteBoss 组件！");
-            whitePhaseFinished = true; // 避免流程卡死
+            whitePhaseFinished = true;
         }
 
         yield return new WaitUntil(() => whitePhaseFinished);
 
-        // 3. 白 Boss 退场（无视 Collider）
+        // 白 Boss 退场
         yield return RetreatWhiteBoss();
 
-        // 4. 黑 Boss 从右上角入场并吼叫特效
+        // 黑 Boss 入场
         yield return SpawnBlackBossWithEntrance();
 
-        // 5. 等待黑 Boss 阶段结束（死亡或时间结束），然后召唤双 Boss 同时吼叫
+        // 黑 Boss 阶段结束
         yield return WaitForBlackPhaseEnd();
+
+        // 双 Boss 吼叫 + 最终阶段
         yield return SpawnDualBossRoarPhase();
     }
 
@@ -219,7 +242,6 @@ public class BossRoomManager : MonoBehaviour
     {
         blackPhaseFinished = true;
     }
-    
 
     private IEnumerator RetreatWhiteBoss()
     {
@@ -231,7 +253,7 @@ public class BossRoomManager : MonoBehaviour
         Vector3 start = t.position;
         Vector3 end = whiteRetreatTarget != null
             ? whiteRetreatTarget.position
-            : start + new Vector3(3f, 3f, 0f); // fallback: move to upper-right
+            : start + new Vector3(3f, 3f, 0f);
 
         float timer = 0f;
         while (timer < whiteRetreatDuration)
@@ -256,7 +278,8 @@ public class BossRoomManager : MonoBehaviour
         }
 
         Vector3 entranceStart = blackEntranceStart != null ? blackEntranceStart.position : GetFallbackTopRight();
-        Vector3 entranceEnd = blackEntranceEnd != null ? blackEntranceEnd.position : (whiteSpawnPoint != null ? whiteSpawnPoint.position : transform.position);
+        Vector3 entranceEnd = blackEntranceEnd != null ? blackEntranceEnd.position :
+            (whiteSpawnPoint != null ? whiteSpawnPoint.position : transform.position);
 
         GameObject blackObj = Instantiate(blackBossPrefab, entranceStart, Quaternion.identity);
         activeBlack = blackObj.GetComponent<BlackBoss>();
@@ -336,30 +359,12 @@ public class BossRoomManager : MonoBehaviour
         if (whiteRoar != null) yield return whiteRoar;
         if (blackRoar != null) yield return blackRoar;
 
-        Coroutine overlay = null;
-        if (finalPhaseOverlay != null)
-        {
-            overlay = StartCoroutine(PlayFinalOverlay());
-        }
-        else
-        {
-            Debug.LogWarning("[BossRoomManager] finalPhaseOverlay 未设置，跳过终幕贴图效果");
-        }
-
-        if (overlay != null) yield return overlay;
-
-        // Start rotation coroutine separately so we don't wait for it
-        if (finalPhaseOverlay != null)
-        {
-            StartCoroutine(RotateFinalOverlay());
-        }
-
         if (activeBlack != null)
         {
             activeBlack.BeginFight();
         }
 
-        // Final phase: survive the timer, then both bosses roar once and despawn (regardless of HP)
+        // 最终黑阶段：计时结束即可
         yield return new WaitForSeconds(finalBlackPhaseDuration);
 
         if (activeWhite != null)
@@ -375,6 +380,22 @@ public class BossRoomManager : MonoBehaviour
             yield return PlayRoarWaves(activeBlack.transform);
             Destroy(activeBlack.gameObject);
             activeBlack = null;
+        }
+
+        // 终幕：碎片旋转放大 + 渐白
+        if (finalOverlayRoot != null)
+        {
+            yield return PlayFinalOverlayAndWhite();
+        }
+        else
+        {
+            Debug.LogWarning("[BossRoomManager] finalOverlayRoot 未设置，跳过终幕碎片效果");
+        }
+
+        // 如果配置了结局场景，就跳转
+        if (!string.IsNullOrEmpty(nextSceneName))
+        {
+            SceneManager.LoadScene(nextSceneName);
         }
     }
 
@@ -397,13 +418,6 @@ public class BossRoomManager : MonoBehaviour
     {
         if (boss == null) yield break;
 
-        if (roarEffectPrefab == null)
-        {
-            Debug.LogWarning("[BossRoomManager] roarEffectPrefab 未设置，跳过吼叫特效");
-            yield break;
-        }
-
-        // 暂停白 Boss 的移动/攻击，让吼叫时保持静止
         var white = boss.GetComponent<WhiteBoss>();
         if (white != null)
         {
@@ -413,7 +427,13 @@ public class BossRoomManager : MonoBehaviour
         Quaternion originalRot = boss.rotation;
         Vector3 originalScale = boss.localScale;
 
-        // 吼叫期间稍微上仰 + 放大
+        if (roarEffectPrefab == null)
+        {
+            Debug.LogWarning("[BossRoomManager] roarEffectPrefab 未设置，跳过吼叫特效");
+            if (white != null) white.SetRoarLock(false);
+            yield break;
+        }
+
         boss.rotation = Quaternion.Euler(0f, 0f, roarTiltAngle);
         boss.localScale = originalScale * roarScaleMultiplier;
 
@@ -456,47 +476,123 @@ public class BossRoomManager : MonoBehaviour
 
     private Vector3 GetFallbackTopRight()
     {
-        // use camera to guess an off-screen top-right entrance point
         Camera cam = Camera.main;
         if (cam == null) return transform.position + new Vector3(5f, 5f, 0f);
 
-        Vector3 topRight = cam.ScreenToWorldPoint(new Vector3(cam.pixelWidth, cam.pixelHeight, -cam.transform.position.z));
+        Vector3 topRight = cam.ScreenToWorldPoint(
+            new Vector3(cam.pixelWidth, cam.pixelHeight, -cam.transform.position.z));
         topRight.z = 0f;
         return topRight;
     }
 
-    private IEnumerator PlayFinalOverlay()
+    // ------------ 终幕碎片旋转 + 放大 + “白屏” ------------
+    private IEnumerator PlayFinalOverlayAndWhite()
     {
-        if (finalPhaseOverlay == null) yield break;
+        if (finalOverlayRoot == null) yield break;
 
-        finalPhaseOverlay.gameObject.SetActive(true);
-        Color c = finalPhaseOverlay.color;
-        c.a = 0f;
-        finalPhaseOverlay.color = c;
+        finalOverlayRoot.gameObject.SetActive(true);
+
+        // 父物体 Z 锁 0
+        Vector3 rootPos = finalOverlayRoot.position;
+        rootPos.z = 0f;
+        finalOverlayRoot.position = rootPos;
+
+        // 如果没填 list，就自动从子物体抓 sprite
+        if (finalOverlayPieces == null || finalOverlayPieces.Count == 0)
+        {
+            finalOverlayPieces = new System.Collections.Generic.List<SpriteRenderer>(
+                finalOverlayRoot.GetComponentsInChildren<SpriteRenderer>());
+        }
+
+        finalOverlayBaseScale = finalOverlayRoot.localScale;
+
+        // 初始化：子物体激活、Z=0，alpha 设为起始值
+        foreach (var sr in finalOverlayPieces)
+        {
+            if (sr == null) continue;
+
+            sr.gameObject.SetActive(true);
+
+            var p = sr.transform.position;
+            p.z = 0f;
+            sr.transform.position = p;
+
+            var c = sr.color;
+            c.a = finalOverlayStartAlpha;
+            sr.color = c;
+        }
 
         float timer = 0f;
-        while (timer < finalPhaseOverlayFadeDuration)
+        while (timer < finalOverlayDuration)
         {
-            float t = Mathf.Clamp01(timer / Mathf.Max(finalPhaseOverlayFadeDuration, 0.01f));
-            c.a = Mathf.Lerp(0f, finalPhaseOverlayTargetAlpha, t);
-            finalPhaseOverlay.color = c;
-            // Rotate while fading
-            finalPhaseOverlay.transform.Rotate(Vector3.forward, finalPhaseOverlayRotationSpeed * Time.deltaTime);
+            float t = Mathf.Clamp01(timer / Mathf.Max(finalOverlayDuration, 0.01f));
+
+            // 1. 像陀螺一样自转
+            float angle = finalOverlayRotationSpeed * timer;
+            finalOverlayRoot.rotation = Quaternion.Euler(0f, 0f, angle);
+
+            // 2. 整体放大
+            float scale = Mathf.Lerp(1f, finalOverlayScaleMultiplier, t);
+            finalOverlayRoot.localScale = finalOverlayBaseScale * scale;
+
+            // 3. 碎片渐白（多重叠加 ≈ 白屏）
+            float alpha = Mathf.Lerp(finalOverlayStartAlpha, finalOverlayEndAlpha, t);
+            ApplyOverlayAlpha(alpha);
+
             timer += Time.deltaTime;
             yield return null;
         }
 
-        c.a = finalPhaseOverlayTargetAlpha;
-        finalPhaseOverlay.color = c;
-    }
+        // 收尾：完全白、完全放大
+        finalOverlayRoot.rotation = Quaternion.Euler(0f, 0f, finalOverlayRotationSpeed * finalOverlayDuration);
+        finalOverlayRoot.localScale = finalOverlayBaseScale * finalOverlayScaleMultiplier;
+        ApplyOverlayAlpha(finalOverlayEndAlpha);
 
-    private IEnumerator RotateFinalOverlay()
-    {
-        while (finalPhaseOverlay != null && finalPhaseOverlay.gameObject.activeInHierarchy)
+        // 同步让白色方块淡入
+        if (whiteFadeQuad != null)
         {
-            finalPhaseOverlay.transform.Rotate(Vector3.forward, finalPhaseOverlayRotationSpeed * Time.deltaTime);
-            yield return null;
+            yield return FadeWhiteQuad();
+        }
+        else
+        {
+            // 兜底：稍微停一小会儿再切场景
+            yield return new WaitForSeconds(0.5f);
         }
     }
 
+    private void ApplyOverlayAlpha(float alpha)
+    {
+        if (finalOverlayPieces == null) return;
+
+        foreach (var sr in finalOverlayPieces)
+        {
+            if (sr == null) continue;
+            Color c = sr.color;
+            c.a = alpha;
+            sr.color = c;
+        }
+    }
+
+    private IEnumerator FadeWhiteQuad()
+    {
+        if (whiteFadeQuad == null) yield break;
+
+        Color c = whiteFadeQuad.color;
+        c.a = 0f;
+        whiteFadeQuad.color = c;
+        whiteFadeQuad.gameObject.SetActive(true);
+
+        float timer = 0f;
+        while (timer < whiteFadeDuration)
+        {
+            float t = Mathf.Clamp01(timer / Mathf.Max(whiteFadeDuration, 0.01f));
+            c.a = t;
+            whiteFadeQuad.color = c;
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        c.a = 1f;
+        whiteFadeQuad.color = c;
+    }
 }
