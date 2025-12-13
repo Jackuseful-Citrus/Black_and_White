@@ -4102,8 +4102,8 @@ MonoBehaviour:
   topOpenOffset: {x: 0, y: 20, z: 0}
   bottomOpenOffset: {x: 0, y: -20, z: 0}
   interactKey: 101
-  requireAllFragments: 0
-  requiredIds: 
+  requireAllFragments: 1
+  requiredIds: 000000000100000002000000
   openDuration: 1
   openCurve:
     serializedVersion: 2
