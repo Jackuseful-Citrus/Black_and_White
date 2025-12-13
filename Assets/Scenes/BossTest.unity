@@ -57830,7 +57830,7 @@ MonoBehaviour:
   finalOverlayScaleMultiplier: 4
   finalOverlayStartAlpha: 0
   finalOverlayEndAlpha: 0.598
-  nextSceneName: Opening
+  nextSceneName: EndingScene
   roarEffectPrefab: {fileID: 2530141609454614230, guid: ae03f07465d04474483a7edf5c18d8d7, type: 3}
   roarWaves: 10
   roarWaveDuration: 0.2
