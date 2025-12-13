@@ -10,6 +10,9 @@ public class CameraAnchorTrigger : MonoBehaviour
 {
     [SerializeField] private Transform cameraAnchor; // target position for the camera
     [SerializeField] private float moveDuration = 0.6f;
+    [SerializeField] private float targetOrthoSize = 6f;
+    [SerializeField] private bool adjustSize = true;
+    [SerializeField] private float sizeLerpDuration = 0.6f;
 
     private Coroutine moveRoutine;
 
@@ -43,16 +46,27 @@ public class CameraAnchorTrigger : MonoBehaviour
         Vector3 startPos = camTransform.position;
         Vector3 target = new Vector3(cameraAnchor.position.x, cameraAnchor.position.y, startPos.z);
         float timer = 0f;
+        Camera cam = Camera.main;
+        float startSize = cam != null ? cam.orthographicSize : 0f;
 
         while (timer < moveDuration)
         {
             float t = Mathf.Clamp01(timer / Mathf.Max(moveDuration, 0.01f));
             camTransform.position = Vector3.Lerp(startPos, target, t);
+            if (adjustSize && cam != null)
+            {
+                float sizeT = Mathf.Clamp01(timer / Mathf.Max(sizeLerpDuration, 0.01f));
+                cam.orthographicSize = Mathf.Lerp(startSize, targetOrthoSize, sizeT);
+            }
             timer += Time.deltaTime;
             yield return null;
         }
 
         camTransform.position = target;
+        if (adjustSize && cam != null)
+        {
+            cam.orthographicSize = targetOrthoSize;
+        }
         moveRoutine = null;
     }
 }
