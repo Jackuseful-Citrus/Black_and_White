@@ -212,6 +212,11 @@ public class LogicScript : MonoBehaviour
 
     public void HitByBlackEnemy()
     {
+        if (playerControl != null)
+        {
+            StartCoroutine(FlashPlayer());
+        }
+
         if (playerControl.isBlack)
         {
             blackBar += 14;
@@ -225,6 +230,11 @@ public class LogicScript : MonoBehaviour
     }
     public void HitByWhiteEnemy()
     {
+        if (playerControl != null)
+        {
+            StartCoroutine(FlashPlayer());
+        }
+
         if (playerControl.isBlack)
         {
             whiteBar += 28;
@@ -239,11 +249,19 @@ public class LogicScript : MonoBehaviour
 
     public void getIntoWhiteTrap()
     {
+        if (playerControl != null)
+        {
+            StartCoroutine(FlashPlayer());
+        }
         whiteBar += 28;
         blackBar -= 14;
     }
     public void getIntoBlackTrap()
     {
+        if (playerControl != null)
+        {
+            StartCoroutine(FlashPlayer());
+        }
         blackBar += 28;
         whiteBar -= 14;
     }
@@ -389,5 +407,25 @@ public class LogicScript : MonoBehaviour
         respawnPoint = pendingTeleportPoint;
         return pendingTeleportPoint;
     }
+
+    private IEnumerator FlashPlayer()
+    {
+        if (playerControl == null) yield break;
+
+        GameObject activeOutlook = playerControl.isWhite ? playerControl.WhiteOutlook : playerControl.BlackOutlook;
+        if (activeOutlook == null) yield break;
+
+        SpriteRenderer sr = activeOutlook.GetComponent<SpriteRenderer>();
+        if (sr == null)
+        {
+            sr = activeOutlook.GetComponentInChildren<SpriteRenderer>();
+        }
+        if (sr == null) yield break;
+
+        sr.enabled = false;
+        yield return new WaitForSeconds(0.1f);
+        sr.enabled = true;
+    }
+
     public GameObject Player => player;
 }
