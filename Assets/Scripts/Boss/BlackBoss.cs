@@ -57,12 +57,11 @@ public class BlackBoss : MonoBehaviour
     private bool isReturning;
     private float chargeStartTime;
 
-    private SpriteRenderer spriteRenderer;
-    private Color originalColor;
-    private Coroutine flashCoroutine;
-
     public System.Action onPhaseEnded;
     public System.Action onBossDied;
+    private Coroutine flashRoutine;
+    private readonly System.Collections.Generic.List<(SpriteRenderer sr, Color original)> rendererColors =
+        new System.Collections.Generic.List<(SpriteRenderer, Color)>();
 
     private void Awake()
     {
@@ -72,6 +71,8 @@ public class BlackBoss : MonoBehaviour
         rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
         rb.interpolation = RigidbodyInterpolation2D.Interpolate;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+        CacheFlashRenderers();
     }
 
     private void Start()
@@ -87,17 +88,7 @@ public class BlackBoss : MonoBehaviour
             cachedMirror = mirrorPlayer;
         }
 
-        if (blackBody != null)
-        {
-            blackBody.SetActive(true);
-            spriteRenderer = blackBody.GetComponent<SpriteRenderer>();
-            if (spriteRenderer != null) originalColor = spriteRenderer.color;
-        }
-        else
-        {
-            spriteRenderer = GetComponent<SpriteRenderer>();
-            if (spriteRenderer != null) originalColor = spriteRenderer.color;
-        }
+        if (blackBody != null) blackBody.SetActive(true);
 
         currentHealth = maxHealth;
         phaseStartTime = Time.time;
@@ -347,29 +338,12 @@ public class BlackBoss : MonoBehaviour
     {
         if (phaseEnded) return;
 
-        if (spriteRenderer != null)
-        {
-            if (flashCoroutine != null) 
-            {
-                StopCoroutine(flashCoroutine);
-                spriteRenderer.enabled = true;
-            }
-            flashCoroutine = StartCoroutine(FlashRoutine());
-        }
-
         currentHealth -= amount;
+        TriggerFlash();
         if (currentHealth <= 0f)
         {
             EndPhase(true);
         }
-    }
-
-    private System.Collections.IEnumerator FlashRoutine()
-    {
-        spriteRenderer.enabled = false;
-        yield return new WaitForSeconds(0.1f);
-        spriteRenderer.enabled = true;
-        flashCoroutine = null;
     }
 
     public void ForceEndPhase()
@@ -395,4 +369,49 @@ public class BlackBoss : MonoBehaviour
     public bool HasPhaseEnded => phaseEnded;
     public float CurrentHealth => currentHealth;
     public float MaxHealth => maxHealth;
+
+    private void CacheFlashRenderers()
+    {
+        rendererColors.Clear();
+
+        if (flashRenderers == null || flashRenderers.Length == 0)
+        {
+            flashRenderers = GetComponentsInChildren<SpriteRenderer>();
+        }
+
+        if (flashRenderers == null) return;
+
+        for (int i = 0; i < flashRenderers.Length; i++)
+        {
+            var sr = flashRenderers[i];
+            if (sr == null) continue;
+            rendererColors.Add((sr, sr.color));
+        }
+    }
+
+    private void TriggerFlash()
+    {
+        if (rendererColors.Count == 0) return;
+        if (flashRoutine != null) StopCoroutine(flashRoutine);
+        flashRoutine = StartCoroutine(FlashRoutine());
+    }
+
+    private System.Collections.IEnumerator FlashRoutine()
+    {
+        Color flashColor = Color.red;
+        for (int i = 0; i < rendererColors.Count; i++)
+        {
+            var entry = rendererColors[i];
+            if (entry.sr != null) entry.sr.color = flashColor;
+        }
+
+        yield return new WaitForSeconds(flashDuration);
+
+        for (int i = 0; i < rendererColors.Count; i++)
+        {
+            var entry = rendererColors[i];
+            if (entry.sr != null) entry.sr.color = entry.original;
+        }
+    }
+
 }
