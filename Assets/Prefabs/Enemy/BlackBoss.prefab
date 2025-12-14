@@ -75,7 +75,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blackChargeSpeed: 10
   blackRestDuration: 3
-  minChargeDuration: 0.25
+  minChargeDuration: 0.5
   maxChargeDuration: 2
   chainGapDuration: 0.15
   maxChainCharges: 2

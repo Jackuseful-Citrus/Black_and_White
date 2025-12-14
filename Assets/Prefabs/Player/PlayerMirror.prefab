@@ -377,7 +377,7 @@ MonoBehaviour:
   mirrorScythe: {fileID: 3544861675987105560}
   lightBallPrefab: {fileID: 4420177038273116322, guid: 5a896adc3f3be974499b85946d6d6323, type: 3}
   mirrorLightSpawnPoint: {fileID: 7165815533581699327}
-  lightBallCooldown: 0.35
+  lightBallCooldown: 1
   mirrorAimPoint: {fileID: 0}
 --- !u!61 &4827417688435083538
 BoxCollider2D:

@@ -363,7 +363,8 @@ public class BossRoomManager : MonoBehaviour
         activeWhite = whiteObj.GetComponent<WhiteBoss>();
         if (activeWhite != null)
         {
-            activeWhite.ConfigurePhase(whitePhaseDuration, whitePhaseMaxHealth);
+            // 最终阶段不受自身计时器影响，由 HUD 倒计时统一控制
+            activeWhite.ConfigurePhase(0f, whitePhaseMaxHealth);
         }
 
         GameObject blackObj = Instantiate(blackBossPrefab, blackStart, Quaternion.identity);
@@ -371,7 +372,8 @@ public class BossRoomManager : MonoBehaviour
         if (activeBlack != null)
         {
             activeBlack.PauseFight();
-            activeBlack.ConfigurePhase(finalBlackPhaseDuration, finalBlackPhaseMaxHealth);
+            // 最终阶段不受自身计时器影响，由 HUD 倒计时统一控制
+            activeBlack.ConfigurePhase(0f, finalBlackPhaseMaxHealth);
         }
         if (bossHUD != null)
         {

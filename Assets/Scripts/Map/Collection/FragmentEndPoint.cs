@@ -4,7 +4,7 @@ public enum FragmentId
 {
     Black = 0,  // 黑图碎片
     White = 1,  // 白图碎片
-    Gray = 2   // 灰图碎片
+    Grey = 2   // 灰图碎片
 }
 
 /// <summary>
