@@ -112,7 +112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyColor: 0
   attackType: 1
-  maxHealth: 20
+  maxHealth: 60
   moveSpeed: 3
   damage: 10
   moveAcceleration: 8
@@ -131,7 +131,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 3188708626226791006, guid: 9eb77868e5443b043ac6f4f6a6b13ce6, type: 3}
   firePoint: {fileID: 0}
   rangedAttackRange: 8
-  rangedAttackCooldown: 2
+  rangedAttackCooldown: 1
   bulletSpeed: 10
   minRangedDistance: 5
   maxRangedDistance: 7
@@ -150,6 +150,7 @@ MonoBehaviour:
     m_Bits: 8
   groundCheckExtraHeight: 0.1
   ledgeCheckDistance: 0.2
+  ignoreHeightTolerance: 0
   jumpForce: 5
   jumpIntervalMin: 2
   jumpIntervalMax: 5
