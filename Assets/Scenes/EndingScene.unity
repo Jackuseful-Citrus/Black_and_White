@@ -860,7 +860,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Thanks for playing '
+  m_text: "    Thank\n    You\n    For\n    Playing"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 089cd0577aaee6d4ab442834c3e274d8, type: 2}
   m_sharedMaterial: {fileID: -4817601578958562854, guid: 089cd0577aaee6d4ab442834c3e274d8, type: 2}
