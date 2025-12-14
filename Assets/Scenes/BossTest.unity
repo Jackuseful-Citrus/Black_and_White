@@ -347,11 +347,11 @@ Transform:
   m_GameObject: {fileID: 185292588}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 22.72, y: 6.18, z: -1}
+  m_LocalPosition: {x: 59.12, y: 20.588676, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 653012767}
+  m_Father: {fileID: 380395317}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &185292590
 SpriteRenderer:
@@ -1107,6 +1107,12 @@ Transform:
   - {fileID: 1171798468}
   - {fileID: 586340210}
   - {fileID: 374050458}
+  - {fileID: 1202193272}
+  - {fileID: 2083749836}
+  - {fileID: 1744465656}
+  - {fileID: 185292589}
+  - {fileID: 1199545322}
+  - {fileID: 1856946077}
   m_Father: {fileID: 1071914478}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &409194520
@@ -1656,12 +1662,6 @@ Transform:
   - {fileID: 278948127}
   - {fileID: 2137339475}
   - {fileID: 1973352108}
-  - {fileID: 1202193272}
-  - {fileID: 2083749836}
-  - {fileID: 1744465656}
-  - {fileID: 185292589}
-  - {fileID: 1199545322}
-  - {fileID: 1856946077}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &675918056
@@ -3678,11 +3678,11 @@ Transform:
   m_GameObject: {fileID: 1199545321}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.2300005, y: 6.0999985, z: -1}
+  m_LocalPosition: {x: 42.629997, y: 20.508677, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 653012767}
+  m_Father: {fileID: 380395317}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1199545323
 SpriteRenderer:
@@ -3762,11 +3762,11 @@ Transform:
   m_GameObject: {fileID: 1202193271}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -16.97, y: 6.1, z: -1}
+  m_LocalPosition: {x: 19.43, y: 20.508678, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 653012767}
+  m_Father: {fileID: 380395317}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1202193273
 SpriteRenderer:
@@ -4052,7 +4052,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 20
-  bossDamage: 1
+  bossDamage: 10
 --- !u!1 &1233965522
 GameObject:
   m_ObjectHideFlags: 0
@@ -61578,11 +61578,11 @@ Transform:
   m_GameObject: {fileID: 1744465655}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 14.989998, y: 6.180001, z: -1}
+  m_LocalPosition: {x: 51.389996, y: 20.58868, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 653012767}
+  m_Father: {fileID: 380395317}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1744465657
 SpriteRenderer:
@@ -62009,11 +62009,11 @@ Transform:
   m_GameObject: {fileID: 1856946076}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -9.239999, y: 6.0999985, z: -1}
+  m_LocalPosition: {x: 27.16, y: 20.508677, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 653012767}
+  m_Father: {fileID: 380395317}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1856946078
 SpriteRenderer:
@@ -62220,15 +62220,23 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5645853040178299644, guid: 761b686aded78c94eb30e468550ff0c7, type: 3}
+      propertyPath: dialogueGroups.Array.data[0].lines.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5645853040178299644, guid: 761b686aded78c94eb30e468550ff0c7, type: 3}
       propertyPath: dialogueGroups.Array.data[0].lines.Array.data[0]
       value: Maybe you have noticed something.
       objectReference: {fileID: 0}
     - target: {fileID: 5645853040178299644, guid: 761b686aded78c94eb30e468550ff0c7, type: 3}
       propertyPath: dialogueGroups.Array.data[0].lines.Array.data[1]
-      value: There is no gravity here. Try using WASD to move and defeat the boss.
+      value: There is no gravity here.
       objectReference: {fileID: 0}
     - target: {fileID: 5645853040178299644, guid: 761b686aded78c94eb30e468550ff0c7, type: 3}
       propertyPath: dialogueGroups.Array.data[0].lines.Array.data[2]
+      value: Use W ans S to go upward and downward automatically.
+      objectReference: {fileID: 0}
+    - target: {fileID: 5645853040178299644, guid: 761b686aded78c94eb30e468550ff0c7, type: 3}
+      propertyPath: dialogueGroups.Array.data[0].lines.Array.data[3]
       value: Hope I can see you back alive.
       objectReference: {fileID: 0}
     - target: {fileID: 6926728459501131984, guid: 761b686aded78c94eb30e468550ff0c7, type: 3}
@@ -62477,11 +62485,11 @@ Transform:
   m_GameObject: {fileID: 2083749835}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.5, y: 6.1, z: -1}
+  m_LocalPosition: {x: 34.899998, y: 20.508678, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 653012767}
+  m_Father: {fileID: 380395317}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2083749837
 SpriteRenderer:
