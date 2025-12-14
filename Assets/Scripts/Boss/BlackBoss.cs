@@ -358,4 +358,7 @@ public class BlackBoss : MonoBehaviour
     }
 
     public bool HasPhaseEnded => phaseEnded;
+    public float CurrentHealth => currentHealth;
+    public float MaxHealth => maxHealth;
+
 }
