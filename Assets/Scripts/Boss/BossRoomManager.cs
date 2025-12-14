@@ -36,11 +36,12 @@ public class BossRoomManager : MonoBehaviour
 
     [Header("Final Phase Overlay (碎片父物体)")]
     [SerializeField] private Transform finalOverlayRoot; // 三个碎片的父物体
+    [SerializeField] private Transform finalOverlayCenter; // 碎片绕着这个点公转
     [SerializeField]
     private System.Collections.Generic.List<SpriteRenderer> finalOverlayPieces =
         new System.Collections.Generic.List<SpriteRenderer>(); // 碎片 sprite
     [SerializeField] private float finalOverlayDuration = 2.5f;      // 碎片旋转+放大+变白的总时间
-    [SerializeField] private float finalOverlayRotationSpeed = 360f; // 每秒旋转角速度（度）
+    [SerializeField] private float finalOverlayRotationSpeed = 360f; // 每秒公转角速度（度）
     [SerializeField] private float finalOverlayScaleMultiplier = 4f; // 最终放大倍数
     [SerializeField, Range(0f, 1f)] private float finalOverlayStartAlpha = 0f;
     [SerializeField, Range(0f, 1f)] private float finalOverlayEndAlpha = 1f;
@@ -73,6 +74,15 @@ public class BossRoomManager : MonoBehaviour
 
     // 终幕 overlay 状态
     private Vector3 finalOverlayBaseScale;
+    private readonly System.Collections.Generic.List<FinalOverlayPieceData> finalOverlayPieceData =
+        new System.Collections.Generic.List<FinalOverlayPieceData>();
+
+    private struct FinalOverlayPieceData
+    {
+        public SpriteRenderer sr;
+        public Vector3 offsetFromCenter;
+        public Vector3 baseScale;
+    }
 
     private void Awake()
     {
@@ -509,80 +519,96 @@ public class BossRoomManager : MonoBehaviour
     }
 
     // ------------ 终幕碎片旋转 + 放大 + “白屏” ------------
+    // ------------ 终幕碎片：转父物体 + 放大 + 渐显 + 白屏 ------------
     private IEnumerator PlayFinalOverlayAndWhite()
     {
         if (finalOverlayRoot == null) yield break;
 
         finalOverlayRoot.gameObject.SetActive(true);
 
-        // 父物体 Z 锁 0
-        Vector3 rootPos = finalOverlayRoot.position;
-        rootPos.z = 0f;
-        finalOverlayRoot.position = rootPos;
+        // 1) 把父物体放到中心（如果没配 center，就用自身当前位置）
+        Vector3 center = finalOverlayCenter != null ? finalOverlayCenter.position : finalOverlayRoot.position;
+        center.z = -2f;
+        finalOverlayRoot.position = center;
 
-        // 如果没填 list，就自动从子物体抓 sprite
+        // 2) 收集碎片 SpriteRenderer（没填就自动抓子物体）
         if (finalOverlayPieces == null || finalOverlayPieces.Count == 0)
         {
             finalOverlayPieces = new System.Collections.Generic.List<SpriteRenderer>(
-                finalOverlayRoot.GetComponentsInChildren<SpriteRenderer>());
+                finalOverlayRoot.GetComponentsInChildren<SpriteRenderer>(true));
         }
 
-        finalOverlayBaseScale = finalOverlayRoot.localScale;
+        // 3) 记录父物体初始姿态
+        Vector3 rootBaseScale = finalOverlayRoot.localScale;
+        Quaternion rootBaseRot = finalOverlayRoot.rotation;
 
-        // 初始化：子物体激活、Z=0，alpha 设为起始值
-        foreach (var sr in finalOverlayPieces)
+        // 4) 初始化碎片 alpha
+        for (int i = 0; i < finalOverlayPieces.Count; i++)
         {
+            var sr = finalOverlayPieces[i];
             if (sr == null) continue;
 
             sr.gameObject.SetActive(true);
 
-            var p = sr.transform.position;
-            p.z = 0f;
-            sr.transform.position = p;
-
-            var c = sr.color;
+            Color c = sr.color;
             c.a = finalOverlayStartAlpha;
             sr.color = c;
         }
 
+        // 5) 动画：转父物体 + 放大父物体 + 渐显碎片
         float timer = 0f;
-        while (timer < finalOverlayDuration)
+        float dur = Mathf.Max(finalOverlayDuration, 0.01f);
+
+        while (timer < dur)
         {
-            float t = Mathf.Clamp01(timer / Mathf.Max(finalOverlayDuration, 0.01f));
+            float t = Mathf.Clamp01(timer / dur);
 
-            // 1. 像陀螺一样自转
-            float angle = finalOverlayRotationSpeed * timer;
-            finalOverlayRoot.rotation = Quaternion.Euler(0f, 0f, angle);
+            // (A) 父物体绕 Z 轴旋转（角度 = 角速度 * 时间）
+            float angleDeg = finalOverlayRotationSpeed * timer;
+            finalOverlayRoot.rotation = rootBaseRot * Quaternion.Euler(0f, 0f, angleDeg);
 
-            // 2. 整体放大
-            float scale = Mathf.Lerp(1f, finalOverlayScaleMultiplier, t);
-            finalOverlayRoot.localScale = finalOverlayBaseScale * scale;
+            // (B) 父物体整体放大
+            float s = Mathf.Lerp(1f, finalOverlayScaleMultiplier, t);
+            finalOverlayRoot.localScale = rootBaseScale * s;
 
-            // 3. 碎片渐白（多重叠加 ≈ 白屏）
-            float alpha = Mathf.Lerp(finalOverlayStartAlpha, finalOverlayEndAlpha, t);
-            ApplyOverlayAlpha(alpha);
+            // (C) 碎片渐显（统一调 alpha）
+            float a = Mathf.Lerp(finalOverlayStartAlpha, finalOverlayEndAlpha, t);
+            for (int i = 0; i < finalOverlayPieces.Count; i++)
+            {
+                var sr = finalOverlayPieces[i];
+                if (sr == null) continue;
+                Color c = sr.color;
+                c.a = a;
+                sr.color = c;
+            }
 
-            timer += Time.deltaTime;
+            timer += Time.unscaledDeltaTime; // 不吃 timeScale，防卡死
             yield return null;
         }
 
-        // 收尾：完全白、完全放大
-        finalOverlayRoot.rotation = Quaternion.Euler(0f, 0f, finalOverlayRotationSpeed * finalOverlayDuration);
-        finalOverlayRoot.localScale = finalOverlayBaseScale * finalOverlayScaleMultiplier;
-        ApplyOverlayAlpha(finalOverlayEndAlpha);
+        // 6) 收尾：定格到最终状态
+        finalOverlayRoot.rotation = rootBaseRot * Quaternion.Euler(0f, 0f, finalOverlayRotationSpeed * dur);
+        finalOverlayRoot.localScale = rootBaseScale * finalOverlayScaleMultiplier;
 
-        // 同步让白色方块淡入
+        for (int i = 0; i < finalOverlayPieces.Count; i++)
+        {
+            var sr = finalOverlayPieces[i];
+            if (sr == null) continue;
+            Color c = sr.color;
+            c.a = finalOverlayEndAlpha;
+            sr.color = c;
+        }
+
+        // 7) 白屏淡入
         if (whiteFadeQuad != null)
         {
             yield return FadeWhiteQuad();
         }
         else
         {
-            // 兜底：稍微停一小会儿再切场景
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSecondsRealtime(0.5f);
         }
     }
-
     private void ApplyOverlayAlpha(float alpha)
     {
         if (finalOverlayPieces == null) return;
@@ -611,7 +637,7 @@ public class BossRoomManager : MonoBehaviour
             float t = Mathf.Clamp01(timer / Mathf.Max(whiteFadeDuration, 0.01f));
             c.a = t;
             whiteFadeQuad.color = c;
-            timer += Time.deltaTime;
+            timer += Time.unscaledDeltaTime;
             yield return null;
         }
 
