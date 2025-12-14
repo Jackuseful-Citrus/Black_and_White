@@ -1152,11 +1152,11 @@ PrefabInstance:
       objectReference: {fileID: 6200000, guid: 59d28d64c7c36104b921ca57389abe01, type: 2}
     - target: {fileID: 8276461460672212480, guid: a24d8fb1c805884478032e8ac1c31ea9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 70.6
+      value: 62.2
       objectReference: {fileID: 0}
     - target: {fileID: 8276461460672212480, guid: a24d8fb1c805884478032e8ac1c31ea9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -11.5
+      value: -12
       objectReference: {fileID: 0}
     - target: {fileID: 8276461460672212480, guid: a24d8fb1c805884478032e8ac1c31ea9, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3159,6 +3159,7 @@ MonoBehaviour:
     icon: {fileID: 1245176487}
   dimAlpha: 0.2
   litAlpha: 1
+  mainUiTag: MainUI
 --- !u!4 &486665199
 Transform:
   m_ObjectHideFlags: 0
@@ -5897,11 +5898,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8127687947659941128, guid: 1ead669acc1c23f4abc308319f52b72c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8127687947659941128, guid: 1ead669acc1c23f4abc308319f52b72c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8127687947659941128, guid: 1ead669acc1c23f4abc308319f52b72c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -8551,6 +8552,35 @@ MonoBehaviour:
   collectKey: 101
   pickupVfx: {fileID: 0}
   disableInsteadOfDestroy: 1
+  flyToUI: 1
+  flyDuration: 0.45
+  flyEase:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  uiEndScaleMultiplier: {x: 1, y: 1, z: 1}
+  rotateToUI: 1
+  scaleToUI: 1
 --- !u!114 &1028043489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9099,7 +9129,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5645853040178299644, guid: 761b686aded78c94eb30e468550ff0c7, type: 3}
       propertyPath: dialogueGroups.Array.data[0].lines.Array.data[0]
-      value: "Keep it bright. Keep it clean. That\u2019s how we move forward."
+      value: Join us and play judge as we want.
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -12090,6 +12120,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: NPC2 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5645853040178299644, guid: 761b686aded78c94eb30e468550ff0c7, type: 3}
+      propertyPath: dialogueGroups.Array.data[0].lines.Array.data[0]
+      value: We don't want to engage in.
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -13914,7 +13948,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5645853040178299644, guid: 761b686aded78c94eb30e468550ff0c7, type: 3}
       propertyPath: dialogueGroups.Array.data[0].lines.Array.data[0]
-      value: "Step into the light. You\u2019ll think clearer."
+      value: Why are you so aggressive? He's just a child!
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -466,11 +466,11 @@ MonoBehaviour:
   pickupRespawnPoint: {fileID: 1830402558}
   pickupCollectible: {fileID: 1849730734}
   minOrthoSize: 6
-  maxOrthoSize: 20
-  sizeStep: 1
+  maxOrthoSize: 16
+  sizeStep: 2
   killsPerStep: 2
   sizeLerpDuration: 1.2
-  startGlobalLightIntensity: 0.5
+  startGlobalLightIntensity: 0.2
   pickupGlobalLightIntensity: 1
   globalLightLerpDuration: 1.2
   playerLightIntensity: 0.2
@@ -2095,6 +2095,7 @@ MonoBehaviour:
     icon: {fileID: 1095149305}
   dimAlpha: 0.2
   litAlpha: 1
+  mainUiTag: MainUI
 --- !u!4 &269940909
 Transform:
   m_ObjectHideFlags: 0
@@ -14338,6 +14339,35 @@ MonoBehaviour:
   collectKey: 101
   pickupVfx: {fileID: 0}
   disableInsteadOfDestroy: 1
+  flyToUI: 1
+  flyDuration: 0.45
+  flyEase:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  uiEndScaleMultiplier: {x: 1, y: 1, z: 1}
+  rotateToUI: 1
+  scaleToUI: 1
 --- !u!4 &1849730737
 Transform:
   m_ObjectHideFlags: 0
@@ -17434,11 +17464,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8276461460672212480, guid: a24d8fb1c805884478032e8ac1c31ea9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 265.53
+      value: -20.2
       objectReference: {fileID: 0}
     - target: {fileID: 8276461460672212480, guid: a24d8fb1c805884478032e8ac1c31ea9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 100.83
+      value: -0.9
       objectReference: {fileID: 0}
     - target: {fileID: 8276461460672212480, guid: a24d8fb1c805884478032e8ac1c31ea9, type: 3}
       propertyPath: m_LocalPosition.z

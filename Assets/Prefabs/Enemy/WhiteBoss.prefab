@@ -77,7 +77,7 @@ MonoBehaviour:
   randomBounceAngle: 25
   bulletPrefab: {fileID: 7311891186417156383, guid: bc9316745ce2bbf43a90132aef2d6f3c, type: 3}
   firePoint: {fileID: 6820442324278106246}
-  attackInterval: 5
+  attackInterval: 3
   bulletSpeed: 8
   bulletDamage: 5
   bulletType: 0
