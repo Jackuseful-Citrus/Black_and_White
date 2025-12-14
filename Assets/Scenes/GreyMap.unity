@@ -4479,7 +4479,7 @@ Transform:
   m_GameObject: {fileID: 129134095}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 80.3769, y: -34.12, z: 0}
+  m_LocalPosition: {x: 80.94, y: -34.12, z: 0}
   m_LocalScale: {x: 15.554504, y: -2.8831124, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6152,7 +6152,7 @@ GameObject:
   - component: {fileID: 192186287}
   - component: {fileID: 192186289}
   m_Layer: 0
-  m_Name: Key
+  m_Name: GreyFragment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6265,6 +6265,35 @@ MonoBehaviour:
   collectKey: 101
   pickupVfx: {fileID: 0}
   disableInsteadOfDestroy: 1
+  flyToUI: 1
+  flyDuration: 0.45
+  flyEase:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  uiEndScaleMultiplier: {x: 1, y: 1, z: 1}
+  rotateToUI: 1
+  scaleToUI: 1
 --- !u!114 &192186289
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6670,7 +6699,7 @@ Transform:
   m_GameObject: {fileID: 198659386}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 75.7222, y: -45.918, z: 0}
+  m_LocalPosition: {x: 75.7222, y: -46.03, z: 0}
   m_LocalScale: {x: 6.7004848, y: -12.464818, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -30112,6 +30141,7 @@ MonoBehaviour:
     icon: {fileID: 1584157339}
   dimAlpha: 0.2
   litAlpha: 1
+  mainUiTag: MainUI
 --- !u!4 &1066884986
 Transform:
   m_ObjectHideFlags: 0
@@ -59099,6 +59129,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6815021915740777096, guid: c345e9172f3ff3d48b1b82f08ab789bf, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6815021915740777096, guid: c345e9172f3ff3d48b1b82f08ab789bf, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6815021915740777096, guid: c345e9172f3ff3d48b1b82f08ab789bf, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6815021915740777096, guid: c345e9172f3ff3d48b1b82f08ab789bf, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -59146,9 +59188,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6891087440452568066, guid: c345e9172f3ff3d48b1b82f08ab789bf, type: 3}
+      propertyPath: m_RenderMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7106741566638593044, guid: c345e9172f3ff3d48b1b82f08ab789bf, type: 3}
       propertyPath: m_Color.a
       value: 0.15686275
+      objectReference: {fileID: 0}
+    - target: {fileID: 8941202793940353777, guid: c345e9172f3ff3d48b1b82f08ab789bf, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
