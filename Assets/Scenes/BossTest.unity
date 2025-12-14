@@ -3266,7 +3266,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 6
   normalizeDiagonal: 1
-  fallbackToLegacyAxes: 1
 --- !u!1 &1114384820
 GameObject:
   m_ObjectHideFlags: 0
@@ -61671,7 +61670,7 @@ MonoBehaviour:
   mirrorLineY: 0
   whiteBossPrefab: {fileID: 4030357653497650741, guid: f1d33b89908f3294297c8dea6731406b, type: 3}
   whiteSpawnPoint: {fileID: 1441908289}
-  whitePhaseDuration: 1
+  whitePhaseDuration: 100
   whitePhaseMaxHealth: 30
   whiteRetreatTarget: {fileID: 1540362321}
   whiteRetreatDuration: 1.2
@@ -61679,7 +61678,7 @@ MonoBehaviour:
   blackEntranceStart: {fileID: 1540362321}
   blackEntranceEnd: {fileID: 1441908289}
   blackEntranceDuration: 1.2
-  blackPhaseDuration: 1
+  blackPhaseDuration: 100
   blackPhaseMaxHealth: 30
   finalWhiteSpawnPoint: {fileID: 104097376}
   finalBlackSpawnPoint: {fileID: 1237834537}

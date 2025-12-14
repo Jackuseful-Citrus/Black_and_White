@@ -12,9 +12,18 @@ public class BlackBoss : MonoBehaviour
     [SerializeField] private float minChargeDuration = 0.25f;
     [SerializeField] private float maxChargeDuration = 1.5f;
 
+    [Header("Chain Charge")]
+    [SerializeField] private float chainGapDuration = 0.15f;  // 连冲之间的小停顿
+    private int chainChargesLeft = 0;
+    private float chainGapTimer = 0f;
+    private bool isChainGap = false;
+
+    [SerializeField] private int maxChainCharges = 2;
+
+
     [Header("Advanced Difficulty")]
     [SerializeField] private float roamSpeed = 4f;
-    [SerializeField] private int maxChainCharges = 2;
+
     [SerializeField] private float roamChangeInterval = 0.5f;
 
     [Header("Targeting")]
@@ -107,10 +116,37 @@ public class BlackBoss : MonoBehaviour
 
             if (chargeTimer <= 0f)
             {
-                StartReturnToCenter();
+                // 一次冲刺结束：如果还有连冲次数 → 进入短间隔；否则回中心
+                if (chainChargesLeft > 0)
+                {
+                    isCharging = false;
+                    isChainGap = true;
+                    chainGapTimer = chainGapDuration;
+                    rb.velocity = Vector2.zero;
+                }
+                else
+                {
+                    StartReturnToCenter();
+                }
             }
+            return;
         }
-        else if (isReturning)
+
+        if (isChainGap)
+        {
+            chainGapTimer -= Time.fixedDeltaTime;
+            rb.velocity = Vector2.zero;
+
+            if (chainGapTimer <= 0f)
+            {
+                isChainGap = false;
+                chainChargesLeft--;
+                ExecuteCharge(); // 继续下一次冲刺
+            }
+            return;
+        }
+
+        if (isReturning)
         {
             Vector2 dir = (arenaCenter - transform.position).normalized;
             rb.velocity = dir * (blackChargeSpeed * 0.8f);
@@ -119,18 +155,21 @@ public class BlackBoss : MonoBehaviour
             {
                 StopReturn();
             }
+            return;
         }
-        else
-        {
-            HandleRoaming();
 
-            restTimer -= Time.fixedDeltaTime;
-            if (restTimer <= 0f)
-            {
-                ExecuteCharge();
-            }
+        // 普通游走 + 等待开始这一轮连冲
+        HandleRoaming();
+
+        restTimer -= Time.fixedDeltaTime;
+        if (restTimer <= 0f)
+        {
+            // 开始新一轮连冲：先扣掉一次（因为马上要冲一次）
+            chainChargesLeft = Mathf.Max(1, maxChainCharges) - 1;
+            ExecuteCharge();
         }
     }
+
 
     private void HandleRoaming()
     {
@@ -139,7 +178,7 @@ public class BlackBoss : MonoBehaviour
             Vector3 targetPos = GetBlackPlayerPosition();
             Vector2 toPlayer = (targetPos - transform.position).normalized;
             Vector2 randomDir = Random.insideUnitCircle.normalized;
-            
+
             roamDir = (toPlayer * 0.7f + randomDir * 0.3f).normalized;
             nextRoamChangeTime = Time.time + roamChangeInterval;
         }
@@ -164,21 +203,16 @@ public class BlackBoss : MonoBehaviour
     private void SpawnMinions()
     {
         if (minionPrefab == null) return;
+        // Random offset around boss
+        Vector2 offset = Random.insideUnitCircle.normalized * minionSpawnOffset;
+        Vector3 spawnPos = transform.position + (Vector3)offset;
 
-        // Spawn 2 minions
-        for (int i = 0; i < 2; i++)
+        GameObject minionObj = Instantiate(minionPrefab, spawnPos, Quaternion.identity);
+        Enemy enemyScript = minionObj.GetComponent<Enemy>();
+        if (enemyScript != null)
         {
-            // Random offset around boss
-            Vector2 offset = Random.insideUnitCircle.normalized * minionSpawnOffset;
-            Vector3 spawnPos = transform.position + (Vector3)offset;
-
-            GameObject minionObj = Instantiate(minionPrefab, spawnPos, Quaternion.identity);
-            Enemy enemyScript = minionObj.GetComponent<Enemy>();
-            if (enemyScript != null)
-            {
-                // Force provoke so they target player regardless of color
-                enemyScript.SetProvoked(true);
-            }
+            // Force provoke so they target player regardless of color
+            enemyScript.SetProvoked(true);
         }
     }
 
@@ -192,7 +226,14 @@ public class BlackBoss : MonoBehaviour
     {
         isReturning = false;
         rb.velocity = Vector2.zero;
+
+        // 回中心意味着这一轮连冲结束，进入长休息
         restTimer = blackRestDuration;
+
+        // 重置下一轮连冲次数
+        chainChargesLeft = Mathf.Max(1, maxChainCharges);
+        isChainGap = false;
+        chainGapTimer = 0f;
     }
 
     private Vector3 GetBlackPlayerPosition()
@@ -263,6 +304,10 @@ public class BlackBoss : MonoBehaviour
         phaseEnded = false;
         arenaCenter = transform.position;
         roamDir = Random.insideUnitCircle.normalized;
+        chainChargesLeft = Mathf.Max(1, maxChainCharges);
+        isChainGap = false;
+        chainGapTimer = 0f;
+
     }
 
     public void PauseFight()

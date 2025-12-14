@@ -189,6 +189,8 @@ public class BossRoomManager : MonoBehaviour
             activeBlack = null;
         }
 
+        DestroyAllBlackMinions();
+
         if (mirrorInstance != null)
         {
             Destroy(mirrorInstance);
@@ -424,6 +426,18 @@ public class BossRoomManager : MonoBehaviour
         }
 
         target.position = destination;
+    }
+
+    private void DestroyAllBlackMinions()
+    {
+        var minions = FindObjectsOfType<BlackBossMinionEnemy>(true);
+        for (int i = 0; i < minions.Length; i++)
+        {
+            if (minions[i] != null)
+            {
+                Destroy(minions[i].gameObject);
+            }
+        }
     }
 
     private IEnumerator PlayRoarWaves(Transform boss)

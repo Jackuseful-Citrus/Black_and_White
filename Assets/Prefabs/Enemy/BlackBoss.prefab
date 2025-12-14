@@ -76,9 +76,10 @@ MonoBehaviour:
   blackChargeSpeed: 10
   blackRestDuration: 3
   minChargeDuration: 0.25
-  maxChargeDuration: 1.5
-  roamSpeed: 4
+  maxChargeDuration: 2
+  chainGapDuration: 0.15
   maxChainCharges: 2
+  roamSpeed: 2
   roamChangeInterval: 0.5
   mainPlayer: {fileID: 0}
   mirrorPlayer: {fileID: 0}

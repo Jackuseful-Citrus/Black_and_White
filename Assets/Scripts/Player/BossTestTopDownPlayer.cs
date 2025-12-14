@@ -12,8 +12,6 @@ public class BossTestTopDownPlayer : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 6f;
     [SerializeField] private bool normalizeDiagonal = true;
-    [SerializeField] private bool fallbackToLegacyAxes = true; // 输入系统未配置竖直轴时，使用 Input.GetAxisRaw
-
     private PlayerControl pc;
     private Rigidbody2D rb;
     private Vector2 moveInput;
