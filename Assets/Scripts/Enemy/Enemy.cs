@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+using System.Collections.Generic;
 public class Enemy : MonoBehaviour
 {
     public enum EnemyColor { White, Black }
@@ -41,6 +42,9 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected float recoilForce = 5f; // 攻击后的反弹力度
     [SerializeField] protected float recoilDuration = 0.5f; // 反弹持续时间
     [SerializeField] protected float recoilUpwardForce = 0f; // 反弹时的向上力度
+    [Header("Hit Flash")]
+    [SerializeField] protected SpriteRenderer[] flashRenderers;
+    [SerializeField] protected float flashDuration = 0.12f;
 
     [Header("平台检测设置")]
     [SerializeField] protected bool canFallOffLedge = false;       // 是否允许掉下平台
@@ -87,6 +91,10 @@ public class Enemy : MonoBehaviour
     protected bool wasInCombat = false;
     protected int patrolDirection = 1; // 1: Right, -1: Left
 
+    private Coroutine flashRoutine;
+    private readonly System.Collections.Generic.List<(SpriteRenderer sr, Color original)> rendererColors =
+        new System.Collections.Generic.List<(SpriteRenderer, Color)>();
+
     protected virtual void Start()
     {
         currentHealth = maxHealth;
@@ -101,6 +109,7 @@ public class Enemy : MonoBehaviour
         nextJumpTime = Time.time + Random.Range(jumpIntervalMin, jumpIntervalMax);
 
         FindPlayer();
+        CacheFlashRenderers();
     }
 
     protected virtual void Update()
@@ -570,6 +579,7 @@ public class Enemy : MonoBehaviour
         currentHealth = Mathf.Max(currentHealth, 0);
 
         OnDamaged();
+        TriggerFlash();
 
         if (currentHealth <= 0)
         {
@@ -584,6 +594,56 @@ public class Enemy : MonoBehaviour
 
     protected virtual void OnDamaged()
     {
+    }
+
+    private void CacheFlashRenderers()
+    {
+        rendererColors.Clear();
+
+        if (flashRenderers == null || flashRenderers.Length == 0)
+        {
+            flashRenderers = GetComponentsInChildren<SpriteRenderer>();
+        }
+
+        if (flashRenderers == null) return;
+
+        for (int i = 0; i < flashRenderers.Length; i++)
+        {
+            var sr = flashRenderers[i];
+            if (sr == null) continue;
+            rendererColors.Add((sr, sr.color));
+        }
+    }
+
+    protected void TriggerFlash()
+    {
+        if (rendererColors.Count == 0) return;
+
+        if (flashRoutine != null)
+        {
+            StopCoroutine(flashRoutine);
+        }
+        flashRoutine = StartCoroutine(FlashRoutine());
+    }
+
+    private System.Collections.IEnumerator FlashRoutine()
+    {
+        Color flashColor = Color.red;
+
+        for (int i = 0; i < rendererColors.Count; i++)
+        {
+            var entry = rendererColors[i];
+            if (entry.sr != null) entry.sr.color = flashColor;
+        }
+        //Debug.Log("Flash color set to " + flashColor);
+        //Debug.Log($"[Flash] renderers={rendererColors.Count}, first={(rendererColors.Count>0?rendererColors[0].sr.name:"none")}");
+        yield return new WaitForSeconds(flashDuration);
+
+        for (int i = 0; i < rendererColors.Count; i++)
+        {
+            var entry = rendererColors[i];
+            if (entry.sr != null) entry.sr.color = entry.original;
+        }
     }
 
     protected virtual void Die()

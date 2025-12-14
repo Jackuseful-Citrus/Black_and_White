@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -32,6 +33,8 @@ public class BlackBoss : MonoBehaviour
 
     [Header("Body (visual)")]
     [SerializeField] private GameObject blackBody;
+    [SerializeField] private SpriteRenderer[] flashRenderers;
+    [SerializeField] private float flashDuration = 0.12f;
 
     [Header("Minion Spawning")]
     [SerializeField] private GameObject minionPrefab;
@@ -56,6 +59,9 @@ public class BlackBoss : MonoBehaviour
 
     public System.Action onPhaseEnded;
     public System.Action onBossDied;
+    private Coroutine flashRoutine;
+    private readonly System.Collections.Generic.List<(SpriteRenderer sr, Color original)> rendererColors =
+        new System.Collections.Generic.List<(SpriteRenderer, Color)>();
 
     private void Awake()
     {
@@ -65,6 +71,8 @@ public class BlackBoss : MonoBehaviour
         rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
         rb.interpolation = RigidbodyInterpolation2D.Interpolate;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+        CacheFlashRenderers();
     }
 
     private void Start()
@@ -331,6 +339,7 @@ public class BlackBoss : MonoBehaviour
         if (phaseEnded) return;
 
         currentHealth -= amount;
+        TriggerFlash();
         if (currentHealth <= 0f)
         {
             EndPhase(true);
@@ -360,5 +369,49 @@ public class BlackBoss : MonoBehaviour
     public bool HasPhaseEnded => phaseEnded;
     public float CurrentHealth => currentHealth;
     public float MaxHealth => maxHealth;
+
+    private void CacheFlashRenderers()
+    {
+        rendererColors.Clear();
+
+        if (flashRenderers == null || flashRenderers.Length == 0)
+        {
+            flashRenderers = GetComponentsInChildren<SpriteRenderer>();
+        }
+
+        if (flashRenderers == null) return;
+
+        for (int i = 0; i < flashRenderers.Length; i++)
+        {
+            var sr = flashRenderers[i];
+            if (sr == null) continue;
+            rendererColors.Add((sr, sr.color));
+        }
+    }
+
+    private void TriggerFlash()
+    {
+        if (rendererColors.Count == 0) return;
+        if (flashRoutine != null) StopCoroutine(flashRoutine);
+        flashRoutine = StartCoroutine(FlashRoutine());
+    }
+
+    private System.Collections.IEnumerator FlashRoutine()
+    {
+        Color flashColor = Color.red;
+        for (int i = 0; i < rendererColors.Count; i++)
+        {
+            var entry = rendererColors[i];
+            if (entry.sr != null) entry.sr.color = flashColor;
+        }
+
+        yield return new WaitForSeconds(flashDuration);
+
+        for (int i = 0; i < rendererColors.Count; i++)
+        {
+            var entry = rendererColors[i];
+            if (entry.sr != null) entry.sr.color = entry.original;
+        }
+    }
 
 }

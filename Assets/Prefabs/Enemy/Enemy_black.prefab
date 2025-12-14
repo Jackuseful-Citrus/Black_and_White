@@ -331,6 +331,9 @@ MonoBehaviour:
   recoilForce: 5
   recoilDuration: 0.5
   recoilUpwardForce: 0
+  flashRenderers:
+  - {fileID: 6510992104748745939}
+  flashDuration: 0.12
   canFallOffLedge: 0
   detectHeightTolerance: 1
   groundMask:
@@ -338,6 +341,7 @@ MonoBehaviour:
     m_Bits: 8
   groundCheckExtraHeight: 0.1
   ledgeCheckDistance: 0.2
+  ignoreHeightTolerance: 0
   jumpForce: 5
   jumpIntervalMin: 2
   jumpIntervalMax: 5

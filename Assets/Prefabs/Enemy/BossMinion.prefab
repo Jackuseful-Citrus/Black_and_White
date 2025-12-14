@@ -127,6 +127,9 @@ MonoBehaviour:
   recoilForce: 5
   recoilDuration: 0.5
   recoilUpwardForce: 0
+  flashRenderers:
+  - {fileID: 3882368544775839113}
+  flashDuration: 0.12
   canFallOffLedge: 0
   detectHeightTolerance: 1
   groundMask:
@@ -146,15 +149,24 @@ MonoBehaviour:
   combatMoveSpeed: 1.5
   combatMoveInterval: 1.5
   forceNoGravity: 1
-  hoverSpeed: 2
-  hoverAccel: 20
+  alwaysProvoked: 1
   retargetInterval: 0.15
+  wanderMoveSpeed: 2
+  moveAccel: 20
+  wanderChangeInterval: 0.45
+  towardPlayerWeight: 0.7
+  strafeWeight: 0.25
   dashSpeed: 8
   dashDuration: 0.18
   dashCooldown: 0.9
   dashTelegraphPause: 0.05
   minDashDistance: 0.25
   hitPlayerCooldown: 0.2
+--- !u!212 &3882368544775839113 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 6510992104748745939, guid: 5912e6f385063ef4795b6cdf74dc4993, type: 3}
+  m_PrefabInstance: {fileID: 8051100560984611162}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6921924931620888922 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1131774874952497152, guid: 5912e6f385063ef4795b6cdf74dc4993, type: 3}

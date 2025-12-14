@@ -62932,7 +62932,7 @@ MonoBehaviour:
   whiteBossPrefab: {fileID: 4030357653497650741, guid: f1d33b89908f3294297c8dea6731406b, type: 3}
   whiteSpawnPoint: {fileID: 1441908289}
   whitePhaseDuration: 10
-  whitePhaseMaxHealth: 30
+  whitePhaseMaxHealth: 100
   whiteRetreatTarget: {fileID: 1540362321}
   whiteRetreatDuration: 1.2
   blackBossPrefab: {fileID: 318825641091888088, guid: 578f1aee23944c14bb82e6af7a873f9b, type: 3}
@@ -62940,7 +62940,7 @@ MonoBehaviour:
   blackEntranceEnd: {fileID: 1441908289}
   blackEntranceDuration: 1.2
   blackPhaseDuration: 10
-  blackPhaseMaxHealth: 30
+  blackPhaseMaxHealth: 100
   blackExitTarget: {fileID: 748266019}
   finalWhiteEntranceStart: {fileID: 1088905724}
   finalWhiteEntranceEnd: {fileID: 104097376}
@@ -62948,7 +62948,7 @@ MonoBehaviour:
   finalBlackEntranceEnd: {fileID: 1237834537}
   finalWhiteSpawnPoint: {fileID: 104097376}
   finalBlackSpawnPoint: {fileID: 1237834537}
-  finalBlackPhaseDuration: 1
+  finalBlackPhaseDuration: 30
   finalBlackPhaseMaxHealth: 30
   finalOverlayRoot: {fileID: 653012767}
   finalOverlayCenter: {fileID: 1979430141}
@@ -63529,19 +63529,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5645853040178299644, guid: 761b686aded78c94eb30e468550ff0c7, type: 3}
       propertyPath: dialogueGroups.Array.data[0].lines.Array.data[0]
-      value: Maybe you have noticed something.
+      value: 'Maybe you have noticed something.
+
+        There is no gravity here.'
       objectReference: {fileID: 0}
     - target: {fileID: 5645853040178299644, guid: 761b686aded78c94eb30e468550ff0c7, type: 3}
       propertyPath: dialogueGroups.Array.data[0].lines.Array.data[1]
-      value: There is no gravity here.
+      value: Use W ans S to go upward and downward.
       objectReference: {fileID: 0}
     - target: {fileID: 5645853040178299644, guid: 761b686aded78c94eb30e468550ff0c7, type: 3}
       propertyPath: dialogueGroups.Array.data[0].lines.Array.data[2]
-      value: Use W ans S to go upward and downward automatically.
+      value: Cooperate with your invincible mirror to conquer those feelings.
       objectReference: {fileID: 0}
     - target: {fileID: 5645853040178299644, guid: 761b686aded78c94eb30e468550ff0c7, type: 3}
       propertyPath: dialogueGroups.Array.data[0].lines.Array.data[3]
       value: Hope you will not be here again.
+      objectReference: {fileID: 0}
+    - target: {fileID: 5645853040178299644, guid: 761b686aded78c94eb30e468550ff0c7, type: 3}
+      propertyPath: dialogueGroups.Array.data[0].lines.Array.data[4]
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6926728459501131984, guid: 761b686aded78c94eb30e468550ff0c7, type: 3}
       propertyPath: m_fontAsset

@@ -83,6 +83,9 @@ MonoBehaviour:
   bulletType: 0
   bulletSpawnOffset: 0.7
   whiteBody: {fileID: 8146616683485722898}
+  flashRenderers:
+  - {fileID: 2789828910281108529}
+  flashDuration: 0.12
 --- !u!1 &8146616683485722898
 GameObject:
   m_ObjectHideFlags: 0

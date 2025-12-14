@@ -161,6 +161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dd0054ff00a96c43a71219c1999a0c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  topDownMode: 0
   speed: 6
   jumpForce: 11
   jumpCutMultiplier: 0.1
@@ -173,6 +174,7 @@ MonoBehaviour:
     m_Bits: 8
   Scythe: {fileID: 0}
   LightBallSpawner: {fileID: 7078477771338692781}
+  coyoteTime: 0.12
   horiz: 0
   isGrounded: 0
   isAttacking: 0
@@ -611,6 +613,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LightBall: {fileID: 4420177038273116322, guid: 5a896adc3f3be974499b85946d6d6323, type: 3}
   Player: {fileID: 484681280615418621}
+  audioSource: {fileID: 0}
+  spawnSfx: {fileID: 8300000, guid: 4dcce0324b7d32a4ea3045e477b1b14e, type: 3}
   widthOffset: 0.5
   inAttackRecovery: 0
 --- !u!1 &7413123604944506670

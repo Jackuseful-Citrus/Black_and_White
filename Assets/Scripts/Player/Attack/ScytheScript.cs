@@ -7,6 +7,8 @@ public class ScytheScript : MonoBehaviour
     [SerializeField] GameObject AimPoint;
     [SerializeField] float rotationSpeed = 360f;
     public GameObject Blade;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip attackSfx;
 
     [SerializeField] private bool usePlayerInput = true;
     private bool isWaiting = false;
@@ -48,6 +50,7 @@ public class ScytheScript : MonoBehaviour
     private IEnumerator Attack()
     {
         yield return new WaitForSeconds(0.05f);
+        PlayAttackSfx();
         if (Blade != null) Blade.SetActive(true);
         inAttackProgress = true;
         yield return new WaitForSeconds(0.3f);
@@ -114,6 +117,29 @@ public class ScytheScript : MonoBehaviour
         if (usePlayerInput && playerControl == null && Player != null)
         {
             playerControl = Player.GetComponent<PlayerControl>();
+        }
+        if (audioSource == null)
+        {
+            audioSource = GetComponent<AudioSource>();
+        }
+    }
+
+    private void PlayAttackSfx()
+    {
+        if (attackSfx == null) return;
+
+        if (audioSource == null)
+        {
+            audioSource = GetComponent<AudioSource>();
+        }
+
+        if (audioSource != null)
+        {
+            audioSource.PlayOneShot(attackSfx);
+        }
+        else
+        {
+            AudioSource.PlayClipAtPoint(attackSfx, transform.position);
         }
     }
 }

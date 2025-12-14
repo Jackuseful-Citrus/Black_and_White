@@ -7,6 +7,8 @@ public class LightBallSpawnerScript : MonoBehaviour
 {
     [SerializeField] GameObject LightBall;
     [SerializeField] GameObject Player;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip spawnSfx;
 
     private float timer = 0;
     [SerializeField] float widthOffset = 0.3f; //生成光球的范围偏移量
@@ -20,6 +22,10 @@ public class LightBallSpawnerScript : MonoBehaviour
         if (playerControl == null)
         {
             Debug.LogError("[ScytheScript] Player 物体上未找到 PlayerControl 脚本！");
+        }
+        if (audioSource == null)
+        {
+            audioSource = GetComponent<AudioSource>();
         }
     }
 
@@ -54,12 +60,32 @@ public class LightBallSpawnerScript : MonoBehaviour
         float higherPoint = transform.position.y + widthOffset;
         Instantiate(LightBall, new Vector3(Random.Range(leftestPoint,rightestPoint)
             ,Random.Range(lowerPoint,higherPoint),0.003f), transform.rotation);
-            timer = 0;
+        PlaySpawnSfx();
+        timer = 0;
     }
 
     private void OnDisable()
     {
         timer = 0f;
         inAttackRecovery = false;
+    }
+
+    private void PlaySpawnSfx()
+    {
+        if (spawnSfx == null) return;
+
+        if (audioSource == null)
+        {
+            audioSource = GetComponent<AudioSource>();
+        }
+
+        if (audioSource != null)
+        {
+            audioSource.PlayOneShot(spawnSfx);
+        }
+        else
+        {
+            AudioSource.PlayClipAtPoint(spawnSfx, transform.position);
+        }
     }
 }

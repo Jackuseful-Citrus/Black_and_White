@@ -1833,6 +1833,18 @@ MonoBehaviour:
   upperPoint: {fileID: 1283589770}
   moveSpeedRange: {x: 0.5, y: 1.5}
   useLocalBounds: 1
+  labelFont: {fileID: 11400000, guid: 089cd0577aaee6d4ab442834c3e274d8, type: 2}
+  labelFontSize: 6
+  labelColor: {r: 1, g: 1, b: 1, a: 1}
+  labelLocalOffset: {x: 0, y: 0, z: 0}
+  labelFaceCamera: 0
+  labelChildName: __JitterLabel
+  insults:
+  - Fuck You!
+  - Retard!
+  - Idiot!
+  - Stupid!
+  - Dumbass!
 --- !u!4 &222266592 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8250041056600031442, guid: ae2c9fa0265e85443aec65e2d276f4e3, type: 3}
@@ -9351,6 +9363,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 574031830}
     m_Modifications:
+    - target: {fileID: 5204913766744755108, guid: 1ead669acc1c23f4abc308319f52b72c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7390434512119981063, guid: 1ead669acc1c23f4abc308319f52b72c, type: 3}
       propertyPath: m_Name
       value: PausePanelUI
@@ -17418,11 +17434,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8276461460672212480, guid: a24d8fb1c805884478032e8ac1c31ea9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 258.2
+      value: 265.53
       objectReference: {fileID: 0}
     - target: {fileID: 8276461460672212480, guid: a24d8fb1c805884478032e8ac1c31ea9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 101
+      value: 100.83
       objectReference: {fileID: 0}
     - target: {fileID: 8276461460672212480, guid: a24d8fb1c805884478032e8ac1c31ea9, type: 3}
       propertyPath: m_LocalPosition.z

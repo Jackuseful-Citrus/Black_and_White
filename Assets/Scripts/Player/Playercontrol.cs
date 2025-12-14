@@ -19,6 +19,9 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] LayerMask groundLayer;
     [SerializeField] GameObject Scythe;
     [SerializeField] GameObject LightBallSpawner;
+    [SerializeField] private float coyoteTime = 0.12f;
+    private float lastGroundedTime = -999f;
+
 
     private ScytheScript scytheScript;
     private LightBallSpawnerScript lightBallSpawnerScript;
@@ -148,7 +151,8 @@ public class PlayerControl : MonoBehaviour
         // 顶视角模式禁止跳跃
         if (topDownMode) return;
 
-        if (isGrounded)
+        bool canJumpAsGrounded = isGrounded || (Time.time - lastGroundedTime <= coyoteTime);
+        if (canJumpAsGrounded)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             airJumpsRemaining = maxAirJumpsFromWall;
@@ -221,6 +225,11 @@ public class PlayerControl : MonoBehaviour
         if (groundCheck != null)
         {
             isGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, groundLayer);
+            if (isGrounded) lastGroundedTime = Time.time;
+
+            // 用一个“可跳的落地状态”，替代 AttemptJump 里直接看 isGrounded
+            bool canJumpAsGrounded = isGrounded || (Time.time - lastGroundedTime <= coyoteTime);
+
         }
 
         if (!isGrounded)

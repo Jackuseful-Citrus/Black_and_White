@@ -191,6 +191,8 @@ MonoBehaviour:
   AimPoint: {fileID: 0}
   rotationSpeed: 360
   Blade: {fileID: 7767901815329087968}
+  audioSource: {fileID: 0}
+  attackSfx: {fileID: 8300000, guid: 6cc21e5e9f2cc3c46831374b63c47811, type: 3}
   usePlayerInput: 1
   inAttackRecovery: 0
   inAttackProgress: 0

@@ -143,6 +143,9 @@ MonoBehaviour:
   recoilForce: 5
   recoilDuration: 0.5
   recoilUpwardForce: 0
+  flashRenderers:
+  - {fileID: 4971411443918751979}
+  flashDuration: 0.12
   canFallOffLedge: 0
   detectHeightTolerance: 1
   groundMask:

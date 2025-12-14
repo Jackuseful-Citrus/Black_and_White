@@ -84,6 +84,9 @@ MonoBehaviour:
   mainPlayer: {fileID: 0}
   mirrorPlayer: {fileID: 0}
   blackBody: {fileID: 8477716557831435428}
+  flashRenderers:
+  - {fileID: 8178099028925506403}
+  flashDuration: 0.12
   minionPrefab: {fileID: 828603731793141568, guid: 36a8f40b37156324d8aba1729cc2969c, type: 3}
   minionSpawnOffset: 1
 --- !u!1 &8477716557831435428

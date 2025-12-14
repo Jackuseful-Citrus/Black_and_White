@@ -148,6 +148,9 @@ MonoBehaviour:
   recoilForce: 5
   recoilDuration: 0.5
   recoilUpwardForce: 0
+  flashRenderers:
+  - {fileID: 7566597096061511816}
+  flashDuration: 0.12
   canFallOffLedge: 1
   detectHeightTolerance: 1
   groundMask:
@@ -167,3 +170,8 @@ MonoBehaviour:
   combatMoveSpeed: 1.5
   combatMoveInterval: 1.5
   progressionOverride: {fileID: 0}
+--- !u!212 &7566597096061511816 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 6510992104748745939, guid: 5912e6f385063ef4795b6cdf74dc4993, type: 3}
+  m_PrefabInstance: {fileID: 3700343894590073947}
+  m_PrefabAsset: {fileID: 0}
