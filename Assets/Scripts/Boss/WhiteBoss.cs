@@ -219,4 +219,7 @@ public class WhiteBoss : MonoBehaviour
     }
 
     public bool HasPhaseEnded => phaseEnded;
+    public float CurrentHealth => currentHealth;
+public float MaxHealth => whitePhaseMaxHealth;
+
 }

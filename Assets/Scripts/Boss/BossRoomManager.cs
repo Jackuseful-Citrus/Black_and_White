@@ -27,8 +27,13 @@ public class BossRoomManager : MonoBehaviour
     public float blackEntranceDuration = 1.2f;
     public float blackPhaseDuration = 8f;
     public float blackPhaseMaxHealth = 15f;
+    public Transform blackExitTarget;
 
     [Header("Final Dual Phase")]
+    public Transform finalWhiteEntranceStart;
+    public Transform finalWhiteEntranceEnd;
+    public Transform finalBlackEntranceStart;
+    public Transform finalBlackEntranceEnd;
     public Transform finalWhiteSpawnPoint;
     public Transform finalBlackSpawnPoint;
     public float finalBlackPhaseDuration = 10f;
@@ -64,6 +69,8 @@ public class BossRoomManager : MonoBehaviour
     [SerializeField] private SpriteRenderer whiteFadeQuad; // 场景里的白色方块（SpriteRenderer）
     [SerializeField] private float whiteFadeDuration = 1.5f;
 
+    [Header("UI")]
+    [SerializeField] private BossHUDController bossHUD;
 
     private GameObject mirrorInstance;
     private WhiteBoss activeWhite;
@@ -220,6 +227,8 @@ public class BossRoomManager : MonoBehaviour
         whitePhaseFinished = false;
         GameObject whiteObj = Instantiate(whiteBossPrefab, whiteSpawnPoint.position, Quaternion.identity);
         activeWhite = whiteObj.GetComponent<WhiteBoss>();
+        if (bossHUD != null && activeWhite != null) bossHUD.BindWhiteBoss(activeWhite);
+
         if (activeWhite != null)
         {
             activeWhite.ConfigurePhase(whitePhaseDuration, whitePhaseMaxHealth);
@@ -277,7 +286,7 @@ public class BossRoomManager : MonoBehaviour
             timer += Time.deltaTime;
             yield return null;
         }
-
+        if (bossHUD != null) bossHUD.ClearWhiteBoss();
         t.position = end;
         Destroy(activeWhite.gameObject);
         activeWhite = null;
@@ -297,6 +306,8 @@ public class BossRoomManager : MonoBehaviour
 
         GameObject blackObj = Instantiate(blackBossPrefab, entranceStart, Quaternion.identity);
         activeBlack = blackObj.GetComponent<BlackBoss>();
+        if (bossHUD != null && activeBlack != null) bossHUD.BindBlackBoss(activeBlack);
+
         if (activeBlack != null)
         {
             blackPhaseFinished = false;
@@ -325,8 +336,7 @@ public class BossRoomManager : MonoBehaviour
         if (activeBlack != null)
         {
             activeBlack.onPhaseEnded -= OnBlackPhaseEnded;
-            Destroy(activeBlack.gameObject);
-            activeBlack = null;
+            yield return ExitAndDestroyBlackBoss();
         }
     }
 
@@ -338,24 +348,44 @@ public class BossRoomManager : MonoBehaviour
             yield break;
         }
 
-        Vector3 whitePos = finalWhiteSpawnPoint != null ? finalWhiteSpawnPoint.position :
-            (whiteSpawnPoint != null ? whiteSpawnPoint.position : transform.position);
-        Vector3 blackPos = finalBlackSpawnPoint != null ? finalBlackSpawnPoint.position :
-            (blackEntranceEnd != null ? blackEntranceEnd.position : transform.position);
+        Vector3 whiteStart = finalWhiteEntranceStart != null ? finalWhiteEntranceStart.position :
+            (finalWhiteSpawnPoint != null ? finalWhiteSpawnPoint.position :
+            (whiteSpawnPoint != null ? whiteSpawnPoint.position : transform.position));
+        Vector3 whiteEnd = finalWhiteEntranceEnd != null ? finalWhiteEntranceEnd.position :
+            (finalWhiteSpawnPoint != null ? finalWhiteSpawnPoint.position : whiteStart);
+        Vector3 blackStart = finalBlackEntranceStart != null ? finalBlackEntranceStart.position :
+            (finalBlackSpawnPoint != null ? finalBlackSpawnPoint.position :
+            (blackEntranceEnd != null ? blackEntranceEnd.position : transform.position));
+        Vector3 blackEnd = finalBlackEntranceEnd != null ? finalBlackEntranceEnd.position :
+            (finalBlackSpawnPoint != null ? finalBlackSpawnPoint.position : blackStart);
 
-        GameObject whiteObj = Instantiate(whiteBossPrefab, whitePos, Quaternion.identity);
+        GameObject whiteObj = Instantiate(whiteBossPrefab, whiteStart, Quaternion.identity);
         activeWhite = whiteObj.GetComponent<WhiteBoss>();
         if (activeWhite != null)
         {
             activeWhite.ConfigurePhase(whitePhaseDuration, whitePhaseMaxHealth);
         }
 
-        GameObject blackObj = Instantiate(blackBossPrefab, blackPos, Quaternion.identity);
+        GameObject blackObj = Instantiate(blackBossPrefab, blackStart, Quaternion.identity);
         activeBlack = blackObj.GetComponent<BlackBoss>();
         if (activeBlack != null)
         {
             activeBlack.PauseFight();
             activeBlack.ConfigurePhase(finalBlackPhaseDuration, finalBlackPhaseMaxHealth);
+        }
+        if (bossHUD != null)
+        {
+            if (activeWhite != null) bossHUD.BindWhiteBoss(activeWhite);
+            if (activeBlack != null) bossHUD.BindBlackBoss(activeBlack);
+        }
+        // 入场移动
+        if (activeWhite != null)
+        {
+            yield return MoveTransform(activeWhite.transform, whiteEnd, blackEntranceDuration);
+        }
+        if (activeBlack != null)
+        {
+            yield return MoveTransform(activeBlack.transform, blackEnd, blackEntranceDuration);
         }
 
         Coroutine whiteRoar = null;
@@ -376,10 +406,12 @@ public class BossRoomManager : MonoBehaviour
         if (activeBlack != null)
         {
             activeBlack.BeginFight();
+            if (bossHUD != null) bossHUD.StartFinalCountdown(finalBlackPhaseDuration);
         }
 
         // 最终黑阶段：计时结束即可
         yield return new WaitForSeconds(finalBlackPhaseDuration);
+        
 
         if (activeWhite != null)
         {
@@ -395,6 +427,9 @@ public class BossRoomManager : MonoBehaviour
             Destroy(activeBlack.gameObject);
             activeBlack = null;
         }
+
+        // 清理所有黑 Boss 小怪
+        DestroyAllBlackMinions();
 
         // 终幕：碎片旋转放大 + 渐白
         if (finalOverlayRoot != null)
@@ -530,6 +565,29 @@ public class BossRoomManager : MonoBehaviour
             new Vector3(cam.pixelWidth, cam.pixelHeight, -cam.transform.position.z));
         topRight.z = 0f;
         return topRight;
+    }
+
+    private IEnumerator ExitAndDestroyBlackBoss()
+    {
+        if (activeBlack == null)
+        {
+            yield break;
+        }
+
+        Transform t = activeBlack.transform;
+        Vector3 start = t.position;
+        Vector3 target = blackExitTarget != null ? blackExitTarget.position : start + new Vector3(6f, 6f, 0f);
+
+        // 停止战斗、禁用碰撞
+        activeBlack.PauseFight();
+        var col = activeBlack.GetComponent<Collider2D>();
+        if (col != null) col.enabled = false;
+        if (bossHUD != null) bossHUD.ClearBlackBoss();
+
+        yield return MoveTransform(t, target, 1.0f);
+
+        Destroy(activeBlack.gameObject);
+        activeBlack = null;
     }
 
     // ------------ 终幕碎片旋转 + 放大 + “白屏” ------------
