@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 using System.Collections.Generic;
 public class Enemy : MonoBehaviour
@@ -92,9 +91,9 @@ public class Enemy : MonoBehaviour
     protected bool wasInCombat = false;
     protected int patrolDirection = 1; // 1: Right, -1: Left
 
-    protected SpriteRenderer spriteRenderer;
-    protected Color originalColor;
-    protected Coroutine flashCoroutine;
+    private Coroutine flashRoutine;
+    private readonly System.Collections.Generic.List<(SpriteRenderer sr, Color original)> rendererColors =
+        new System.Collections.Generic.List<(SpriteRenderer, Color)>();
 
     protected virtual void Start()
     {
@@ -105,22 +104,12 @@ public class Enemy : MonoBehaviour
         initialScale = transform.localScale;
         lastAttackTime = -999f;
 
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        if (spriteRenderer == null)
-        {
-            spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        }
-        
-        if (spriteRenderer != null)
-        {
-            originalColor = spriteRenderer.color;
-        }
-
         if (firePoint == null) firePoint = transform;
 
         nextJumpTime = Time.time + Random.Range(jumpIntervalMin, jumpIntervalMax);
 
         FindPlayer();
+        CacheFlashRenderers();
     }
 
     protected virtual void Update()
@@ -581,16 +570,6 @@ public class Enemy : MonoBehaviour
     {
         if (isDead) return;
 
-        if (spriteRenderer != null)
-        {
-            if (flashCoroutine != null) 
-            {
-                StopCoroutine(flashCoroutine);
-                spriteRenderer.enabled = true;
-            }
-            flashCoroutine = StartCoroutine(FlashRoutine());
-        }
-
         if (source != null && source.CompareTag("Player"))
         {
             isProvoked = true;
@@ -600,6 +579,7 @@ public class Enemy : MonoBehaviour
         currentHealth = Mathf.Max(currentHealth, 0);
 
         OnDamaged();
+        TriggerFlash();
 
         if (currentHealth <= 0)
         {
@@ -614,6 +594,56 @@ public class Enemy : MonoBehaviour
 
     protected virtual void OnDamaged()
     {
+    }
+
+    private void CacheFlashRenderers()
+    {
+        rendererColors.Clear();
+
+        if (flashRenderers == null || flashRenderers.Length == 0)
+        {
+            flashRenderers = GetComponentsInChildren<SpriteRenderer>();
+        }
+
+        if (flashRenderers == null) return;
+
+        for (int i = 0; i < flashRenderers.Length; i++)
+        {
+            var sr = flashRenderers[i];
+            if (sr == null) continue;
+            rendererColors.Add((sr, sr.color));
+        }
+    }
+
+    protected void TriggerFlash()
+    {
+        if (rendererColors.Count == 0) return;
+
+        if (flashRoutine != null)
+        {
+            StopCoroutine(flashRoutine);
+        }
+        flashRoutine = StartCoroutine(FlashRoutine());
+    }
+
+    private System.Collections.IEnumerator FlashRoutine()
+    {
+        Color flashColor = Color.red;
+
+        for (int i = 0; i < rendererColors.Count; i++)
+        {
+            var entry = rendererColors[i];
+            if (entry.sr != null) entry.sr.color = flashColor;
+        }
+        //Debug.Log("Flash color set to " + flashColor);
+        //Debug.Log($"[Flash] renderers={rendererColors.Count}, first={(rendererColors.Count>0?rendererColors[0].sr.name:"none")}");
+        yield return new WaitForSeconds(flashDuration);
+
+        for (int i = 0; i < rendererColors.Count; i++)
+        {
+            var entry = rendererColors[i];
+            if (entry.sr != null) entry.sr.color = entry.original;
+        }
     }
 
     protected virtual void Die()
@@ -644,14 +674,6 @@ public class Enemy : MonoBehaviour
         isAttacking = false;
         wasInCombat = false;
         hasPatrolTarget = false;
-    }
-
-    protected IEnumerator FlashRoutine()
-    {
-        spriteRenderer.enabled = false;
-        yield return new WaitForSeconds(0.1f);
-        spriteRenderer.enabled = true;
-        flashCoroutine = null;
     }
 
     protected virtual void OnDeath()
