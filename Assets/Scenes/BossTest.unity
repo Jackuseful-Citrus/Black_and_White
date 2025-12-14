@@ -1655,7 +1655,7 @@ Transform:
   m_GameObject: {fileID: 653012766}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.5, y: 8.528678, z: 0}
+  m_LocalPosition: {x: -2.5, y: 8.528678, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3266,7 +3266,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 6
   normalizeDiagonal: 1
-  fallbackToLegacyAxes: 1
 --- !u!1 &1114384820
 GameObject:
   m_ObjectHideFlags: 0
@@ -61457,7 +61456,7 @@ GameObject:
   - component: {fileID: 1743200095}
   - component: {fileID: 1743200094}
   m_Layer: 0
-  m_Name: d4bf7695-f6a7-40a7-aa95-88f3b59cce29
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -61671,7 +61670,7 @@ MonoBehaviour:
   mirrorLineY: 0
   whiteBossPrefab: {fileID: 4030357653497650741, guid: f1d33b89908f3294297c8dea6731406b, type: 3}
   whiteSpawnPoint: {fileID: 1441908289}
-  whitePhaseDuration: 50
+  whitePhaseDuration: 100
   whitePhaseMaxHealth: 30
   whiteRetreatTarget: {fileID: 1540362321}
   whiteRetreatDuration: 1.2
@@ -61679,13 +61678,14 @@ MonoBehaviour:
   blackEntranceStart: {fileID: 1540362321}
   blackEntranceEnd: {fileID: 1441908289}
   blackEntranceDuration: 1.2
-  blackPhaseDuration: 50
+  blackPhaseDuration: 100
   blackPhaseMaxHealth: 30
   finalWhiteSpawnPoint: {fileID: 104097376}
   finalBlackSpawnPoint: {fileID: 1237834537}
-  finalBlackPhaseDuration: 15
+  finalBlackPhaseDuration: 1
   finalBlackPhaseMaxHealth: 30
   finalOverlayRoot: {fileID: 653012767}
+  finalOverlayCenter: {fileID: 1979430141}
   finalOverlayPieces:
   - {fileID: 278948128}
   - {fileID: 2137339476}
@@ -62161,11 +62161,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 952023068857180348, guid: 761b686aded78c94eb30e468550ff0c7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -31.255678
+      value: -27.18
       objectReference: {fileID: 0}
     - target: {fileID: 952023068857180348, guid: 761b686aded78c94eb30e468550ff0c7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.10866904
+      value: -0.78
       objectReference: {fileID: 0}
     - target: {fileID: 952023068857180348, guid: 761b686aded78c94eb30e468550ff0c7, type: 3}
       propertyPath: m_LocalPosition.z
@@ -62237,7 +62237,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5645853040178299644, guid: 761b686aded78c94eb30e468550ff0c7, type: 3}
       propertyPath: dialogueGroups.Array.data[0].lines.Array.data[3]
-      value: Hope I can see you back alive.
+      value: Hope you will not be here again.
       objectReference: {fileID: 0}
     - target: {fileID: 6926728459501131984, guid: 761b686aded78c94eb30e468550ff0c7, type: 3}
       propertyPath: m_fontAsset
@@ -62369,7 +62369,7 @@ Transform:
   m_GameObject: {fileID: 1979430140}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.09999943, y: 0, z: -0.23536654}
+  m_LocalPosition: {x: 0, y: 0, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

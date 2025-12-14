@@ -29,7 +29,6 @@ public class WhiteBoss : MonoBehaviour
     private float phaseStartTime;
     private bool phaseEnded;
     private bool roarLocked;
-
     public System.Action onPhaseEnded;
 
     private void Awake()
@@ -45,6 +44,7 @@ public class WhiteBoss : MonoBehaviour
     private void Start()
     {
         Vector2 dir = Random.insideUnitCircle;
+
         if (dir == Vector2.zero) dir = Vector2.right;
         moveDir = dir.normalized;
         rb.velocity = moveDir * speed;

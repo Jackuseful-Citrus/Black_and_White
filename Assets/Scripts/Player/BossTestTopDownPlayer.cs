@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// 覆盖 PlayerControl 的移动：取消重力，WASD 上下左右平移（顶视角测试用）。
@@ -11,8 +12,6 @@ public class BossTestTopDownPlayer : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 6f;
     [SerializeField] private bool normalizeDiagonal = true;
-    [SerializeField] private bool fallbackToLegacyAxes = true; // 输入系统未配置竖直轴时，使用 Input.GetAxisRaw
-
     private PlayerControl pc;
     private Rigidbody2D rb;
     private Vector2 moveInput;
@@ -21,8 +20,6 @@ public class BossTestTopDownPlayer : MonoBehaviour
     {
         pc = GetComponent<PlayerControl>();
         rb = GetComponent<Rigidbody2D>();
-
-        // 顶视角：去掉重力与旋转
         rb.gravityScale = 0f;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         if (pc != null)
@@ -34,64 +31,47 @@ public class BossTestTopDownPlayer : MonoBehaviour
     private void OnEnable()
     {
         var actions = InputManager.Instance?.PlayerInputActions;
-        if (actions != null)
+        if (actions == null)
         {
-            actions.Player.Move.performed += OnMovePerformed;
-            actions.Player.Move.canceled += OnMoveCanceled;
+            return;
         }
+        actions.Enable();
+        actions.Player.Enable();
     }
+
 
     private void OnDisable()
     {
         var actions = InputManager.Instance?.PlayerInputActions;
-        if (actions != null)
-        {
-            actions.Player.Move.performed -= OnMovePerformed;
-            actions.Player.Move.canceled -= OnMoveCanceled;
-        }
         moveInput = Vector2.zero;
         if (rb != null) rb.velocity = Vector2.zero;
     }
+
 
     private void FixedUpdate()
     {
         if (rb == null) return;
 
-        // 如果没有绑定垂直轴，允许使用旧 Input.GetAxisRaw 兜底
-        if (fallbackToLegacyAxes && Mathf.Abs(moveInput.y) < 0.001f)
+        var actions = InputManager.Instance.PlayerInputActions;
+        actions.Player.Enable();
+
+        // x 继续用你现在的 Move（A/D 已经正常）
+        Vector2 input = actions.Player.Move.ReadValue<Vector2>();
+
+        // y 强制从键盘读（确保 W/S 一定能工作）
+        var kb = Keyboard.current;
+        if (kb != null)
         {
-            float legacyY = Input.GetAxisRaw("Vertical");
-            if (Mathf.Abs(legacyY) > 0.001f)
-            {
-                moveInput.y = legacyY;
-            }
+            float y = 0f;
+            if (kb.wKey.isPressed) y += 1f;
+            if (kb.sKey.isPressed) y -= 1f;
+            input.y = y;
         }
 
-        Vector2 v = moveInput;
-        if (normalizeDiagonal && v.sqrMagnitude > 1e-4f)
-        {
-            v = v.normalized;
-        }
+        if (normalizeDiagonal && input.sqrMagnitude > 1e-4f)
+            input = input.normalized;
 
-        rb.velocity = v * moveSpeed;
-
-        // 为了动画/朝向：同步原脚本的 horiz
-        if (pc != null)
-        {
-            pc.horiz = moveInput.x;
-        }
-
-        // Debug 日志：查看当前输入与速度（可按需关闭）
-        //Debug.Log($"[TopDown] raw:{moveInput} vel:{rb.velocity}");
-    }
-
-    private void OnMovePerformed(UnityEngine.InputSystem.InputAction.CallbackContext ctx)
-    {
-        moveInput = ctx.ReadValue<Vector2>();
-    }
-
-    private void OnMoveCanceled(UnityEngine.InputSystem.InputAction.CallbackContext ctx)
-    {
-        moveInput = Vector2.zero;
+        rb.velocity = input * moveSpeed;
+        if (pc != null) pc.horiz = input.x;
     }
 }
